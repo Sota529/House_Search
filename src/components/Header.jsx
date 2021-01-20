@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   bar:{
-    justifyContent:'space-between'
+    justifyContent:'space-between',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -20,10 +20,10 @@ export default function Header() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" color="white">
+      <AppBar position="fixed" color="white">
         <Toolbar className={classes.bar}>
           <IconButton
-            edge="end"
+            edge="start"
             className={classes.menuButton}
             color="black"
             aria-label="menu"
