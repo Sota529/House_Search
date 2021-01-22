@@ -1,12 +1,17 @@
-import "./styles/App.css";
 import Header from "./components/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import MyButon from "./components/MyButon";
-
+import Footer from "./components/Footer";
 import Icon1 from "./images/Frame.svg";
+import { Paper } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
+  App: {
+    margin: 0,
+    padding:0,
+  },
   main: {
     paddingTop: 80,
   },
@@ -14,9 +19,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 24,
     textAlign: "center",
   },
+  area: {
+   
+    maxWidth: "70vw",
+    textAlign: "center",
+  },
   sub_title: {
     fontSize: 14,
-    textAlign: "center",
   },
   buttons: {
     "& > *": {
@@ -29,24 +38,53 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  lists: {
+    padding: 0,
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  list: {
+    paddingBottom: 8,
+  },
+  time: {
+    textAlign: "center",
+    color: "red",
+  },
 }));
 function App() {
   const classes = useStyles();
 
   return (
-    <div className="App">
+    <div className={classes.App}>
       <CssBaseline />
       <Header />
+
       <div className={classes.main}>
         <div>
           <h2 className={classes.title}>物件を探す</h2>
         </div>
-        <Container maxWidth="md" className={classes.area}>
-          <h3 className={classes.sub_title}>大学名</h3>
-          <MyButon />
-          <img className={classes.Icon} src={Icon1} alt="" />
+        <Container className={classes.area}>
+          <Paper>
+            <h3 className={classes.sub_title}>大学名</h3>
+            <MyButon />
+            <img className={classes.Icon} src={Icon1} alt="アイコン" />
+          </Paper>
+        </Container>
+        <div>
+          <h2 className={classes.title}>特徴</h2>
+        </div>
+        <Container className={classes.area}>
+          <h3 className={classes.sub_title}>大学生に特化したサイト</h3>
+          <ol className={classes.lists}>
+            <li className={classes.list}>即入居物件のみを表示</li>
+            <li className={classes.list}>学校から、徒歩</li>
+          </ol>
+          <h2 className={classes.time}>5,10,15,20,25</h2>
+          <p>分単位で探せる！</p>
         </Container>
       </div>
+      <Footer />
     </div>
   );
 }
