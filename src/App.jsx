@@ -5,12 +5,15 @@ import Container from "@material-ui/core/Container";
 import MyButon from "./components/MyButon";
 import Footer from "./components/Footer";
 import Icon1 from "./images/Frame.svg";
-import { Paper } from "@material-ui/core";
+import { Card, Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   App: {
     margin: 0,
-    padding:0,
+    padding: 0,
+    minHeight: "100vh",
+    position: "relative",
+    paddingBottom: "70",
   },
   main: {
     paddingTop: 80,
@@ -20,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   area: {
-   
     maxWidth: "70vw",
     textAlign: "center",
   },
@@ -50,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
   time: {
     textAlign: "center",
     color: "red",
+    margin:'auto',
+    width:'50vw'
   },
 }));
 function App() {
@@ -77,10 +81,16 @@ function App() {
         <Container className={classes.area}>
           <h3 className={classes.sub_title}>大学生に特化したサイト</h3>
           <ol className={classes.lists}>
-            <li className={classes.list}>即入居物件のみを表示</li>
-            <li className={classes.list}>学校から、徒歩</li>
+            <li key="即入居物件のみを表示" className={classes.list}>
+              即入居物件のみを表示
+            </li>
+            <li key="学校から、徒歩" className={classes.list}>
+              学校から、徒歩
+            </li>
           </ol>
-          <h2 className={classes.time}>5,10,15,20,25</h2>
+          <Card maxWidth='20'>
+            <h2 className={classes.time}>5,10,15,20,25</h2>
+          </Card>
           <p>分単位で探せる！</p>
         </Container>
       </div>

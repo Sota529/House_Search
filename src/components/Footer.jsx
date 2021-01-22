@@ -6,9 +6,14 @@ const useStyles = makeStyles((theme) => ({
   footer:{
     backgroundColor:'yellow',
     height:80,
+    position: 'absolute',/* ←絶対位置 */
+    bottom: 0,
+    textAlign:'center',
+    width:'100%',
   },
   cop:{
-    lineHeight:5,
+    
+    paddingTop:20,
     textAlign:'center'
   },
 }));
@@ -16,7 +21,7 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
-      <p className={classes.cop}>@2020オヘヤサガシ</p>
+      <p className={classes.cop}>@2021オヘヤサガシ</p>
     </footer>
   )
 }

@@ -12,22 +12,19 @@ const univs = [
   "東京大学",
   "東京大学",
   "東京大学",
-  "東京大学",
-  "東京大学",
-  
-  
 ];
+
 const useStyles = makeStyles((theme) => ({
   buttons: {
     "& > *": {
       margin: theme.spacing(1),
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       textAlign: "center",
     },
   },
   box_item: {
-    display:'inline-block',
+    display: "inline-block",
   },
 }));
 const MyButon = () => {
@@ -35,8 +32,6 @@ const MyButon = () => {
 
   return (
     <>
-           
-
       <Box className={classes.buttons}>
         {univs.map((univ) => (
           <Button
@@ -49,7 +44,6 @@ const MyButon = () => {
           </Button>
         ))}
       </Box>
-
     </>
   );
 };
