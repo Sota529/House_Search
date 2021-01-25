@@ -8,9 +8,10 @@ import {
   CssBaseline,
   makeStyles,
 } from "@material-ui/core";
-import { BrowserRouter as Router, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { Card, Paper } from "@material-ui/core";
+import { React,useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   App: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   area: {
-    maxWidth: "70vw",
+    maxwidth: "70vw",
     textAlign: "center",
   },
   sub_title: {
@@ -74,21 +75,29 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
   },
 }));
+
+const univs = [
+  { path: "/Tokyo1", Name: "東京大学1" },
+  { path: "/Tokyo2", Name: "東京大学2" },
+  { path: "/Tokyo3", Name: "東京大学3" },
+  { path: "/Tokyo4", Name: "東京大学4" },
+  { path: "/Tokyo5", Name: "東京大学5" },
+  { path: "/Tokyo6", Name: "東京大学6" },
+  { path: "/Tokyo7", Name: "東京大学7" },
+  { path: "/Tokyo8", Name: "東京大学8" },
+];
 function Top() {
+  const [univName,setName] = useState('')
   const classes = useStyles();
   const history = useHistory();
-  const handleLink = (path) => history.push(path);
-  const univs = [
-    {id : '/Tokyo1',univ:"東京大学1"},
-    {id : '/Tokyo2',univ:"東京大学2"},
-    {id : '/Tokyo3',univ:"東京大学3"},
-    {id : '/Tokyo4',univ:"東京大学4"},
-    {id : '/Tokyo5',univ:"東京大学5"},
-    {id : '/Tokyo6',univ:"東京大学6"},
-    {id : '/Tokyo7',univ:"東京大学7"},
-    {id : '/Tokyo8',univ:"東京大学8"},
-  ];
+  const handleLink = (univ) => {
+    
+    history.push({
+     
+      pathname: univ.path,
 
+    });
+  };
   return (
     <div className={classes.Top}>
       <CssBaseline />
@@ -101,21 +110,22 @@ function Top() {
         <Container className={classes.area}>
           <Paper>
             <h3 className={classes.sub_title}>大学名</h3>
-            <Router>
-              <Box className={classes.buttons}>
-                {univs.map((univ) => (
-                  <Button
-                    size="small"
-                    variant="contained"
-                    color="primary"
-                    className={classes.box_item}
-                    onClick={() => handleLink(univ.id)}
-                  >
-                    {univ.univ}
-                  </Button>
-                ))}
-              </Box>
-            </Router>
+
+            <Box className={classes.buttons}>
+              {univs.map((univ) => (
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  className={classes.box_item}
+                  key={univ.Name}
+                  onClick={() => handleLink(univ)}
+                >
+                  {univ.Name}
+                </Button>
+              ))}
+            </Box>
+
             <img className={classes.Icon} src={Icon1} alt="アイコン" />
           </Paper>
         </Container>
@@ -132,7 +142,7 @@ function Top() {
               学校から、徒歩
             </li>
           </ol>
-          <Card maxWidth="20">
+          <Card maxwidth="20">
             <h2 className={classes.time}>5,10,15,20,25</h2>
           </Card>
           <p>分単位で探せる！</p>
