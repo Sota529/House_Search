@@ -11,13 +11,7 @@ import {
 import Top from './Top.jsx'
 
 const useStyles = makeStyles((theme) => ({
-  Tokyo: {
-    margin: 0,
-    padding: 0,
-    minHeight: "100vh",
-    position: "relative",
-    paddingBottom: "70",
-  },
+ 
   main: {
     paddingTop: 80,
   },

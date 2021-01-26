@@ -7,20 +7,14 @@ import {
   Container,
   CssBaseline,
   makeStyles,
+  Paper,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-import { Card, Paper } from "@material-ui/core";
-import { React,useState } from "react";
+import { React, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
-  App: {
-    margin: 0,
-    padding: 0,
-    minHeight: "100vh",
-    position: "relative",
-    paddingBottom: "70",
-  },
+  
   main: {
     paddingTop: 80,
   },
@@ -29,17 +23,18 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   area: {
-    maxwidth: "70vw",
-    textAlign: "center",
   },
   sub_title: {
     fontSize: 14,
+    textAlign: "center",
+    paddingTop:8,
   },
   buttons: {
     "& > *": {
       margin: theme.spacing(1),
     },
     textAlign: "center",
+
   },
   Icon: {
     display: "block",
@@ -55,47 +50,44 @@ const useStyles = makeStyles((theme) => ({
   list: {
     paddingBottom: 8,
   },
-  time: {
-    display: "inline-block",
-    textAlign: "center",
-    color: "red",
-    margin: "auto",
-    width: "50vw",
-  },
   buttons: {
     "& > *": {
       margin: theme.spacing(1),
     },
-
-    [theme.breakpoints.down("sm")]: {
-      textAlign: "center",
-    },
   },
   box_item: {
-    display: "inline-block",
+    
+  },
+  time: {
+    textAlign: "center",
+    color: "red",
+    fontWeight:'bold',
+  },
+  sub_time:{
+    textAlign:'center',
+    paddingBottom:8,
   },
 }));
 
 const univs = [
   { path: "/Tokyo1", Name: "東京大学1" },
-  { path: "/Tokyo2", Name: "東京大学2" },
-  { path: "/Tokyo3", Name: "東京大学3" },
-  { path: "/Tokyo4", Name: "東京大学4" },
-  { path: "/Tokyo5", Name: "東京大学5" },
+  { path: "/Tokyo2", Name: "早稲田大学" },
+  { path: "/Tokyo3", Name: "東京理科大学" },
+  { path: "/Tokyo4", Name: "常葉大学" },
+  { path: "/Tokyo5", Name: "慶応大学" },
   { path: "/Tokyo6", Name: "東京大学6" },
   { path: "/Tokyo7", Name: "東京大学7" },
   { path: "/Tokyo8", Name: "東京大学8" },
+  { path: "/Tokyo9", Name: "東京大学9" },
+  { path: "/Tokyo0", Name: "東京大学10" },
 ];
 function Top() {
-  const [univName,setName] = useState('')
+  const [univName, setName] = useState("");
   const classes = useStyles();
   const history = useHistory();
   const handleLink = (univ) => {
-    
     history.push({
-     
       pathname: univ.path,
-
     });
   };
   return (
@@ -107,7 +99,7 @@ function Top() {
         <div>
           <h2 className={classes.title}>物件を探す</h2>
         </div>
-        <Container className={classes.area}>
+        <Container className={classes.area} maxWidth="md">
           <Paper>
             <h3 className={classes.sub_title}>大学名</h3>
 
@@ -117,7 +109,6 @@ function Top() {
                   size="small"
                   variant="contained"
                   color="primary"
-                  className={classes.box_item}
                   key={univ.Name}
                   onClick={() => handleLink(univ)}
                 >
@@ -125,14 +116,16 @@ function Top() {
                 </Button>
               ))}
             </Box>
-
+              
             <img className={classes.Icon} src={Icon1} alt="アイコン" />
           </Paper>
         </Container>
         <div>
           <h2 className={classes.title}>特徴</h2>
         </div>
-        <Container className={classes.area}>
+        <Container className={classes.area} maxWidth="md">
+          <Box   >
+            <Paper>
           <h3 className={classes.sub_title}>大学生に特化したサイト</h3>
           <ol className={classes.lists}>
             <li key="即入居物件のみを表示" className={classes.list}>
@@ -142,10 +135,11 @@ function Top() {
               学校から、徒歩
             </li>
           </ol>
-          <Card maxwidth="20">
-            <h2 className={classes.time}>5,10,15,20,25</h2>
-          </Card>
-          <p>分単位で探せる！</p>
+         
+              <p className={classes.time}>5,10,15,20,25</p>
+          <p className={classes.sub_time}>分単位で探せる！</p>
+            </Paper>
+          </Box>
         </Container>
       </div>
       <Footer />

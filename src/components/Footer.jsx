@@ -3,12 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: "yellow",
+    backgroundColor: "#C6FF00",
     height: 80,
-    position: "absolute" /* ←絶対位置 */,
-    bottom: 0,
     textAlign: "center",
     width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      position: "absolute",
+      bottom: 0,
+    },
   },
   cop: {
     paddingTop: 20,
