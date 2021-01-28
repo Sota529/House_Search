@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   
   sub: {
     paddingLeft: 16,
+    textDecoration:'underline',
+
   },
   Swiper: {
     

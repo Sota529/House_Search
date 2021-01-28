@@ -37,7 +37,12 @@ const Home = () => {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-<CardMedia className={classes.media} image="" title="" />
+        <CardMedia
+          className={classes.media}
+          component="img"
+          image=""
+          title=""
+        />
       </Card>
     </>
   );
