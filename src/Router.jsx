@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route,  } from "react-router-dom";
-import Top from "./pages/Top";
-import Tokyo from "./pages/Tokyo";
-const Layouts = () => {
+import Top from "./pages/TopPage";
+import Second from "./pages/SecondPage";
+const Routers = () => {
   
   return (
     <>
@@ -12,7 +12,7 @@ const Layouts = () => {
             <Top />
           </Route>
           <Route path = '/Tokyo1' exact>
-            <Tokyo/>
+            <Second/>
           </Route>
         </Switch>
       </Router>
@@ -20,4 +20,4 @@ const Layouts = () => {
   );
 };
 
-export default Layouts;
+export default Routers;

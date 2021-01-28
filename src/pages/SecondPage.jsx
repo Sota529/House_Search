@@ -1,4 +1,6 @@
-import {React,useLocation} from 'react'
+import {React} from 'react'
+import { useHistory } from "react-router-dom";
+
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import {
@@ -19,20 +21,29 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 24,
     textAlign: "center",
   },
+  footer:{
+    marginTop:8,
+  },
 }))
 
-const Tokyo = () => {
+const Tokyo = (props) => {
   const classes = useStyles()
+  const history = useHistory()
+
   return (
-    <div className={classes.Tokyo}>
+    <>
      <Header/>
        <div className={classes.main}>
-      <h1 className={classes.title}>東京大学１</h1>
+      <h1 className={classes.title}>{history.location.state.Name}</h1>
       
-      <HomeSlide/>
+      <HomeSlide title='おすすめ物件'/>
+      <HomeSlide title='徒歩５分'/>
+      <HomeSlide title='徒歩10分'/>
+      <HomeSlide title='徒歩15分'/>
+      <HomeSlide title='徒歩20分'/>
        </div>
-     <Footer/>
-    </div>
+       <Footer className={classes.footer}/>
+    </>
   )
 }
 

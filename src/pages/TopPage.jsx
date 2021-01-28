@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 24,
     textAlign: "center",
+    textDecoration:'underline',
   },
   area: {
   },
@@ -82,12 +83,12 @@ const univs = [
   { path: "/Tokyo0", Name: "東京大学10" },
 ];
 function Top() {
-  const [univName, setName] = useState("");
   const classes = useStyles();
   const history = useHistory();
   const handleLink = (univ) => {
     history.push({
       pathname: univ.path,
+      state:{Name:univ.Name},
     });
   };
   return (
@@ -103,7 +104,7 @@ function Top() {
           <Paper>
             <h3 className={classes.sub_title}>大学名</h3>
 
-            <Box className={classes.buttons}>
+            <Box className={classes.buttons} px={2}>
               {univs.map((univ) => (
                 <Button
                   size="small"
