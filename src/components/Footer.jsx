@@ -1,20 +1,20 @@
-
-import React from 'react'
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  footer:{
-    backgroundColor:'yellow',
-    height:80,
-    position: 'absolute',/* ←絶対位置 */
-    bottom: 0,
-    textAlign:'center',
-    width:'100%',
+  footer: {
+    backgroundColor: "#00BFA6",
+    height: 80,
+    textAlign: "center",
+    width: "100%",
+    // [theme.breakpoints.up("sm")]: {
+    //   position: "absolute",
+    //   bottom: 0,
+    // },
   },
-  cop:{
-    
-    paddingTop:20,
-    textAlign:'center'
+  cop: {
+    paddingTop: 20,
+    textAlign: "center",
   },
 }));
 const Footer = () => {
@@ -23,7 +23,7 @@ const Footer = () => {
     <footer className={classes.footer}>
       <p className={classes.cop}>@2021オヘヤサガシ</p>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

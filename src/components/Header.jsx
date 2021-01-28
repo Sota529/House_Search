@@ -20,12 +20,12 @@ export default function Header() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" color="white">
+      <AppBar position="fixed" color="default">
         <Toolbar className={classes.bar}>
           <IconButton
             edge="start"
             className={classes.menuButton}
-            color="black"
+            color="default"
             aria-label="menu"
           >
             <MenuIcon fontSize='large'/>
