@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const univs = [
-  { path: "/Tokyo1", Name: "東京大学1" },
+  { path: "/Tokyo", Name: "東京大学" },
   { path: "/Tokyo2", Name: "早稲田大学" },
   { path: "/Tokyo3", Name: "東京理科大学" },
   { path: "/Tokyo4", Name: "常葉大学" },

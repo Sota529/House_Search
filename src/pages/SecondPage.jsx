@@ -4,10 +4,9 @@ import { useHistory } from "react-router-dom";
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import {
-  Box,
   Button,
   Container,
-  CssBaseline,
+  
   makeStyles,
 } from "@material-ui/core";
 import HomeSlide from '../components/HomeSlide';
@@ -20,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 24,
     textAlign: "center",
+    textDecoration: "underline ",
+    textDecorationColor: '#00BFA6',
   },
   footer:{
     marginTop:8,
