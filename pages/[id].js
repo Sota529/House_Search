@@ -1,11 +1,27 @@
 import { Heading, Box } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { getPostId } from "../lib/post";
 import HomeGroup from "../components/HomeGroup";
-import { getData } from "../lib/post";
+import { getData, SerchData } from "../lib/post";
+
+export async function getStaticPaths(){
+  const paths = getPostId()
+  return {
+    paths,
+    fallback: false,
+  };
+}
+export async function getStaticProps({params}) {
+  const posts = await (await getData(params)).result;
+  return {
+    props: { posts },
+  };
+}
+
 
 export default function HouseView({ posts }) {
-  const router = useRouter();
+const router = useRouter();
   return (
     <>
       <Head>
@@ -15,22 +31,12 @@ export default function HouseView({ posts }) {
       <Heading align="center" isTruncated mb={6}>
         {router.query.Name}大学
       </Heading>
-      {/* {posts.map((post) => {
-        return <h1>{post.name}</h1>;
-      })} */}
       {[5, 10, 15, 20, 25].map((time) => (
-          <Box key={time}>
-            <HomeGroup walktime={time}/>
-          </Box>
+        <Box key={time} my={2}>
+          <HomeGroup walktime={time} posts={posts} />
+        </Box>
       ))}
     </>
   );
 }
 
-export async function getServerSideProps() {
-  console.log("datagetch");
-  const posts = await (await getData()).result;
-  // const posts = await res.json();
-  console.log(posts);
-  return { props: { posts } };
-}

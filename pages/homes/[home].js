@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { DataFetch } from "../../lib/post";
+import { getDetailID, SerchData } from "../../lib/post";
 
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,9 +22,21 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 //swiperコンポーネントをインストール
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
-export default function Home() {
-  const router = useRouter();
-  const datas = DataFetch();
+export async function getStaticPaths(){
+  const paths = await (await getDetailID())
+  return {
+    paths,
+    fallback: false,
+  };
+}
+export async function getStaticProps({params}) {
+  console.log(params)
+  const posts = await (await SerchData(params)).result;
+  return {
+    props: { posts },
+  };
+}
+export default function Home({posts}) {
   const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
   return (
     <>
@@ -33,8 +44,8 @@ export default function Home() {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {datas.map(({ name, price, location }) => (
-        <div key={name}>
+      {posts.map(({ id,name, price, location }) => (
+        <div key={id}>
           <Heading as="h1" align="center" isTruncated mb="8">
             {name}
           </Heading>

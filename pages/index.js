@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import {univs} from "../lib/post"
 import {
   Center,
   Container,
@@ -11,20 +12,8 @@ import {
   List,
   Image,
 } from "@chakra-ui/react";
-import { getData } from "../lib/post";
-const univs = [
-  { id: "Tokyo", Name: "東京" },
-  { id: "Waseda", Name: "早稲田" },
-  { id: "Tokyorika", Name: "東京理科" },
-  { id: "Tokoha", Name: "常葉" },
-  { id: "Keio", Name: "慶応" },
-  { id: "Meizi", Name: "明治" },
-  { id: "Chiba", Name: "千葉" },
-  { id: "Rikyo", Name: "立教" },
-  { id: "Hosei", Name: "法政" },
-  { id: "Dentsu", Name: "電気通信" },
-];
-export default function Home({ posts }) {
+
+export default function Home() {
   const router = useRouter();
   const handleLink = (id, Name) => {
     router.push({
@@ -39,18 +28,9 @@ export default function Home({ posts }) {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Heading align="center" isTruncated mb={6}>
         物件を探す
       </Heading>
-      <div>
-        <h1>POST一覧</h1>
-        <ul>
-          {posts.map((post) => {
-            return <li key={post.id}>{post.name}</li>;
-          })}
-        </ul>
-      </div>
       <Container maxW="container.lg">
         <Heading as="h4" size="lg" isTruncated>
           大学名
@@ -60,7 +40,7 @@ export default function Home({ posts }) {
             <WrapItem key={Name}>
               <Button
                 size="md"
-                colorScheme="blue"
+                colorScheme="teal"
                 onClick={() => handleLink(id, Name)}
               >
                 {Name}
@@ -95,11 +75,4 @@ export default function Home({ posts }) {
       </Container>
     </>
   );
-}
-export async function getStaticProps() {
-  console.log("datagetch");
-  const posts = await (await getData()).result;
-  // const posts = await res.json();
-  console.log(posts);
-  return { props: { posts } };
 }

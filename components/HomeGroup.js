@@ -19,7 +19,6 @@ SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 export default function HomeGroup({ posts, walktime }) {
   const router = useRouter();
   const [ishome, setIshome] = useState(true);
-  const datas = DataFetch();
   const handleClick = (id) => {
     router.push({
       pathname: "homes/[id]",
@@ -33,20 +32,24 @@ export default function HomeGroup({ posts, walktime }) {
         <Image src="/images/walking.jpg" alt="アイコン" boxSize="24px"></Image>{" "}
         <Text>{walktime}分</Text>
       </Box>
-      {datas.map(({ id, name, time, price }) => {
+      {posts.map(({ id, name, time, price }) => {
         if (time === walktime) {
           return (
             <Swiper
               navigation
-              scrollbar={{ draggable: true }}
               slidesPerView={3.2}
               freeMode={"true"}
               key={id}
             >
               <SwiperSlide>
                 <Box
-                  boxShadow="lg"
+                my={4}
+                  maxW="sm"
+                  rounded="md"
+                  boxShadow="md"
+                  borderRadius="sm"
                   _hover={{ bg: "#ebedf0", cursor: "pointer" }}
+                  mr="5"
                   onClick={() => {
                     handleClick(id);
                   }}
@@ -62,11 +65,4 @@ export default function HomeGroup({ posts, walktime }) {
       })}
     </>
   );
-}
-export async function getServerSideProps() {
-  console.log("datagetch");
-  const posts = await (await getData()).result;
-  // const posts = await res.json();
-  console.log(posts);
-  return { props: { posts } };
 }

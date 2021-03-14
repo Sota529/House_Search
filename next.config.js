@@ -13,3 +13,9 @@ module.exports = {
     return config;
   }
 };
+
+module.exports = {
+  experimental: {
+    optimizeFonts: true,
+  },
+};
