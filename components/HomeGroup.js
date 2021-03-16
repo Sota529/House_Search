@@ -35,6 +35,7 @@ export default function HomeGroup({ posts, walktime }) {
                 minW="100"
                 rounded="md"
                 boxShadow="md"
+                overflow="hidden"
                 borderRadius="lg"
                 _hover={{ bg: "#ebedf0", cursor: "pointer" }}
                 mr="5"
@@ -44,9 +45,9 @@ export default function HomeGroup({ posts, walktime }) {
               >
                 <Image
                   src={images[0]}
-                  alt=""
-                  boxSize=""
+                  alt="家の写真"
                   width="100%"
+                  height="80%"
                   borderRadius="lg"
                   key={images[0]}
                 />
