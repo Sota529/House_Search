@@ -1,12 +1,12 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import {univs} from "../lib/post"
+import { univs } from "../lib/post";
 import {
   Center,
   Container,
   Wrap,
   WrapItem,
-  Button,
+  Box,
   Heading,
   ListItem,
   List,
@@ -38,13 +38,20 @@ export default function Home() {
         <Wrap mt={4} mb={8}>
           {univs.map(({ id, Name }) => (
             <WrapItem key={Name}>
-              <Button
-                size="md"
-                colorScheme="teal"
+              <Box
+                as="button"
+                bg="teal.400"
+                borderRadius="lg"
+                boxShadow="md"
+                color="white"
+                fontWeight="bold"
+                px={5}
+                h={10}
                 onClick={() => handleLink(id, Name)}
+                _hover={{ bg: "teal.500", boxShadow: "md" }}
               >
                 {Name}
-              </Button>
+              </Box>
             </WrapItem>
           ))}
         </Wrap>

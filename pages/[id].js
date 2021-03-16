@@ -5,23 +5,22 @@ import { getPostId } from "../lib/post";
 import HomeGroup from "../components/HomeGroup";
 import { getData, SerchData } from "../lib/post";
 
-export async function getStaticPaths(){
-  const paths = getPostId()
+export async function getStaticPaths() {
+  const paths = getPostId();
   return {
     paths,
     fallback: false,
   };
 }
-export async function getStaticProps({params}) {
+export async function getStaticProps({ params }) {
   const posts = await (await getData(params)).result;
   return {
     props: { posts },
   };
 }
 
-
 export default function HouseView({ posts }) {
-const router = useRouter();
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -39,4 +38,3 @@ const router = useRouter();
     </>
   );
 }
-
