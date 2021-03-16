@@ -1,26 +1,21 @@
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { useState } from "react";
 import { db } from "../lib/db";
 
 export function HeartEmptyIcon({ favo, ID }) {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-  const handleClick = (ID) => {
+  const  handleClick =  (ID) => {
     console.log("touch!");
     console.log(ID);
-    var washingtonRef = db.collection("houses").doc("2wsj1AiODNifqQ4f4dti");
-
-    // Set the "capital" field of the city 'DC'
-    return (washingtonRef
-      .update({
-        favo: true,
-      })
-      .then(() => {
-        console.log("Document successfully updated!");
-      })
-      .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      }));
+    db.collection("houses").doc("2wsj1AiODNifqQ4f4dti").update({
+     name:"うんこ",
+  })
+  .then(() => {
+      console.log("Document successfully written!");
+  })
+  .catch((error) => {
+      console.error("Error writing document: ", error);
+  });
+  console.log("finished!")
     };
   let heartoff;
   isLargerThan768
