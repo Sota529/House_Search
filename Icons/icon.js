@@ -1,22 +1,13 @@
 import { Box, useMediaQuery } from "@chakra-ui/react";
-import { db } from "../lib/db";
+import { UpdateFavo } from "../lib/post";
 
+export async function handleClick(){
+  console.log("start")
+  UpdateFavo()
+  console.log("finished!")
+}
 export function HeartEmptyIcon({ favo, ID }) {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-  const  handleClick =  (ID) => {
-    console.log("touch!");
-    console.log(ID);
-    db.collection("houses").doc("2wsj1AiODNifqQ4f4dti").update({
-     name:"うんこ",
-  })
-  .then(() => {
-      console.log("Document successfully written!");
-  })
-  .catch((error) => {
-      console.error("Error writing document: ", error);
-  });
-  console.log("finished!")
-    };
   let heartoff;
   isLargerThan768
     ? (heartoff = (
@@ -45,7 +36,15 @@ export function HeartEmptyIcon({ favo, ID }) {
         </Box>
       ))
     : (heartoff = (
-        <Box w={"20%"} pos="absolute" top="6" right="6">
+        <Box
+          w={"20%"}
+          pos="absolute"
+          top="6"
+          right="6"
+          onClick={() => {
+            handleClick(ID);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

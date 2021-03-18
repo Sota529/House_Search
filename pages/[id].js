@@ -1,12 +1,13 @@
 import { Heading, Box } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { getPostId } from "../lib/post";
+import { getPostId, UpdateFavo } from "../lib/post";
 import HomeGroup from "../components/HomeGroup";
 import { getData } from "../lib/post";
 
 export async function getStaticPaths() {
   const paths = getPostId();
+  UpdateFavo()
   return {
     paths,
     fallback: false,

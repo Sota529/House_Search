@@ -1,6 +1,6 @@
-import { Text, Image, Box, useMediaQuery,  } from "@chakra-ui/react";
+import { Text, Image, Box, useMediaQuery } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import {HeartEmptyIcon} from "../Icons/icon";
+import { HeartEmptyIcon } from "../Icons/icon";
 //swiperをimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Scrollbar, A11y, Virtual } from "swiper";
@@ -10,6 +10,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
+import { UpdateFavo } from "../lib/post";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
@@ -17,7 +18,6 @@ SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 export default function HomeGroup({ posts, walktime }) {
   const router = useRouter();
   let house = [];
-  
   const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
   const handleClick = (id) => {
     router.push({
@@ -26,7 +26,7 @@ export default function HomeGroup({ posts, walktime }) {
     });
   };
   {
-    posts.map(({ id, name, time, price, images,favo,ID }) => {
+    posts.map(({ id, name, time, price, images, favo }) => {
       return time === walktime
         ? house.push(
             <SwiperSlide key={id}>
@@ -75,7 +75,7 @@ export default function HomeGroup({ posts, walktime }) {
                   </Box>
                 </Box>
               </Box>
-              <HeartEmptyIcon favo={favo} ID={ID}/>
+              <HeartEmptyIcon favo={favo} />
             </SwiperSlide>
           )
         : null;
