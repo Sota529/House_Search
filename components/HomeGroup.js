@@ -26,7 +26,7 @@ export default function HomeGroup({ posts, walktime }) {
     });
   };
   {
-    posts.map(({ id, name, time, price, images, favo }) => {
+    posts.map(({ doc,id, name, time, price, images, favo }) => {
       return time === walktime
         ? house.push(
             <SwiperSlide key={id}>
@@ -75,7 +75,7 @@ export default function HomeGroup({ posts, walktime }) {
                   </Box>
                 </Box>
               </Box>
-              <HeartEmptyIcon favo={favo} />
+              <HeartEmptyIcon favo={favo} doc={doc} />
             </SwiperSlide>
           )
         : null;
