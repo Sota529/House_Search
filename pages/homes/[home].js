@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { getDetailID, SerchData } from "../../lib/post";
+import { gethouselID, getOneData } from "../../lib/post";
 
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,14 +24,14 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 export async function getStaticPaths() {
-  const paths = await await getDetailID();
+  const paths = await await gethouselID();
   return {
     paths,
     fallback: false,
   };
 }
 export async function getStaticProps({ params }) {
-  const posts = await (await SerchData(params)).result;
+  const posts = await (await getOneData(params)).result;
   return {
     props: { posts },
   };
