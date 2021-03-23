@@ -29,39 +29,23 @@ export function HeartIcon({ favo, doc }) {
       .get("http://localhost:3000/api/favo", {
         params: { id: doc, favorite: !isfavo },
       })
-      .then((res) => {
-      })
-      .catch((error) => {
-      });
+      .then((res) => {})
+      .catch((error) => {});
   }
   let favorite;
-  isLargerThan768
-    ? (favorite = (
-        <Box
-          w={"12%"}
-          pos="absolute"
-          top="6"
-          right="8"
-          onClick={() => {
-            handleClick(doc, favo);
-          }}
-        >
-          {Icon}
-        </Box>
-      ))
-    : (favorite = (
-        <Box
-          w={"20%"}
-          pos="absolute"
-          top="6"
-          right="6"
-          onClick={() => {
-            handleClick(doc);
-          }}
-        >
-          {Icon}
-        </Box>
-      ));
+  favorite = (
+    <Box
+      w={"20%"}
+      pos="absolute"
+      top="6"
+      right="6"
+      onClick={() => {
+        handleClick(doc);
+      }}
+    >
+      {Icon}
+    </Box>
+  );
   return (
     <>
       {isfavo ? (

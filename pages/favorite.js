@@ -1,10 +1,9 @@
-import { Heading, Box, Image, Flex } from "@chakra-ui/react";
+import { Heading, Box, Image, Flex,Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { getFavoriteData } from "../lib/post";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const posts = await (await getFavoriteData()).result;
-  console.log(posts);
   return {
     props: { posts },
   };
@@ -19,8 +18,8 @@ export default function Favorite({ posts }) {
       </Head>
       <Heading textAlign="center">お気に入り</Heading>
       <Flex wrap="wrap">
-      {posts.map(({ doc, id, name, time, price, images, favo }) => {
-        return (
+        {posts.length?posts.map(({ doc, id, name, time, price, images, favo }) => {
+          return (
             <Box
               my={4}
               maxW="sm"
@@ -66,8 +65,8 @@ export default function Favorite({ posts }) {
                 </Box>
               </Box>
             </Box>
-        );
-      })}
+          );
+        }):<Text mx="auto" mt="100"  fontSize="3xl">お気に入りにした物件はありません</Text>}
       </Flex>
     </>
   );
