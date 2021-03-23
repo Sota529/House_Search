@@ -24,17 +24,14 @@ export function HeartIcon({ favo, doc }) {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [isfavo, setFavo] = useState(favo);
   async function handleClick(doc) {
-    console.log(typeof isfavo)
     setFavo(!isfavo);
     axios
       .get("http://localhost:3000/api/favo", {
         params: { id: doc, favorite: !isfavo },
       })
       .then((res) => {
-        console.log(res.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   }
   let favorite;

@@ -13,7 +13,8 @@ import {
   FormControl,
   Stack,
   RadioGroup,
-  Radio
+  Radio,
+  Link,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -46,6 +47,11 @@ export default function HouseView({ posts }) {
       <Heading align="center" isTruncated mb={6}>
         {router.query.Name}大学
       </Heading>
+      <Link href="/favorite">
+        <Box display="block" align="right" mr={4} mb={2}>
+          <Button>お気に入り</Button>
+        </Box>
+      </Link>
       <Sort />
       {[5, 10, 15, 20, 25].map((time) => (
         <Box key={time} my={2}>
@@ -55,6 +61,7 @@ export default function HouseView({ posts }) {
     </>
   );
 }
+
 function Sort() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -76,26 +83,39 @@ function Sort() {
               <Box>
                 <FormLabel fontWeight="semibold">家賃</FormLabel>
                 <FormControl as="fieldset">
-                  <RadioGroup defaultValue="" >
+                  <RadioGroup defaultValue="">
                     <Stack direction="row">
-                      <Radio value="50000" colorScheme="green">50,000円以下</Radio>
-                      <Radio value="100000" colorScheme="green">100,000円以下</Radio>
-                      <Radio value="150000" colorScheme="green">150,000円以下</Radio>
+                      <Radio value="50000" colorScheme="green" id="Radio1">
+                        50,000円以下
+                      </Radio>
+                      <Radio value="100000" colorScheme="green" id="Radio2">
+                        100,000円以下
+                      </Radio>
+                      <Radio value="150000" colorScheme="green" id="Radio3">
+                        150,000円以下
+                      </Radio>
                     </Stack>
                   </RadioGroup>
                 </FormControl>
               </Box>
             </DrawerBody>
             <DrawerFooter>
-              <Button variant
-            ="outline" mr={3} onClick={onClose}>
+              <Button variant="outline" mr={3} onClick={onClose}>
                 閉じる
               </Button>
-              <Button color="blue" onClick={onClose}>検索</Button>
+              <Button color="blue" onClick={(onClose, handleChange())}>
+                検索
+              </Button>
             </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
     </>
   );
+}
+function handleChange() {
+  if (typeof window !== "undefined") {
+    let a = document.getElementById("Radio1");
+    console.log("要素1がチェックされています。");
+  }
 }
