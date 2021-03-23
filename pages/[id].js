@@ -22,14 +22,14 @@ import { getPostId } from "../lib/post";
 import HomeGroup from "../components/HomeGroup";
 import { getData } from "../lib/post";
 
-export async function getStaticPaths() {
-  const paths = getPostId();
-  return {
-    paths,
-    fallback: false,
-  };
-}
-export async function getStaticProps({ params }) {
+// export async function getStaticPaths() {
+//   const paths = getPostId();
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
+export async function getServerSideProps({ params }) {
   const posts = await (await getData(params)).result;
   return {
     props: { posts },
