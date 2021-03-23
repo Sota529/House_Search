@@ -1,5 +1,14 @@
-import { Heading, Box, Image, Flex,Text } from "@chakra-ui/react";
+import {
+  Heading,
+  Box,
+  Image,
+  Flex,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { HeartIcon } from "../components/atoms/icon";
 import { getFavoriteData } from "../lib/post";
 
 export async function getServerSideProps() {
@@ -10,6 +19,10 @@ export async function getServerSideProps() {
 }
 
 export default function Favorite({ posts }) {
+  
+  const [isLargerThan500, isDisplayingInBrowser] = useMediaQuery(
+    "(min-width: 500px)"
+  );
   return (
     <>
       <Head>
@@ -17,12 +30,36 @@ export default function Favorite({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Heading textAlign="center">お気に入り</Heading>
-      <Flex wrap="wrap">
-        {posts.length?posts.map(({ doc, id, name, time, price, images, favo }) => {
+      {isLargerThan500 ? (
+        <>
+          <Render posts={posts} wide={"30%"} />
+        </>
+      ) : (
+        <>
+          <Render posts={posts} />
+        </>
+      )}
+    </>
+  );
+}
+
+function Render({ posts, wide }) {
+  const router = useRouter();
+
+  const handleClick = (id) => {
+    router.push({
+      pathname: "homes/[id]",
+      query: { id: id },
+    });
+  };
+  return (
+    <Flex wrap="wrap">
+      {posts.length ? (
+        posts.map(({ doc, id, name, time, price, images, favo }) => {
           return (
             <Box
               my={4}
-              maxW="sm"
+              width={wide}
               rounded="md"
               boxShadow="md"
               overflow="hidden"
@@ -40,7 +77,22 @@ export default function Favorite({ posts }) {
                 width="100%"
                 borderRadius="lg"
                 key={images[0]}
+                position="relative"
               />
+              <HeartIcon favo={favo} doc={doc} size={"10%"} />
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
+                bg="salmon"
+                px="4"
+                py="2"
+                borderBottomRightRadius="10"
+                fontWeight="semibold"
+                color="white"
+              >
+                {time}分
+              </Box>
               <Box p={2}>
                 <Box
                   mt=""
@@ -66,8 +118,12 @@ export default function Favorite({ posts }) {
               </Box>
             </Box>
           );
-        }):<Text mx="auto" mt="100"  fontSize="3xl">お気に入りにした物件はありません</Text>}
-      </Flex>
-    </>
+        })
+      ) : (
+        <Text mx="auto" mt="100" fontSize="3xl">
+          お気に入りにした物件はありません
+        </Text>
+      )}
+    </Flex>
   );
 }

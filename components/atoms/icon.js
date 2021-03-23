@@ -1,7 +1,7 @@
-import { Box, useMediaQuery } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
-import style from "../styles/icon.module.css";
+import style from "../../styles/icon.module.css";
 
 const Icon = (
   <svg
@@ -20,8 +20,7 @@ const Icon = (
   </svg>
 );
 
-export function HeartIcon({ favo, doc }) {
-  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+export function HeartIcon({ favo, doc ,size}) {
   const [isfavo, setFavo] = useState(favo);
   async function handleClick(doc) {
     setFavo(!isfavo);
@@ -35,10 +34,10 @@ export function HeartIcon({ favo, doc }) {
   let favorite;
   favorite = (
     <Box
-      w={"20%"}
+      w={size}
       pos="absolute"
-      top="6"
-      right="6"
+      top="0"
+      right="2"
       onClick={() => {
         handleClick(doc);
       }}

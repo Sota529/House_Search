@@ -1,6 +1,6 @@
 import { Text, Image, Box, useMediaQuery } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { HeartIcon } from "../Icons/icon";
+import { HeartIcon } from "../atoms/icon";
 //swiperをimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Scrollbar, A11y, Virtual } from "swiper";
@@ -25,7 +25,7 @@ export default function HomeGroup({ posts, walktime }) {
     });
   };
   {
-    posts.map(({ doc,id, name, time, price, images, favo }) => {
+    posts.map(({ doc, id, name, time, price, images, favo }) => {
       return time === walktime
         ? house.push(
             <SwiperSlide key={id}>
@@ -50,6 +50,20 @@ export default function HomeGroup({ posts, walktime }) {
                   borderRadius="lg"
                   key={images[0]}
                 />
+                 <HeartIcon favo={favo} doc={doc} size={"15%"} />
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
+                bg="salmon"
+                px="4"
+                py="2"
+                borderBottomRightRadius="10"
+                fontWeight="semibold"
+                color="white"
+              >
+                {time}分
+              </Box>
                 <Box p={2}>
                   <Box
                     mt=""
@@ -74,7 +88,7 @@ export default function HomeGroup({ posts, walktime }) {
                   </Box>
                 </Box>
               </Box>
-              <HeartIcon favo={favo} doc={doc} />
+             
             </SwiperSlide>
           )
         : null;

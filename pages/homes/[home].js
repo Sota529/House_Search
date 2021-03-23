@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { gethouselID, getOneData } from "../../lib/post";
-
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
@@ -20,6 +19,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
+import { HeartIcon } from "../../components/atoms/icon";
 //swiperコンポーネントをインストール
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -44,7 +44,7 @@ export default function Home({ posts }) {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {posts.map(({ id, name, price, location, images }) => (
+      {posts.map(({ id, name, price, location, time, images, doc, favo }) => (
         <div key={id}>
           <Heading as="h1" align="center" isTruncated mb="8">
             {name}
@@ -65,13 +65,29 @@ export default function Home({ posts }) {
                     {images.map((image) => {
                       return (
                         <SwiperSlide key={image}>
-                          <Image
-                            src={image}
-                            alt=""
-                            pb={8}
-                            boxSize="md"
-                            width={"100%"}
-                          />
+                          <Box pos="relative">
+                            <Image
+                              src={image}
+                              alt=""
+                              pb={8}
+                              boxSize="md"
+                              width={"100%"}
+                            />
+                          <HeartIcon favo={favo} doc={doc} size={"10%"} />
+                          <Box
+                            position="absolute"
+                            top="0"
+                            left="0"
+                            bg="salmon"
+                            px="4"
+                            py="2"
+                            borderBottomRightRadius="10"
+                            fontWeight="semibold"
+                            color="white"
+                          >
+                            {time}分
+                          </Box>
+                          </Box>
                         </SwiperSlide>
                       );
                     })}
@@ -112,6 +128,20 @@ export default function Home({ posts }) {
                       return (
                         <SwiperSlide key={image}>
                           <Image src={image} alt="" width={"100%"} pb={8} />
+                          <HeartIcon favo={favo} doc={doc} size={"12%"} />
+                          <Box
+                            position="absolute"
+                            top="0"
+                            left="0"
+                            bg="salmon"
+                            px="4"
+                            py="2"
+                            borderBottomRightRadius="10"
+                            fontWeight="semibold"
+                            color="white"
+                          >
+                            {time}分
+                          </Box>
                         </SwiperSlide>
                       );
                     })}
@@ -121,6 +151,7 @@ export default function Home({ posts }) {
                 <Text as="h2" size="sm" align="center" isTruncated my={4}>
                   物件情報
                 </Text>
+
                 <Box width="80%" mx="auto">
                   <Stack spacing={8} align="center">
                     <Feature title="家賃" desc={`${price}円`} />
