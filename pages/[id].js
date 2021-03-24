@@ -1,22 +1,6 @@
-import {
-  Heading,
-  Box,
-  Button,
-  useDisclosure,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  FormLabel,
-  FormControl,
-  Stack,
-  RadioGroup,
-  Radio,
-  Link,
-} from "@chakra-ui/react";
+import { Heading, Box, Button } from "@chakra-ui/react";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import HomeGroup from "../components/molecules/HomeGroup";
 import { getData } from "../lib/post";

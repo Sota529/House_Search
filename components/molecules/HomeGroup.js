@@ -50,7 +50,6 @@ export default function HomeGroup({ posts, walktime }) {
                   borderRadius="lg"
                   key={images[0]}
                 />
-                 <HeartIcon favo={favo} doc={doc} size={"15%"} />
               <Box
                 position="absolute"
                 top="0"
@@ -87,8 +86,9 @@ export default function HomeGroup({ posts, walktime }) {
                     ¥{price}
                   </Box>
                 </Box>
+              <HeartIcon favo={favo} doc={doc} size={"15%"} />
               </Box>
-             
+
             </SwiperSlide>
           )
         : null;

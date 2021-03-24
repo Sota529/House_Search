@@ -44,6 +44,7 @@ export default function Home({ posts }) {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       {posts.map(({ id, name, price, location, time, images, doc, favo }) => (
         <div key={id}>
           <Heading as="h1" align="center" isTruncated mb="8">
