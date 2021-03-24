@@ -39,56 +39,58 @@ export default function HomeGroup({ posts, walktime }) {
                 pos="relative"
                 _hover={{ bg: "#ebedf0", cursor: "pointer" }}
                 mr="5"
-                onClick={() => {
-                  handleClick(id);
-                }}
               >
-                <Image
-                  src={images[0]}
-                  alt="家の写真"
-                  width="100%"
-                  borderRadius="lg"
-                  key={images[0]}
-                />
-              <Box
-                position="absolute"
-                top="0"
-                left="0"
-                bg="salmon"
-                px="4"
-                py="2"
-                borderBottomRightRadius="10"
-                fontWeight="semibold"
-                color="white"
-              >
-                {time}分
-              </Box>
-                <Box p={2}>
+                <Box
+                  onClick={() => {
+                    handleClick(id);
+                  }}
+                >
+                  <Image
+                    src={images[0]}
+                    alt="家の写真"
+                    width="100%"
+                    borderRadius="lg"
+                    key={images[0]}
+                  />
                   <Box
-                    mt=""
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    bg="salmon"
+                    px="4"
+                    py="2"
+                    borderBottomRightRadius="10"
                     fontWeight="semibold"
-                    as="h4"
-                    lineHeight="tight"
-                    isTruncated
-                  >
-                    <Box top="0">{name}</Box>
-                  </Box>
-                  <Box
-                    as="span"
-                    borderRadius="md"
-                    fontWeight="semibold"
-                    bg="green.400"
                     color="white"
-                    isTruncated
-                    px={2}
-                    h={8}
                   >
-                    ¥{price}
+                    {time}分
+                  </Box>
+                  <Box p={2}>
+                    <Box
+                      mt=""
+                      fontWeight="semibold"
+                      as="h4"
+                      lineHeight="tight"
+                      isTruncated
+                    >
+                      <Box top="0">{name}</Box>
+                    </Box>
+                    <Box
+                      as="span"
+                      borderRadius="md"
+                      fontWeight="semibold"
+                      bg="green.400"
+                      color="white"
+                      isTruncated
+                      px={2}
+                      h={8}
+                    >
+                      ¥{price}
+                    </Box>
                   </Box>
                 </Box>
-              <HeartIcon favo={favo} doc={doc} size={"15%"} />
+                <HeartIcon favo={favo} doc={doc} size={"15%"} />
               </Box>
-
             </SwiperSlide>
           )
         : null;

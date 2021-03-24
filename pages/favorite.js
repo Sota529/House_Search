@@ -44,15 +44,11 @@ export default function Favorite({ posts }) {
 
 function Render({ posts, wide }) {
   const router = useRouter();
-
   const handleClick = (id) => {
     router.push({
       pathname: "homes/[id]",
       query: { id: id },
     });
-  };
-  const IconClick = (e) => {
-    e.preventDefault();
   };
 
   return (
@@ -127,9 +123,6 @@ function Render({ posts, wide }) {
                     favo={favo}
                     doc={doc}
                     size={"15%"}
-                    onClick={() => {
-                      IconClick();
-                    }}
                   />
                 </form>
               </Box>
