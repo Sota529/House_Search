@@ -25,7 +25,7 @@ export function HeartIcon({ favo, doc ,size}) {
   async function handleClick(doc) {
     setFavo(!isfavo);
     axios
-      .get(`http://${location.hostname}/api/favo`, {
+      .get(`//${location.host}/api/favo`, {
         params: { id: doc, favorite: !isfavo },
       })
       .then((res) => {})

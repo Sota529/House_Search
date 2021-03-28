@@ -17,7 +17,7 @@ SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 export default function HomeGroup({ posts, walktime }) {
   const router = useRouter();
   let house = [];
-  const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
+  const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
   const handleClick = (id) => {
     router.push({
       pathname: "homes/[id]",
@@ -109,12 +109,12 @@ export default function HomeGroup({ posts, walktime }) {
         <Image src="/images/walking.jpg" alt="アイコン" boxSize="24px"></Image>{" "}
         <Text>{walktime}分</Text>
       </Box>
-      {isLargerThan1000 ? (
+      {isLargerThan700 ? (
         <Swiper navigation slidesPerView={3.2} freeMode={"true"}>
           {house}
         </Swiper>
       ) : (
-        <Swiper navigation slidesPerView={2.3} freeMode={"true"}>
+        <Swiper  slidesPerView={2.3} freeMode={"true"}>
           {house}
         </Swiper>
       )}

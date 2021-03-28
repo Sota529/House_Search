@@ -1,20 +1,45 @@
-import { Heading, Box, Button,RadioGroup,Stack,Radio } from "@chakra-ui/react";
+import {
+  Heading,
+  Box,
+  Button,
+  RadioGroup,
+  Stack,
+  Radio,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// import { ValueContext } from "./_app";
 import HomeGroup from "../components/molecules/HomeGroup";
 import { getData } from "../lib/post";
-export async function getServerSideProps({ params }) {
-  const posts = await (await getData(params)).result;
+
+export async function getServerSideProps(context) {
+  const Area = context.query.id;
+  const Sort = context.query.sort;
+  const posts = await (await getData(Area, Sort)).result;
   return {
     props: { posts },
   };
 }
-
+//post.mapのロジックなのでfilterするたびにgetServsersidePropsを呼ばなくては行けない
+//とするとgetServerSidePropsで読み取れるのはqueryのみなのでラジオボタンを押したらqueryを変えるようにしたい
+//うまく変わらない
 export default function HouseView({ posts }) {
+  // const { value, dispatch } = useContext(ValueContext);
   const router = useRouter();
-  const [value, setValue] = useState("1")
+  const [val, setVal] = useState("0");
+
+  useEffect(() => {
+    const radioClick = async () => {
+        router.replace({
+          pathname: location.pathname,
+          query: { sort: val },
+        });
+      
+    };
+    radioClick();
+  }, [val]);
   return (
     <>
       <Head>
@@ -24,22 +49,35 @@ export default function HouseView({ posts }) {
       <Heading align="center" isTruncated mb={6}>
         {router.query.Name}大学
       </Heading>
-      <Link href="/favorite">
-        <Box display="block" align="right" mr={4} mb={2}>
+      <Box display="block" align="right" mr={4} mb={2}>
+        <Link href="/favorite">
           <Button>お気に入り</Button>
-        </Box>
-      </Link>
-      <RadioGroup onChange={setValue} value={value}>
-      <Stack direction="row">
-        <Radio value="1" colorScheme="green">¥50,000以下</Radio>
-        <Radio value="2" colorScheme="green">¥100,000以下</Radio>
-        <Radio value="3" colorScheme="green">¥150,000以下</Radio>
-      </Stack>
-    </RadioGroup>
-      {/* <Sort /> */}
+        </Link>
+      </Box>
+      <RadioGroup onChange={setVal} value={val} defaultChecked="0">
+        <Stack direction="row">
+          <Radio value="0" colorScheme="green" checked={val === "0"}>
+            選択なし
+          </Radio>
+          <Radio value="50000" colorScheme="green" checked={val === "50000"}>
+            ¥50,000以下
+          </Radio>
+          <Radio value="100000" colorScheme="green" checked={val === "100000"}>
+            ¥100,000以下
+          </Radio>
+          <Radio value="150000" colorScheme="green" checked={val === "150000"}>
+            ¥150,000以下
+          </Radio>
+        </Stack>
+      </RadioGroup>
+      {val}
       {[5, 10, 15, 20, 25].map((time) => (
         <Box key={time} my={2}>
           <HomeGroup walktime={time} posts={posts} />
+          {/* {val === "0" ? <HomeGroup walktime={time} posts={posts} /> : null} */}
+          {/* {val === "1" ? <HomeGroup walktime={time} posts={posts} /> : null}
+          {val === "2" ? <HomeGroup walktime={time} posts={posts} /> : null}
+          {val === "3" ? <HomeGroup walktime={time} posts={posts} /> : null} */}
         </Box>
       ))}
     </>

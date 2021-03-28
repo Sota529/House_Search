@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { HeartIcon } from "../components/atoms/icon";
 import { getFavoriteData } from "../lib/post";
 
@@ -19,9 +20,12 @@ export async function getServerSideProps() {
 }
 
 export default function Favorite({ posts }) {
+  const router = useRouter();
+
   const [isLargerThan500, isDisplayingInBrowser] = useMediaQuery(
     "(min-width: 500px)"
   );
+
   return (
     <>
       <Head>
@@ -44,11 +48,17 @@ export default function Favorite({ posts }) {
 
 function Render({ posts, wide }) {
   const router = useRouter();
+  const [favo, setFavo] = useState(true);
+
   const handleClick = (id) => {
     router.push({
       pathname: "homes/[id]",
       query: { id: id },
     });
+  };
+  const Click = () => {
+    setFavo(!favo);
+    router.replace(router.asPath);
   };
 
   return (
@@ -118,13 +128,13 @@ function Render({ posts, wide }) {
                     </Box>
                   </Box>
                 </Box>
-                <form>
-                  <HeartIcon
-                    favo={favo}
-                    doc={doc}
-                    size={"15%"}
-                  />
-                </form>
+                <Box
+                  onClick={() => {
+                    Click();
+                  }}
+                >
+                  <HeartIcon favo={favo} doc={doc} size={"15%"} />
+                </Box>
               </Box>
             </>
           );
