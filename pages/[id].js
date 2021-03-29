@@ -5,6 +5,8 @@ import {
   RadioGroup,
   Stack,
   Radio,
+  Text,
+  Flex,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Link from "next/link";
@@ -29,7 +31,7 @@ export default function HouseView({ posts }) {
     const radioClick = async () => {
         router.replace({
           pathname: location.pathname,
-          query: { sort: val },
+          query: { sort: val ,Name:router.query.Name},
         });
       
     };
@@ -49,6 +51,8 @@ export default function HouseView({ posts }) {
           <Button>お気に入り</Button>
         </Link>
       </Box>
+      <Flex >
+      <Text fontWeight="semibold" mr={21}>値段</Text>
       <RadioGroup onChange={setVal} value={val} defaultChecked="0">
         <Stack direction="row">
           <Radio value="0" colorScheme="green" checked={val === "0"}>
@@ -65,6 +69,7 @@ export default function HouseView({ posts }) {
           </Radio>
         </Stack>
       </RadioGroup>
+      </Flex>
       {[5, 10, 15, 20, 25].map((time) => (
         <Box key={time} my={2}>
           <HomeGroup walktime={time} posts={posts} />

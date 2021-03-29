@@ -57,14 +57,18 @@ function Render({ posts, wide }) {
     });
   };
   const Click = () => {
-    setFavo(!favo);
-    router.replace(router.asPath);
+    console.log("start")
+    router.push({
+      pathname: location.pathname,
+    });
+    console.log("finish")
   };
 
   return (
     <Flex wrap="wrap">
       {posts.length ? (
         posts.map(({ doc, id, name, time, price, images, favo }) => {
+          console.log(id,favo)
           return (
             <>
               <Box
@@ -129,9 +133,9 @@ function Render({ posts, wide }) {
                   </Box>
                 </Box>
                 <Box
-                  onClick={() => {
-                    Click();
-                  }}
+                  // onClick={() => {
+                  //   Click();
+                  // }}
                 >
                   <HeartIcon favo={favo} doc={doc} size={"15%"} />
                 </Box>

@@ -23,6 +23,7 @@ const Icon = (
 export function HeartIcon({ favo, doc ,size}) {
   const [isfavo, setFavo] = useState(favo);
   async function handleClick(doc) {
+    console.log(isfavo)
     setFavo(!isfavo);
     axios
       .get(`//${location.host}/api/favo`, {
