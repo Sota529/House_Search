@@ -25,14 +25,7 @@ import Link from "next/link";
 //swiperコンポーネントをインストール
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
-export async function getStaticPaths() {
-  const paths = await await gethouselID();
-  return {
-    paths,
-    fallback: false,
-  };
-}
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const posts = await (await getOneData(params)).result;
   return {
     props: { posts },
