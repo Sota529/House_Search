@@ -11,6 +11,7 @@ import {
   Image,
   Stack,
   Text,
+  Button,
   useMediaQuery,
 } from "@chakra-ui/react";
 
@@ -20,6 +21,7 @@ import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
 import { HeartIcon } from "../../components/atoms/icon";
+import Link from "next/link";
 //swiperコンポーネントをインストール
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -44,7 +46,11 @@ export default function Home({ posts }) {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <Box display="block" align="right" mr={4} mb={2}>
+        <Link href="/favorite">
+          <Button>お気に入り</Button>
+        </Link>
+      </Box>
       {posts.map(({ id, name, price, location, time, images, doc, favo }) => (
         <div key={id}>
           <Heading as="h1" align="center" isTruncated mb="8">
