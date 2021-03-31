@@ -12,38 +12,40 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import HomeGroup from "../components/molecules/HomeGroup";
-import { getData } from "../lib/post";
 
-export async function getServerSideProps(context) {
-  const Area = context.query.id;
-  const Sort = context.query.sort;
-  const posts = await (await getData(Area, Sort)).result;
-  return {
-    props: { posts },
-  };
-}
-export default function HouseView({ posts }) {
+export default function HouseView() {
   const router = useRouter();
+  const [data, setData] = useState([]);
   const [val, setVal] = useState("0");
 
   const radioClick = async (e) => {
+    setVal(e.target.value)
     let sortquery = e.target.value;
     router.replace({
       pathname: location.pathname,
-      query: { sort: sortquery, Name: router.query.Name },
+      query: { Name: router.query.Name, sort: sortquery },
     });
   };
-  // useEffect(() => {
-  //   const radioClick = async () => {
-  //       router.replace({
-  //         pathname: location.pathname,
-  //         query: { sort: val ,Name:router.query.Name},
-  //       });
-
-  //   };
-  //   radioClick();
-  // }, [val]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const Area = router.query.id;
+      const Sort = val;
+      await axios
+        .get(`//${location.host}/api/get`, {
+          params: { id: Area, sort: Sort },
+        })
+        .then((res) => {
+          setData(res.data.props.datas);
+        })
+        .then()
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchData();
+  }, [val]);
   return (
     <>
       <Head>
@@ -67,7 +69,6 @@ export default function HouseView({ posts }) {
             <Radio
               value="0"
               colorScheme="green"
-              checked={val === "0"}
               onChange={radioClick}
             >
               選択なし
@@ -75,7 +76,6 @@ export default function HouseView({ posts }) {
             <Radio
               value="50000"
               colorScheme="green"
-              checked={val === "50000"}
               onChange={radioClick}
             >
               ¥50,000以下
@@ -83,7 +83,6 @@ export default function HouseView({ posts }) {
             <Radio
               value="100000"
               colorScheme="green"
-              checked={val === "100000"}
               onChange={radioClick}
             >
               ¥100,000以下
@@ -91,7 +90,6 @@ export default function HouseView({ posts }) {
             <Radio
               value="150000"
               colorScheme="green"
-              checked={val === "150000"}
               onChange={radioClick}
             >
               ¥150,000以下
@@ -99,9 +97,13 @@ export default function HouseView({ posts }) {
           </Stack>
         </RadioGroup>
       </Flex>
+      {val}
+      {/* {data.map(({ doc, id, name, time, price, images, favo }) => {
+        return <h1>{doc}</h1>;
+      })} */}
       {[5, 10, 15, 20, 25].map((time) => (
         <Box key={time} my={2}>
-          <HomeGroup walktime={time} posts={posts} />
+          <HomeGroup walktime={time} posts={data} />
         </Box>
       ))}
     </>
