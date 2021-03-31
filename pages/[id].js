@@ -27,16 +27,23 @@ export default function HouseView({ posts }) {
   const router = useRouter();
   const [val, setVal] = useState("0");
 
-  useEffect(() => {
-    const radioClick = async () => {
-        router.replace({
-          pathname: location.pathname,
-          query: { sort: val ,Name:router.query.Name},
-        });
-      
-    };
-    radioClick();
-  }, [val]);
+  const radioClick = async (e) => {
+    let sortquery = e.target.value;
+    router.replace({
+      pathname: location.pathname,
+      query: { sort: sortquery, Name: router.query.Name },
+    });
+  };
+  // useEffect(() => {
+  //   const radioClick = async () => {
+  //       router.replace({
+  //         pathname: location.pathname,
+  //         query: { sort: val ,Name:router.query.Name},
+  //       });
+
+  //   };
+  //   radioClick();
+  // }, [val]);
   return (
     <>
       <Head>
@@ -51,24 +58,46 @@ export default function HouseView({ posts }) {
           <Button>お気に入り</Button>
         </Link>
       </Box>
-      <Flex >
-      <Text fontWeight="semibold" mr={21}>値段</Text>
-      <RadioGroup onChange={setVal} value={val} defaultChecked="0">
-        <Stack direction="row">
-          <Radio value="0" colorScheme="green" checked={val === "0"}>
-            選択なし
-          </Radio>
-          <Radio value="50000" colorScheme="green" checked={val === "50000"}>
-            ¥50,000以下
-          </Radio>
-          <Radio value="100000" colorScheme="green" checked={val === "100000"}>
-            ¥100,000以下
-          </Radio>
-          <Radio value="150000" colorScheme="green" checked={val === "150000"}>
-            ¥150,000以下
-          </Radio>
-        </Stack>
-      </RadioGroup>
+      <Flex>
+        <Text fontWeight="semibold" mr={21}>
+          値段
+        </Text>
+        <RadioGroup onChange={setVal} value={val} defaultChecked="0">
+          <Stack direction="row">
+            <Radio
+              value="0"
+              colorScheme="green"
+              checked={val === "0"}
+              onChange={radioClick}
+            >
+              選択なし
+            </Radio>
+            <Radio
+              value="50000"
+              colorScheme="green"
+              checked={val === "50000"}
+              onChange={radioClick}
+            >
+              ¥50,000以下
+            </Radio>
+            <Radio
+              value="100000"
+              colorScheme="green"
+              checked={val === "100000"}
+              onChange={radioClick}
+            >
+              ¥100,000以下
+            </Radio>
+            <Radio
+              value="150000"
+              colorScheme="green"
+              checked={val === "150000"}
+              onChange={radioClick}
+            >
+              ¥150,000以下
+            </Radio>
+          </Stack>
+        </RadioGroup>
       </Flex>
       {[5, 10, 15, 20, 25].map((time) => (
         <Box key={time} my={2}>
