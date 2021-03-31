@@ -11,7 +11,7 @@ function Layout({ children }) {
         />
       </Head>
       <Box bg="gray.190">
-        <Container pt={16} maxW="container.lg">
+        <Container py={16} maxW="container.lg">
           {children}
         </Container>
       </Box>
