@@ -17,27 +17,28 @@ import HomeGroup from "../components/molecules/HomeGroup";
 
 export default function HouseView() {
   const router = useRouter();
-  const [data, setData] = useState([]);
+  const [datas, setData] = useState([]);
   const [val, setVal] = useState("0");
 
   const radioClick = async (e) => {
-    setVal(e.target.value)
+    setVal(e.target.value);
+    let cityname = router.query.Name;
     let sortquery = e.target.value;
     router.replace({
       pathname: location.pathname,
-      query: { Name: router.query.Name, sort: sortquery },
+      query: { Name: cityname, sort: sortquery },
     });
   };
   useEffect(() => {
     const fetchData = async () => {
-      const Area = router.query.id;
       const Sort = val;
+      const Area = location.pathname.slice(1);
       await axios
         .get(`//${location.host}/api/get`, {
           params: { id: Area, sort: Sort },
         })
         .then((res) => {
-          setData(res.data.props.datas);
+          setData(res.data.props.processedData);
         })
         .then()
         .catch((error) => {
@@ -66,46 +67,31 @@ export default function HouseView() {
         </Text>
         <RadioGroup onChange={setVal} value={val} defaultChecked="0">
           <Stack direction="row">
-            <Radio
-              value="0"
-              colorScheme="green"
-              onChange={radioClick}
-            >
+            <Radio value="0" colorScheme="green" onChange={radioClick}>
               選択なし
             </Radio>
-            <Radio
-              value="50000"
-              colorScheme="green"
-              onChange={radioClick}
-            >
+            <Radio value="50000" colorScheme="green" onChange={radioClick}>
               ¥50,000以下
             </Radio>
-            <Radio
-              value="100000"
-              colorScheme="green"
-              onChange={radioClick}
-            >
+            <Radio value="100000" colorScheme="green" onChange={radioClick}>
               ¥100,000以下
             </Radio>
-            <Radio
-              value="150000"
-              colorScheme="green"
-              onChange={radioClick}
-            >
+            <Radio value="150000" colorScheme="green" onChange={radioClick}>
               ¥150,000以下
             </Radio>
           </Stack>
         </RadioGroup>
       </Flex>
-      {val}
-      {/* {data.map(({ doc, id, name, time, price, images, favo }) => {
-        return <h1>{doc}</h1>;
+      {/* {Object.keys(datas).map((time) => {
+        return console.log(datas[time]);
       })} */}
-      {[5, 10, 15, 20, 25].map((time) => (
-        <Box key={time} my={2}>
-          <HomeGroup walktime={time} posts={data} />
-        </Box>
-      ))}
+      {Object.keys(datas).map((time) => {
+        return (
+          <Box key={time} my={2}>
+            <HomeGroup walktime={time} posts={datas[time]} />
+          </Box>
+        );
+      })}
     </>
   );
 }
