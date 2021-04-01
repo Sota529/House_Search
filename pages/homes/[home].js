@@ -20,7 +20,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
-import { HeartIcon } from "../../components/atoms/icon";
+import { HeartIcon } from "../../components/Icons/HeartIcon";
 import Link from "next/link";
 //swiperコンポーネントをインストール
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
