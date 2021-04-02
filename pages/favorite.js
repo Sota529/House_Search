@@ -9,7 +9,7 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { HeartIcon } from "../components/atoms/icon";
+import { HeartIcon } from "../components/Icons/HeartIcon";
 import { getFavoriteData } from "../lib/post";
 
 export async function getServerSideProps() {
@@ -57,18 +57,15 @@ function Render({ posts, wide }) {
     });
   };
   const Click = () => {
-    console.log("start")
     router.push({
       pathname: location.pathname,
     });
-    console.log("finish")
   };
 
   return (
     <Flex wrap="wrap">
       {posts.length ? (
         posts.map(({ doc, id, name, time, price, images, favo }) => {
-          console.log(id,favo)
           return (
             <>
               <Box

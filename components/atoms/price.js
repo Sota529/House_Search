@@ -1,8 +1,7 @@
 import { Box, Text } from "@chakra-ui/layout";
 
-export const Price = (price) => {
-  console.log(price);
-  const StringPrice = String(price.price);
+export const Price = ({ price, size, color }) => {
+  const StringPrice = String(price);
   let First;
   let Second;
   let result;
@@ -11,10 +10,19 @@ export const Price = (price) => {
     Second = StringPrice.slice(1, 2);
     result = (
       <Text>
-        <Box fontWeight={"semibold"} display="inline" fontSize={"24px"}>
+        <Box
+          fontWeight={"semibold"}
+          display="inline"
+          fontSize={size}
+          color={color}
+        >
           {First}
         </Box>
-        .{Second}万円
+        .
+        <Box as="span" color={color}>
+          {Second}
+        </Box>
+        万円
       </Text>
     );
   } else if (StringPrice.length === 6) {
@@ -23,7 +31,7 @@ export const Price = (price) => {
     const Third = StringPrice.slice(2, 3);
     result = (
       <Text>
-        <Box fontWeight={"semibold"} display="inline" fontSize={"24px"}>
+        <Box fontWeight={"semibold"} display="inline" fontSize={size}>
           {First}
           {Second}
         </Box>

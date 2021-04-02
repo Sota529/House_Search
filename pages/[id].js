@@ -17,7 +17,7 @@ import HomeGroup from "../components/molecules/HomeGroup";
 
 export default function HouseView() {
   const router = useRouter();
-  const [datas, setData] = useState([]);
+  const [datas, setData] = useState({});
   const [val, setVal] = useState("0");
 
   const radioClick = async (e) => {
@@ -82,9 +82,6 @@ export default function HouseView() {
           </Stack>
         </RadioGroup>
       </Flex>
-      {/* {Object.keys(datas).map((time) => {
-        return console.log(datas[time]);
-      })} */}
       {Object.keys(datas).map((time) => {
         return (
           <Box key={time} my={2}>

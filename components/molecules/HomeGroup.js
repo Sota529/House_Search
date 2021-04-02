@@ -1,4 +1,4 @@
-import { Text, Image, Box, useMediaQuery } from "@chakra-ui/react";
+import { Text, Image, Box, useMediaQuery, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { HeartIcon } from "../Icons/HeartIcon";
 //swiperをimport
@@ -10,6 +10,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
+import { Price } from "../atoms/price";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
@@ -83,26 +84,26 @@ export default function HomeGroup({ posts, walktime }) {
                 {walktime}分
               </Box>
               <Box p={2}>
-                <Box
-                  mt=""
-                  fontWeight="semibold"
-                  as="h4"
-                  lineHeight="tight"
-                  isTruncated
-                >
-                  <Box top="0">{name}</Box>
-                </Box>
-                <Box
-                  as="span"
-                  borderRadius="md"
-                  fontWeight="semibold"
-                  bg="green.400"
-                  color="white"
-                  isTruncated
-                  px={2}
-                  h={8}
-                >
-                  ¥{price}
+                <Box>
+                  <Box
+                    mt=""
+                    fontWeight="semibold"
+                    as="h4"
+                    lineHeight="tight"
+                    isTruncated
+                    display="block"
+                  >
+                    {name}
+                  </Box>
+                  <Box>
+                    <Flex>
+                      <Price price={price} size={"1.8em"} />
+                      <Box ml={2}>
+                        <Text fontSize={"0.8em"}>敷金:{price}</Text>
+                        <Text fontSize={"0.8em"}>礼金:{price}</Text>
+                      </Box>
+                    </Flex>
+                  </Box>
                 </Box>
               </Box>
             </Box>
