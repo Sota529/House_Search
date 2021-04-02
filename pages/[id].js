@@ -60,7 +60,8 @@ export default function HouseView() {
     });
   };
   useEffect(() => {
-    const fetchData = async () => {
+    let unmounted = false;
+    (async () => {
       const Sort = val;
       const Area = location.pathname.slice(1);
       await axios
@@ -69,14 +70,18 @@ export default function HouseView() {
         })
         .then((res) => {
           const result = res.data.props.datas;
-          processData(result);
+          if (!unmounted) {
+            processData(result);
+          }
         })
         .then(console.log(datas))
         .catch((error) => {
           console.log(error);
         });
+    })();
+    return () => {
+      unmounted = true;
     };
-    fetchData();
   }, [val]);
   return (
     <>
