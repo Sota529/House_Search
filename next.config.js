@@ -1,5 +1,3 @@
-const webpack = require('webpack');
-require('dotenv').config();
 
 module.exports = {
   env: {
@@ -12,9 +10,3 @@ module.exports = {
     FIREBASE_APPID: process.env.FIREBASE_APPID
   }
 }
-
-module.exports = {
-  experimental: {
-    optimizeFonts: true,
-  },
-};
