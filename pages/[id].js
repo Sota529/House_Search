@@ -59,11 +59,13 @@ export default function HouseView() {
       query: { Name: cityname, sort: sortquery },
     });
   };
+
   useEffect(() => {
     let unmounted = false;
     (async () => {
       const Sort = val;
       const Area = location.pathname.slice(1);
+      console.log(`//${location.host}/api/get`)
       await axios
         .get(`//${location.host}/api/get`, {
           params: { id: Area, sort: Sort },
@@ -83,6 +85,7 @@ export default function HouseView() {
       unmounted = true;
     };
   }, [val]);
+
   return (
     <>
       <Head>
