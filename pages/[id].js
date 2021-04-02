@@ -20,6 +20,36 @@ export default function HouseView() {
   const [datas, setData] = useState({});
   const [val, setVal] = useState("0");
 
+  const processData = (datas) => {
+    let processedData = {};
+    let data5 = [];
+    let data10 = [];
+    let data15 = [];
+    let data20 = [];
+    let data25 = [];
+    datas.map(({ time, ...others }) => {
+      if (time === 5) {
+        data5.push(others);
+      } else if (time === 10) {
+        data10.push(others);
+      } else if (time === 15) {
+        data15.push(others);
+      } else if (time === 20) {
+        data20.push(others);
+      } else if (time === 25) {
+        data25.push(others);
+      }
+    });
+    processedData = {
+      5: data5,
+      10: data10,
+      15: data15,
+      20: data20,
+      25: data25,
+    };
+    setData(processedData);
+  };
+
   const radioClick = async (e) => {
     setVal(e.target.value);
     let cityname = router.query.Name;
@@ -38,7 +68,8 @@ export default function HouseView() {
           params: { id: Area, sort: Sort },
         })
         .then((res) => {
-          setData(res.data.props.processedData);
+          const result = res.data.props.datas;
+          processData(result);
         })
         .then(console.log(datas))
         .catch((error) => {
