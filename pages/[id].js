@@ -40,7 +40,7 @@ export default function HouseView() {
         .then((res) => {
           setData(res.data.props.processedData);
         })
-        .then()
+        .then(console.log(datas))
         .catch((error) => {
           console.log(error);
         });
