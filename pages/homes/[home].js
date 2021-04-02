@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import { gethouselID, getOneData } from "../../lib/post";
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,13 +7,15 @@ import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import {
   Badge,
   Box,
-  Flex,
+  HStack,
   Heading,
   Image,
   Stack,
   Text,
   Button,
   useMediaQuery,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
 
 //swiper cssをimport
@@ -20,19 +23,38 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
-import { HeartIcon } from "../../components/Icons/HeartIcon";
-import Link from "next/link";
+
 //swiperコンポーネントをインストール
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
-export async function getServerSideProps({ params }) {
-  const posts = await (await getOneData(params)).result;
-  return {
-    props: { posts },
-  };
-}
-export default function Home({ posts }) {
+import axios from "axios";
+import { HeartIcon } from "../../components/Icons/HeartIcon";
+import Link from "next/link";
+import { Price } from "../../components/atoms/price";
+
+export default function Home() {
   const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const Area = location.pathname.replace(/\/homes\//, "");
+      await axios
+        .get(`//${location.host}/api/getOne`, {
+          params: { id: Area },
+        })
+        .then((res) => {
+          setData(res.data.props.data);
+          data.map((d) => {
+            console.log(String(d.price).slice(0, 1));
+            console.log(String(d.price).slice(1, 2));
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <Head>
@@ -44,144 +66,71 @@ export default function Home({ posts }) {
           <Button>お気に入り</Button>
         </Link>
       </Box>
-      {posts.map(({ id, name, price, location, time, images, doc, favo }) => (
-        <div key={id}>
-          <Heading as="h1" align="center" isTruncated mb="8">
+
+      {data.map(({ id, name, price, location, time, images, doc, favo }) => (
+        <Flex key={id}>
+          {/* <Heading as="h1" align="center" isTruncated mb="8">
             {name}
-          </Heading>
-          <Box>
-            {isLargerThan1000 ? (
-              <Flex justify="space-between">
-                <Box
-                  boxSize="md"
-                  width="50%"
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  overflow="hidden"
-                  mx="auto"
-                  shadow="md"
-                >
-                  <Swiper navigation pagination={{ clickable: true }}>
-                    {images.map((image) => {
-                      return (
-                        <SwiperSlide key={image}>
-                          <Box pos="relative">
-                            <Image
-                              src={image}
-                              alt=""
-                              pb={8}
-                              boxSize="md"
-                              width={"100%"}
-                            />
-                          <HeartIcon favo={favo} doc={doc} size={"10%"} />
-                          <Box
-                            position="absolute"
-                            top="0"
-                            left="0"
-                            bg="salmon"
-                            px="4"
-                            py="2"
-                            borderBottomRightRadius="10"
-                            fontWeight="semibold"
-                            color="white"
-                          >
-                            {time}分
-                          </Box>
-                          </Box>
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
-                </Box>
-                <Box width="48%">
-                  <Box boxShadow="sm" py={2}>
-                    <Heading
-                      as="h2"
-                      size="lg"
-                      align="center"
-                      isTruncated
-                      my={4}
-                      py={1}
-                    >
-                      物件情報
-                    </Heading>
-                    <Stack spacing={4} align="center">
-                      <Feature title="家賃" desc={`${price}円`} />
-                      <Feature title="住所" desc={location} />
-                      <Feature title="管理不動産" desc="コンフォート不動産" />
-                    </Stack>
-                  </Box>
-                </Box>
-              </Flex>
-            ) : (
-              <Box>
-                <Box
-                  maxW="sm"
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  overflow="hidden"
-                  shadow="md"
-                  mx="auto"
-                >
-                  <Swiper navigation pagination={{ clickable: true }}>
-                    {images.map((image) => {
-                      return (
-                        <SwiperSlide key={image}>
-                          <Image src={image} alt="" width={"100%"} pb={8} />
-                          <HeartIcon favo={favo} doc={doc} size={"12%"} />
-                          <Box
-                            position="absolute"
-                            top="0"
-                            left="0"
-                            bg="salmon"
-                            px="4"
-                            py="2"
-                            borderBottomRightRadius="10"
-                            fontWeight="semibold"
-                            color="white"
-                          >
-                            {time}分
-                          </Box>
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
-                </Box>
-
-                <Text as="h2" size="sm" align="center" isTruncated my={4}>
-                  物件情報
-                </Text>
-
-                <Box width="80%" mx="auto">
-                  <Stack spacing={8} align="center">
-                    <Feature title="家賃" desc={`${price}円`} />
-                    <Feature title="住所" desc={location} />
-                    <Feature title="管理不動産" desc="コンフォート不動産" />
-                  </Stack>
-                </Box>
-              </Box>
-            )}
+          </Heading> */}
+          <Box
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow=""
+            width={"60%"}
+            key={id}
+          >
+            <Swiper navigation pagination={{ clickable: true }}>
+              {images.map((image) => {
+                return (
+                  <SwiperSlide key={image}>
+                    <Box pos="relative">
+                      <Image src={image} alt="" pb={8} width={"100%"} />
+                      <Box
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        bg="salmon"
+                        px="4"
+                        py="2"
+                        borderBottomRightRadius="10"
+                        fontWeight="semibold"
+                        color="white"
+                      >
+                        {time}分
+                      </Box>
+                    </Box>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+            <HStack spacing="24px">
+              <Image src={images[1]} alt="" boxSize="100px" key={1} />
+              <Image src={images[2]} alt="" boxSize="100px" key={2} />
+              <Image src={images[0]} alt="" boxSize="100px" key={0} />
+            </HStack>
           </Box>
-        </div>
+          <Spacer />
+          <Box width="36%">
+            <Box boxShadow="sm" py={2}>
+              <FeatureBadge title="家賃" />
+              <Price price={price}/>
+              <FeatureBadge title="住所" />
+              {location}
+              <FeatureBadge title="管理不動産" />
+              コンフォート不動産
+            </Box>
+          </Box>
+        </Flex>
       ))}
     </>
   );
 }
 
-function Feature({ title, desc }) {
+function FeatureBadge({ title, desc }) {
   return (
-    <Box
-      p={2}
-      width="100%"
-      borderWidth=""
-      borderRadius="lg"
-      shadow="sm"
-      border="1px"
-      borderColor="gray.200"
-    >
+    <Box width="100%" borderWidth="" borderRadius="lg">
       <Badge
         fontSize="md"
-        mb={2}
         borderRadius="md"
         fontWeight="semibold"
         bg="teal.300"
@@ -189,17 +138,6 @@ function Feature({ title, desc }) {
       >
         {title}
       </Badge>
-      <br />
-      <Box
-        as="span"
-        borderRadius="md"
-        color="black"
-        pl={2}
-        p="2px"
-        fontWeight="bold"
-      >
-        {desc}
-      </Box>
     </Box>
   );
 }
