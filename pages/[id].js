@@ -65,9 +65,8 @@ export default function HouseView() {
     (async () => {
       const Sort = val;
       const Area = location.pathname.slice(1);
-      console.log(`///api/get`)
       await axios
-        .get(`/api/get`, {
+        .get(`//${location.host}/api/get`, {
           params: { id: Area, sort: Sort },
         })
         .then((res) => {
