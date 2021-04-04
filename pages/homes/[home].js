@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { gethouselID, getOneData } from "../../lib/post";
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -13,16 +12,14 @@ import SwiperCore, {
 import {
   Badge,
   Box,
-  HStack,
-  Heading,
   Image,
-  Stack,
   Text,
   Button,
   useMediaQuery,
   Flex,
   Spacer,
 } from "@chakra-ui/react";
+
 import { EmailIcon } from "@chakra-ui/icons";
 
 //swiper cssをimport
@@ -36,7 +33,6 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 import axios from "axios";
 import { HeartIcon } from "../../components/Icons/HeartIcon";
-import Link from "next/link";
 import { Price } from "../../components/atoms/price";
 
 export default function Home() {
@@ -65,11 +61,6 @@ export default function Home() {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box display="block" align="right" mr={4} mb={2}>
-        <Link href="/favorite">
-          <Button>お気に入り</Button>
-        </Link>
-      </Box>
 
       {data.map(({ id, name, price, location, time, images, doc, favo }) => (
         <Flex key={id}>
@@ -159,7 +150,7 @@ export default function Home() {
                     fontWeight="semibold"
                     bg="gray.400"
                     color="white"
-                    p={0.2}
+                    p={"0.1em"}
                     mr={1}
                   >
                     敷
@@ -171,7 +162,7 @@ export default function Home() {
                     fontWeight="semibold"
                     bg="gray.400"
                     color="white"
-                    p={0.2}
+                    p={"0.1em"}
                     mx={1}
                   >
                     礼
