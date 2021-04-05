@@ -7,7 +7,6 @@ import {
   Radio,
   Text,
   Flex,
-  Skeleton,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Link from "next/link";
@@ -88,11 +87,9 @@ export default function HouseView() {
       </Flex>
       {Object.keys(datas).map((time) => {
         return (
-          <Skeleton isLoaded={time}>
-            <Box key={time} my={2}>
+          <Box key={time} my={2}>
               <HomeGroup walktime={time} posts={datas[time]} />
-            </Box>
-          </Skeleton>
+          </Box>
         );
       })}
     </>

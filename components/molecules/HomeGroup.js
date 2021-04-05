@@ -4,6 +4,7 @@ import { HeartIcon } from "../Icons/HeartIcon";
 //swiperをimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Scrollbar, A11y, Virtual } from "swiper";
+import { useEffect, useState } from "react";
 
 //swiper cssをimport
 import "swiper/swiper.min.css";
@@ -65,6 +66,7 @@ export default function HomeGroup({ posts, walktime }) {
             >
               <Image
                 src={images[0]}
+                fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                 alt="家の写真"
                 width="100%"
                 borderRadius="lg"
@@ -99,8 +101,8 @@ export default function HomeGroup({ posts, walktime }) {
                     <Flex>
                       <Price price={price} size={"1.8em"} />
                       <Box ml={2}>
-                        <Text fontSize={"0.8em"}>敷金:{price}</Text>
-                        <Text fontSize={"0.8em"}>礼金:{price}</Text>
+                        <Text fontSize={"0.8em"}>敷:{price}</Text>
+                        <Text fontSize={"0.8em"}>礼:{price}</Text>
                       </Box>
                     </Flex>
                   </Box>

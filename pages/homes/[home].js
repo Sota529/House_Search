@@ -84,6 +84,7 @@ export default function Home() {
                         src={image}
                         alt={image}
                         pb={8}
+                        fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                         width={"100%"}
                         borderTopLeftRadius="md"
                         borderTopRightRadius="md"
@@ -123,6 +124,7 @@ export default function Home() {
                       src={image}
                       alt={images}
                       mb={3}
+                      fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                       borderRadius="md"
                       _hover={{
                         border: "2px",
