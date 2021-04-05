@@ -144,9 +144,15 @@ export default function Home() {
               mx="auto"
               textAlign="center"
             >
-              <Text fontSize={24} fontWeight="semibold">
-                {name}
-              </Text>
+              <Flex justifyContent="space-around">
+                <Text fontSize={24} fontWeight="semibold">
+                  {name}
+                </Text>
+                <Box bg="" borderRadius="full">
+                  <HeartIcon favo={favo} doc={doc} size="2.5em"/>
+                  <Text fontSize="0.4em">いいね</Text>
+                </Box>
+              </Flex>
               <Price price={price} size="2.5em" color="red.500" />
               <Box>
                 <Flex justifyContent="center">

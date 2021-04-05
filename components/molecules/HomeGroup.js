@@ -45,7 +45,7 @@ export default function HomeGroup({ posts, walktime }) {
       return (
         <SwiperSlide key={id}>
           <Box
-            my={4}
+            my={"1em"}
             maxW="sm"
             rounded="md"
             boxShadow="md"
@@ -57,7 +57,7 @@ export default function HomeGroup({ posts, walktime }) {
               borderColor: "teal.300",
               cursor: "pointer",
             }}
-            mr="5"
+            mr="1em"
           >
             <Box
               onClick={() => {
@@ -68,7 +68,6 @@ export default function HomeGroup({ posts, walktime }) {
                 src={images[0]}
                 fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                 alt="家の写真"
-                width="100%"
                 borderRadius="lg"
                 key={images[0]}
               />
@@ -77,7 +76,7 @@ export default function HomeGroup({ posts, walktime }) {
                 top="0"
                 left="0"
                 bg="salmon"
-                px="4"
+                px={{ sm: "2em", md: "1em" }}
                 py="2"
                 borderBottomRightRadius="10"
                 fontWeight="semibold"
@@ -85,7 +84,7 @@ export default function HomeGroup({ posts, walktime }) {
               >
                 {walktime}分
               </Box>
-              <Box p={2}>
+              <Box p="0.4em">
                 <Box>
                   <Box
                     mt=""
@@ -112,9 +111,15 @@ export default function HomeGroup({ posts, walktime }) {
               </Box>
             </Box>
           </Box>
-          <Box position="absolute" bottom="6" right="6">
-            <HeartIcon favo={favo} doc={doc} size={"15%"} />
-          </Box>
+          {isLargerThan700 ? (
+            <Box position="absolute" bottom="6" right="6">
+              <HeartIcon favo={favo} doc={doc} size={"3em"} />
+            </Box>
+          ) : (
+            <Box position="absolute" top="4" right="5">
+              <HeartIcon favo={favo} doc={doc} size={"2.2em"} />
+            </Box>
+          )}
         </SwiperSlide>
       );
     });
@@ -126,7 +131,7 @@ export default function HomeGroup({ posts, walktime }) {
             </Swiper>
           ))
         : (houseGroup = (
-            <Swiper navigation slidesPerView={2.2} freeMode={"true"}>
+            <Swiper navigation slidesPerView={2.4} freeMode={"true"}>
               {house}
             </Swiper>
           ));
