@@ -18,7 +18,7 @@ SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 
 export default function HomeGroup({ posts, walktime }) {
   const router = useRouter();
-  const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
+  const [isLargerThan700] = useMediaQuery("(min-width: 600px)");
   const handleClick = (id) => {
     router.push({
       pathname: "homes/[id]",
@@ -100,10 +100,12 @@ export default function HomeGroup({ posts, walktime }) {
                   <Box>
                     <Flex>
                       <Price price={price} size={"1.8em"} />
-                      <Box ml={2}>
-                        <Text fontSize={"0.8em"}>敷:{price}</Text>
-                        <Text fontSize={"0.8em"}>礼:{price}</Text>
-                      </Box>
+                      {isLargerThan700 ? (
+                        <Box ml={2}>
+                          <Text fontSize={"0.8em"}>敷:{price}</Text>
+                          <Text fontSize={"0.8em"}>礼:{price}</Text>
+                        </Box>
+                      ) : null}
                     </Flex>
                   </Box>
                 </Box>
@@ -116,11 +118,19 @@ export default function HomeGroup({ posts, walktime }) {
         </SwiperSlide>
       );
     });
-    houseGroup = (
-      <Swiper navigation slidesPerView={3.2} freeMode={"true"}>
-        {house}
-      </Swiper>
-    );
+    {
+      isLargerThan700
+        ? (houseGroup = (
+            <Swiper navigation slidesPerView={3.2} freeMode={"true"}>
+              {house}
+            </Swiper>
+          ))
+        : (houseGroup = (
+            <Swiper navigation slidesPerView={2.2} freeMode={"true"}>
+              {house}
+            </Swiper>
+          ));
+    }
   }
 
   return (

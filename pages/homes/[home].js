@@ -63,12 +63,12 @@ export default function Home() {
       </Head>
 
       {data.map(({ id, name, price, location, time, images, doc, favo }) => (
-        <Flex key={id}>
+        <Box key={id} display={{ sm: "flex" }}>
           <Box
-            borderWidth="1px"
+            my="auto"
             borderRadius="lg"
             overflow=""
-            width={"60%"}
+            width={{ sm: "60%" }}
             key={id}
           >
             <Swiper
@@ -85,7 +85,6 @@ export default function Home() {
                         alt={image}
                         pb={8}
                         fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
-                        width={"100%"}
                         borderTopLeftRadius="md"
                         borderTopRightRadius="md"
                       />
@@ -137,15 +136,20 @@ export default function Home() {
               })}
             </Swiper>
           </Box>
-          <Spacer />
-          <Box width="38%">
-            <Box boxShadow="base" w="80%" borderRadius="md" p={(0, 3, 4, 3)}>
+          <Box m="auto" width={{ sm: "38%" }} mt="1em">
+            <Box
+              boxShadow="base"
+              borderRadius="md"
+              p={(0, 3, 4, 3)}
+              mx="auto"
+              textAlign="center"
+            >
               <Text fontSize={24} fontWeight="semibold">
                 {name}
               </Text>
               <Price price={price} size="2.5em" color="red.500" />
               <Box>
-                <Flex>
+                <Flex justifyContent="center">
                   <Box
                     fontSize={"1em"}
                     borderRadius="md"
@@ -172,23 +176,22 @@ export default function Home() {
                   <Box display="inline">0円</Box>
                 </Flex>
               </Box>
+              <Box mt={2} borderRadius="md" textAlign="left">
+                <FeatureBadge title="住所" />
+                <Text fontWeight="semibold" my={1} textAlign="center">
+                  {location}
+                </Text>
+                <FeatureBadge title="管理不動産" />
+                <Text fontWeight="semibold" my={1} textAlign="center">
+                  {name}不動産
+                </Text>
+              </Box>
             </Box>
-            <Box mt={2} borderRadius="md" display="">
-              <FeatureBadge title="住所" />
-              <Text fontWeight="semibold" my={1}>
-                {location}
-              </Text>
-            </Box>
-            <FeatureBadge title="管理不動産" />
-            <Text fontWeight="semibold" my={1}>
-              {name}不動産
-            </Text>
             <Box
               border="2px"
               borderStyle="semibold"
               borderRadius="lg"
               borderColor="teal.300"
-              height={"14em"}
               mt={"2em"}
             >
               <Box bg="teal.300" px={"2em"} textAlign="center">
@@ -203,13 +206,17 @@ export default function Home() {
                   お問い合わせはこちら
                 </Text>
               </Box>
-              <Box px={"1.3em"}>
-                <Box mt={"0.6em"}>
+              <Box mx={"1.3em"} textAlign="center">
+                <Box mt={"0.6em"} bg="yellow.100">
                   <Text fontWeight="semibold" mb={"0.5em"}>
                     電話でお問い合わせ
                   </Text>
-                  <Text fontWeight="extrabold" p={"0.6em"} as="mark">
-                    0000-000-000({name}不動産)
+                  <Text fontWeight="extrabold" display="inline" mb={"0.2em"}>
+                    0000-000-000
+                  </Text>
+                  <br />
+                  <Text fontWeight="extrabold" display="inline">
+                    ({name}不動産)
                   </Text>
                 </Box>
                 <Box mt={"0.9em"}>
@@ -220,6 +227,7 @@ export default function Home() {
                     colorScheme="green"
                     variant="solid"
                     size="md"
+                    mb={"1em"}
                     height={"2.6em"}
                     width={"10em"}
                     shadow="md"
@@ -231,7 +239,7 @@ export default function Home() {
               </Box>
             </Box>
           </Box>
-        </Flex>
+        </Box>
       ))}
     </>
   );
@@ -246,6 +254,7 @@ function FeatureBadge({ title, desc }) {
         fontWeight="semibold"
         bg="green.400"
         color="white"
+        shadow="md"
       >
         {title}
       </Badge>

@@ -21,7 +21,6 @@ export default function Header() {
             colorScheme="gray"
             _focus="none"
             _hover="none"
-            mr="0.2em"
           >
             お部屋探し
           </Button>
