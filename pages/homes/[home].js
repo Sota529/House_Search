@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -17,7 +17,18 @@ import {
   Button,
   useMediaQuery,
   Flex,
-  Spacer,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  Stack,
+  FormLabel,
+  Input,
+  InputGroup,
+  DrawerFooter,
 } from "@chakra-ui/react";
 
 import { EmailIcon } from "@chakra-ui/icons";
@@ -149,7 +160,7 @@ export default function Home() {
                   {name}
                 </Text>
                 <Box bg="" borderRadius="full">
-                  <HeartIcon favo={favo} doc={doc} size="2.5em"/>
+                  <HeartIcon favo={favo} doc={doc} size="2.5em" />
                   <Text fontSize="0.4em">いいね</Text>
                 </Box>
               </Flex>
@@ -229,18 +240,7 @@ export default function Home() {
                   <Text fontWeight="semibold" mb={"0.5em"}>
                     メールでお問い合わせ
                   </Text>
-                  <Button
-                    colorScheme="green"
-                    variant="solid"
-                    size="md"
-                    mb={"1em"}
-                    height={"2.6em"}
-                    width={"10em"}
-                    shadow="md"
-                  >
-                    <EmailIcon mr={"0.4em"} />
-                    お問い合わせ
-                  </Button>
+                  <MailDrawer />
                 </Box>
               </Box>
             </Box>
@@ -265,5 +265,70 @@ function FeatureBadge({ title, desc }) {
         {title}
       </Badge>
     </Box>
+  );
+}
+function MailDrawer() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const firstField = React.useRef();
+
+  return (
+    <>
+      <Button
+        colorScheme="green"
+        variant="solid"
+        size="md"
+        mb={"1em"}
+        height={"2.6em"}
+        width={"10em"}
+        shadow="md"
+        onClick={onOpen}
+      >
+        <EmailIcon mr={"0.4em"} />
+        お問い合わせ
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        initialFocusRef={firstField}
+        onClose={onClose}
+      >
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader borderBottomWidth="1px">送信フォーム</DrawerHeader>
+            <DrawerBody>
+              <Stack spacing="24px">
+                <Box>
+                  <FormLabel htmlFor="username">名前</FormLabel>
+                  <Input
+                    ref={firstField}
+                    id="username"
+                    placeholder="名前を入力してください"
+                  />
+                </Box>
+                <Box>
+                  <FormLabel htmlFor="mail">メールアドレス</FormLabel>
+                  <InputGroup>
+                    <Input
+                      type="mail"
+                      id="mail"
+                      placeholder="アドレスを入力してください"
+                    />
+                  </InputGroup>
+                </Box>
+              </Stack>
+            </DrawerBody>
+            <DrawerFooter borderTopWidth="1px">
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="blue" onClick={onClose}>
+                送信
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
+    </>
   );
 }
