@@ -25,7 +25,9 @@ export default function Favorite({ posts }) {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Heading textAlign="center" mb={"1em"}>お気に入り</Heading>
+      <Heading textAlign="center" mb={"1em"}>
+        お気に入り
+      </Heading>
       {isLargerThan500 ? (
         <>
           <Render posts={posts} wide={"30%"} />
@@ -39,9 +41,10 @@ export default function Favorite({ posts }) {
   );
 }
 
-function Render({ wide }) {
+function Render() {
   const router = useRouter();
   const [datas, setData] = useState([]);
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
   let house;
 
   useEffect(() => {
@@ -102,15 +105,15 @@ function Render({ wide }) {
                 key={images[0]}
               />
               <Box
-                position="absolute"
-                top="0"
-                left="0"
-                bg="salmon"
-                px="4"
-                py="2"
-                borderBottomRightRadius="10"
-                fontWeight="semibold"
-                color="white"
+                 position="absolute"
+                 top="0"
+                 left="0"
+                 bg="salmon"
+                 px={{ sm: "2em", md: "1em" }}
+                 py="2"
+                 borderBottomRightRadius="10"
+                 fontWeight="semibold"
+                 color="white"
               >
                 {time}分
               </Box>
@@ -129,18 +132,26 @@ function Render({ wide }) {
                   <Box>
                     <Flex>
                       <Price price={price} size={"1.8em"} />
-                      <Box ml={2}>
-                        <Text fontSize={"0.8em"}>敷金:{price}</Text>
-                        <Text fontSize={"0.8em"}>礼金:{price}</Text>
-                      </Box>
+                      {isLargerThan600 ? (
+                        <Box ml={2}>
+                          <Text fontSize={"0.8em"}>敷:{price}</Text>
+                          <Text fontSize={"0.8em"}>礼:{price}</Text>
+                        </Box>
+                      ) : null}
                     </Flex>
                   </Box>
                 </Box>
               </Box>
             </Box>
-            <Box position="absolute" bottom="4" right="6">
-              <HeartIcon favo={favo} doc={doc} />
+            {isLargerThan600 ? (
+            <Box position="absolute" bottom="2" right="6">
+              <HeartIcon favo={favo} doc={doc} size={"3em"} />
             </Box>
+          ) : (
+            <Box position="absolute" top="0" right="1">
+              <HeartIcon favo={favo} doc={doc} size={"2.2em"} />
+            </Box>
+          )}
           </Box>
         </React.Fragment>
       );
@@ -155,7 +166,7 @@ function Render({ wide }) {
   return (
     <>
       {house.length ? (
-        <SimpleGrid columns={2}  w={"90%"} mx="auto">
+        <SimpleGrid columns={2} w={"90%"} mx="auto">
           {house}
         </SimpleGrid>
       ) : (
