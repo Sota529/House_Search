@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Container, Box } from "@chakra-ui/react";
+import Header from "./header";
 function Layout({ children }) {
   return (
     <>
@@ -10,7 +11,8 @@ function Layout({ children }) {
           rel="stylesheet"
         />
       </Head>
-      <Box bg="gray.190">
+      <Box>
+        <Header />
         <Container py={16} maxW="container.lg">
           {children}
         </Container>

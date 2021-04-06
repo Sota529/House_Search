@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
-import { gethouselID, getOneData } from "../../lib/post";
+import React, { useEffect, useState } from "react";
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -13,16 +12,25 @@ import SwiperCore, {
 import {
   Badge,
   Box,
-  HStack,
-  Heading,
   Image,
-  Stack,
   Text,
   Button,
   useMediaQuery,
   Flex,
-  Spacer,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  Stack,
+  FormLabel,
+  Input,
+  InputGroup,
+  DrawerFooter,
 } from "@chakra-ui/react";
+
 import { EmailIcon } from "@chakra-ui/icons";
 
 //swiper cssをimport
@@ -36,7 +44,6 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 import axios from "axios";
 import { HeartIcon } from "../../components/Icons/HeartIcon";
-import Link from "next/link";
 import { Price } from "../../components/atoms/price";
 
 export default function Home() {
@@ -65,19 +72,14 @@ export default function Home() {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box display="block" align="right" mr={4} mb={2}>
-        <Link href="/favorite">
-          <Button>お気に入り</Button>
-        </Link>
-      </Box>
 
       {data.map(({ id, name, price, location, time, images, doc, favo }) => (
-        <Flex key={id}>
+        <Box key={id} display={{ sm: "flex" }}>
           <Box
-            borderWidth="1px"
+            my="auto"
             borderRadius="lg"
             overflow=""
-            width={"60%"}
+            width={{ sm: "60%" }}
             key={id}
           >
             <Swiper
@@ -93,7 +95,7 @@ export default function Home() {
                         src={image}
                         alt={image}
                         pb={8}
-                        width={"100%"}
+                        fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                         borderTopLeftRadius="md"
                         borderTopRightRadius="md"
                       />
@@ -132,6 +134,7 @@ export default function Home() {
                       src={image}
                       alt={images}
                       mb={3}
+                      fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                       borderRadius="md"
                       _hover={{
                         border: "2px",
@@ -144,22 +147,33 @@ export default function Home() {
               })}
             </Swiper>
           </Box>
-          <Spacer />
-          <Box width="38%">
-            <Box boxShadow="base" w="80%" borderRadius="md" p={(0, 3, 4, 3)}>
-              <Text fontSize={24} fontWeight="semibold">
-                {name}
-              </Text>
+          <Box m="auto" width={{ sm: "38%" }} mt="1em">
+            <Box
+              boxShadow="base"
+              borderRadius="md"
+              p={(0, 3, 4, 3)}
+              mx="auto"
+              textAlign="center"
+            >
+              <Flex justifyContent="space-around">
+                <Text fontSize={24} fontWeight="semibold">
+                  {name}
+                </Text>
+                <Box bg="" borderRadius="full">
+                  <HeartIcon favo={favo} doc={doc} size="2.5em" />
+                  <Text fontSize="0.4em">いいね</Text>
+                </Box>
+              </Flex>
               <Price price={price} size="2.5em" color="red.500" />
               <Box>
-                <Flex>
+                <Flex justifyContent="center">
                   <Box
                     fontSize={"1em"}
                     borderRadius="md"
                     fontWeight="semibold"
                     bg="gray.400"
                     color="white"
-                    p={0.2}
+                    p={"0.1em"}
                     mr={1}
                   >
                     敷
@@ -171,7 +185,7 @@ export default function Home() {
                     fontWeight="semibold"
                     bg="gray.400"
                     color="white"
-                    p={0.2}
+                    p={"0.1em"}
                     mx={1}
                   >
                     礼
@@ -179,23 +193,22 @@ export default function Home() {
                   <Box display="inline">0円</Box>
                 </Flex>
               </Box>
+              <Box mt={2} borderRadius="md" textAlign="left">
+                <FeatureBadge title="住所" />
+                <Text fontWeight="semibold" my={1} textAlign="center">
+                  {location}
+                </Text>
+                <FeatureBadge title="管理不動産" />
+                <Text fontWeight="semibold" my={1} textAlign="center">
+                  {name}不動産
+                </Text>
+              </Box>
             </Box>
-            <Box mt={2} borderRadius="md" display="">
-              <FeatureBadge title="住所" />
-              <Text fontWeight="semibold" my={1}>
-                {location}
-              </Text>
-            </Box>
-            <FeatureBadge title="管理不動産" />
-            <Text fontWeight="semibold" my={1}>
-              {name}不動産
-            </Text>
             <Box
               border="2px"
               borderStyle="semibold"
               borderRadius="lg"
               borderColor="teal.300"
-              height={"14em"}
               mt={"2em"}
             >
               <Box bg="teal.300" px={"2em"} textAlign="center">
@@ -210,35 +223,29 @@ export default function Home() {
                   お問い合わせはこちら
                 </Text>
               </Box>
-              <Box px={"1.3em"}>
-                <Box mt={"0.6em"}>
+              <Box mx={"1.3em"} textAlign="center">
+                <Box mt={"0.6em"} bg="yellow.100">
                   <Text fontWeight="semibold" mb={"0.5em"}>
                     電話でお問い合わせ
                   </Text>
-                  <Text fontWeight="extrabold" p={"0.6em"} as="mark">
-                    0000-000-000({name}不動産)
+                  <Text fontWeight="extrabold" display="inline" mb={"0.2em"}>
+                    0000-000-000
+                  </Text>
+                  <br />
+                  <Text fontWeight="extrabold" display="inline">
+                    ({name}不動産)
                   </Text>
                 </Box>
                 <Box mt={"0.9em"}>
                   <Text fontWeight="semibold" mb={"0.5em"}>
                     メールでお問い合わせ
                   </Text>
-                  <Button
-                    colorScheme="green"
-                    variant="solid"
-                    size="md"
-                    height={"2.6em"}
-                    width={"10em"}
-                    shadow="md"
-                  >
-                    <EmailIcon mr={"0.4em"} />
-                    お問い合わせ
-                  </Button>
+                  <MailDrawer />
                 </Box>
               </Box>
             </Box>
           </Box>
-        </Flex>
+        </Box>
       ))}
     </>
   );
@@ -253,9 +260,75 @@ function FeatureBadge({ title, desc }) {
         fontWeight="semibold"
         bg="green.400"
         color="white"
+        shadow="md"
       >
         {title}
       </Badge>
     </Box>
+  );
+}
+function MailDrawer() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const firstField = React.useRef();
+
+  return (
+    <>
+      <Button
+        colorScheme="green"
+        variant="solid"
+        size="md"
+        mb={"1em"}
+        height={"2.6em"}
+        width={"10em"}
+        shadow="md"
+        onClick={onOpen}
+      >
+        <EmailIcon mr={"0.4em"} />
+        お問い合わせ
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        initialFocusRef={firstField}
+        onClose={onClose}
+      >
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader borderBottomWidth="1px">送信フォーム</DrawerHeader>
+            <DrawerBody>
+              <Stack spacing="24px">
+                <Box>
+                  <FormLabel htmlFor="username">名前</FormLabel>
+                  <Input
+                    ref={firstField}
+                    id="username"
+                    placeholder="名前を入力してください"
+                  />
+                </Box>
+                <Box>
+                  <FormLabel htmlFor="mail">メールアドレス</FormLabel>
+                  <InputGroup>
+                    <Input
+                      type="mail"
+                      id="mail"
+                      placeholder="アドレスを入力してください"
+                    />
+                  </InputGroup>
+                </Box>
+              </Stack>
+            </DrawerBody>
+            <DrawerFooter borderTopWidth="1px">
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button colorScheme="blue" onClick={onClose}>
+                送信
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
+    </>
   );
 }

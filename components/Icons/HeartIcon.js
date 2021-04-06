@@ -16,7 +16,7 @@ export function HeartIcon({ favo, doc, size }) {
   }
   const Heart = (
     <Icon
-      boxSize={12}
+      boxSize={size}
       onClick={() => {
         handleClick(doc);
       }}
