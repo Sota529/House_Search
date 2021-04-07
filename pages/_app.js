@@ -1,22 +1,29 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { Center, ChakraProvider, Spinner } from "@chakra-ui/react";
 import Layout from "../components/templates/layout";
 import "../styles/globals.css";
-import React from "react";
-import Router from "next/router";
-import NProgress from "nprogress";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import "nprogress/nprogress.css";
 
-Router.events.on("routeChangeStart", () => NProgress.start());
-Router.events.on("routeChangeComplete", () => NProgress.done());
-Router.events.on("routeChangeError", () => NProgress.done());
-
 function MyApp({ Component, pageProps }) {
+  const [load, setload] = useState(true);
+  const router = useRouter();
+  router.events?.on("routeChangeStart", () => setload(true));
+  router.events?.on("routeChangeComplete", () => setload(false));
+  router.events?.on("routeChangeError", () => setload(false));
+
   return (
     <>
       <ChakraProvider>
-        <Layout>
-          <Component {...pageProps} />{" "}
-        </Layout>
+        {load ? (
+          <Center pos="absolute" top="50vh" left="50vw">
+            <Spinner size="xl" thickness="3px" />
+          </Center>
+        ) : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </ChakraProvider>
     </>
   );
