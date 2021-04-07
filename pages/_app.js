@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import "nprogress/nprogress.css";
 
 function MyApp({ Component, pageProps }) {
-  const [load, setload] = useState(true);
+  const [load, setload] = useState(false);
   const router = useRouter();
   router.events?.on("routeChangeStart", () => setload(true));
   router.events?.on("routeChangeComplete", () => setload(false));
