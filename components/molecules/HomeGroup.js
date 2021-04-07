@@ -18,7 +18,7 @@ SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 
 export default function HomeGroup({ posts, walktime }) {
   const router = useRouter();
-  const [isLargerThan700] = useMediaQuery("(min-width: 600px)");
+  const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
   const handleClick = (id) => {
     router.push({
       pathname: "homes/[id]",
@@ -51,7 +51,7 @@ export default function HomeGroup({ posts, walktime }) {
             overflow="hidden"
             borderRadius="lg"
             pos="relative"
-            w="8em"
+            minW="8em"
             _hover={{
               border: "2px",
               borderColor: "teal.300",
@@ -108,8 +108,8 @@ export default function HomeGroup({ posts, walktime }) {
               <HeartIcon favo={favo} doc={doc} size={"3em"} />
             </Box>
           ) : (
-            <Box position="absolute" top="4" right="5">
-              <HeartIcon favo={favo} doc={doc} size={"2.2em"} />
+            <Box position="absolute" bottom="7" right="2">
+              <HeartIcon favo={favo} doc={doc} size={"2.0em"} />
             </Box>
           )}
         </SwiperSlide>

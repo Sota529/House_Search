@@ -64,7 +64,6 @@ export default function HouseView() {
       <Heading align="center" isTruncated mb={6}>
         {router.query.Name}大学
       </Heading>
-      <Flex>
         <Text fontWeight="semibold" mr={21}>
           値段
         </Text>
@@ -84,7 +83,6 @@ export default function HouseView() {
             </Radio>
           </Stack>
         </RadioGroup>
-      </Flex>
       {Object.keys(datas).map((time) => {
         return (
           <Box key={time} my={2}>
