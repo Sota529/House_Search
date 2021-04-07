@@ -18,7 +18,7 @@ SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 
 export default function HomeGroup({ posts, walktime }) {
   const router = useRouter();
-  const [isLargerThan700] = useMediaQuery("(min-width: 600px)");
+  const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
   const handleClick = (id) => {
     router.push({
       pathname: "homes/[id]",
@@ -46,30 +46,31 @@ export default function HomeGroup({ posts, walktime }) {
         <SwiperSlide key={id}>
           <Box
             my={"1em"}
-            maxW="sm"
             rounded="md"
             boxShadow="md"
             overflow="hidden"
             borderRadius="lg"
             pos="relative"
+            minW="8em"
             _hover={{
               border: "2px",
               borderColor: "teal.300",
               cursor: "pointer",
             }}
             mr="1em"
+            onClick={() => {
+              handleClick(id);
+            }}
           >
-            <Box
-              onClick={() => {
-                handleClick(id);
-              }}
-            >
+            <Box>
               <Image
                 src={images[0]}
+                objectFit="cover"
                 fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                 alt="家の写真"
                 borderRadius="lg"
                 key={images[0]}
+                w="100%"
               />
               <Box
                 position="absolute"
@@ -84,30 +85,21 @@ export default function HomeGroup({ posts, walktime }) {
               >
                 {walktime}分
               </Box>
-              <Box p="0.4em">
-                <Box>
-                  <Box
-                    mt=""
-                    fontWeight="semibold"
-                    as="h4"
-                    lineHeight="tight"
-                    isTruncated
-                    display="block"
-                  >
-                    {name}
-                  </Box>
-                  <Box>
-                    <Flex>
-                      <Price price={price} size={"1.8em"} />
-                      {isLargerThan700 ? (
-                        <Box ml={2}>
-                          <Text fontSize={"0.8em"}>敷:{price}</Text>
-                          <Text fontSize={"0.8em"}>礼:{price}</Text>
-                        </Box>
-                      ) : null}
-                    </Flex>
-                  </Box>
-                </Box>
+            </Box>
+            <Box p="0.4em" h="5em">
+              <Box fontWeight="semibold" as="h4" display="block">
+                {name}
+              </Box>
+              <Box>
+                <Flex>
+                  <Price price={price} size={"1.8em"} />
+                  {isLargerThan700 ? (
+                    <Box ml={2}>
+                      <Text fontSize={"0.8em"}>敷:{price}</Text>
+                      <Text fontSize={"0.8em"}>礼:{price}</Text>
+                    </Box>
+                  ) : null}
+                </Flex>
               </Box>
             </Box>
           </Box>
@@ -116,8 +108,8 @@ export default function HomeGroup({ posts, walktime }) {
               <HeartIcon favo={favo} doc={doc} size={"3em"} />
             </Box>
           ) : (
-            <Box position="absolute" top="4" right="5">
-              <HeartIcon favo={favo} doc={doc} size={"2.2em"} />
+            <Box position="absolute" bottom="7" right="2">
+              <HeartIcon favo={favo} doc={doc} size={"2.0em"} />
             </Box>
           )}
         </SwiperSlide>
@@ -131,7 +123,7 @@ export default function HomeGroup({ posts, walktime }) {
             </Swiper>
           ))
         : (houseGroup = (
-            <Swiper navigation slidesPerView={2.4} freeMode={"true"}>
+            <Swiper navigation slidesPerView={2.2} freeMode={"true"}>
               {house}
             </Swiper>
           ));

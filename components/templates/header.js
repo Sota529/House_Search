@@ -37,16 +37,6 @@ export default function Header() {
             お気に入り
           </Button>
         </Link>
-        <Link href="/user/login">
-          <Button
-            variant="ghost"
-            colorScheme="gray"
-            _focus="none"
-            _hover={{ bg: "gray.200" }}
-          >
-            ログイン
-          </Button>
-        </Link>
       </Box>
     </Box>
   );
