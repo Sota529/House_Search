@@ -22,12 +22,6 @@ export default function HouseView() {
 
   const radioClick = async (e) => {
     setVal(e.target.value);
-    let cityname = router.query.Name;
-    let sortquery = e.target.value;
-    router.replace({
-      pathname: location.pathname,
-      query: { Name: cityname, sort: sortquery },
-    });
   };
 
   useEffect(() => {
