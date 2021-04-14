@@ -1,4 +1,4 @@
-import { Box, Button, Spacer } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function Header() {
@@ -27,6 +27,16 @@ export default function Header() {
         </Link>
       </Box>
       <Box>
+        <Link href="/login">
+          <Button
+            variant="ghost"
+            colorScheme="gray"
+            _focus="none"
+            _hover={{ bg: "gray.200" }}
+          >
+            ログイン
+          </Button>
+        </Link>
         <Link href="/favorite">
           <Button
             variant="ghost"
