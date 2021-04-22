@@ -33,6 +33,7 @@ const CustomInput = forwardRef((props, ref) => {
                 : props.type
             }
             size="lg"
+            value={props.value}
             //react-hook-form
             ref={ref}
             placeholder={props.holder}
