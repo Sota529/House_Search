@@ -27,7 +27,7 @@ export default function Header() {
         </Link>
       </Box>
       <Box>
-        <Link href="/login">
+        <Link href="/user/login">
           <Button
             variant="ghost"
             colorScheme="gray"

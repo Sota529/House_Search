@@ -1,19 +1,38 @@
-import { Box, Container, Heading, Icon } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Container, Heading, Icon, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import CustomInput from "../components/atoms/Input";
-
+import CustomInput from "../../components/atoms/Input";
+import { auth } from "../../lib/db";
+import { useRouter } from "next/router";
+import Link from "next/link";
 export default function Login() {
+  const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ mode: "all" });
 
-  const onSubmit = (data) => {
-    console.log("data");
-    console.log(data);
+  const onLogin = async (e) => {
+    try {
+      await auth
+        .createUserWithEmailAndPassword(e.email, e.password)
+        .then(() => {
+          alert("ユーザーの作成に成功しました");
+        });
+    } catch (err) {
+      alert(err.message);
+    }
   };
+  const handleButton=()=>{
+    router.push("/create")
+  }
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     user && router.push("/");
+  //   });
+  // }, []);
+
   return (
     <>
       <Container centerContent="true">
@@ -40,13 +59,14 @@ export default function Login() {
             />
           </svg>
         </Icon>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onLogin)}>
           <CustomInput
             label="メールアドレス"
             type="email"
             holder="アドレスを入力"
             isRequired
             //react-hook-form
+            register={register("email")}
             error={errors.email?.message}
           />
           <Box mb="1em" />
@@ -69,7 +89,13 @@ export default function Login() {
             error={errors.password?.message}
           />
           <Box mb="2em" />
-          <CustomInput type="submit" />
+          <CustomInput type="submit" value="ログイン" />
+          <Text textAlign="center" my="0.5em">OR</Text>
+          <Box textAlign="center" >
+            <Button size="lg"  type="submit" width="100%" colorScheme="orange" shadow="md" onClick={()=>handleButton()}>
+              新規作成
+            </Button>
+          </Box>
         </form>
       </Container>
     </>
