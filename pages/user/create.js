@@ -19,7 +19,7 @@ export default function Login() {
         .createUserWithEmailAndPassword(e.email, e.password)
         .then(() => {
           alert("ユーザーの作成に成功しました");
-          router.push("/");
+          router.push("/login");
         });
     } catch (err) {
       alert(err.message);
