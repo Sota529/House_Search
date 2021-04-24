@@ -1,7 +1,23 @@
 import { Box, Button } from "@chakra-ui/react";
 import Link from "next/link";
+import { useContext } from "react";
+import { auth } from "../../lib/db";
+import { AuthContext } from "../../pages/_app";
 
 export default function Header() {
+  const isLogin = useContext(AuthContext);
+  const Logout = () => {
+    auth
+      .signOut()
+      .then(() => {
+        if (confirm("ログアウトしますか？")) {
+          alert("ログアウトしました！Thank you!");
+        }
+      })
+      .catch((error) => {
+        console.log(`ログアウト時にエラーが発生しました (${error})`);
+      });
+  };
   return (
     <Box
       bg="gray.100"
@@ -27,26 +43,51 @@ export default function Header() {
         </Link>
       </Box>
       <Box>
-        <Link href="/user/login">
-          <Button
-            variant="ghost"
-            colorScheme="gray"
-            _focus="none"
-            _hover={{ bg: "gray.200" }}
-          >
-            ログイン
-          </Button>
-        </Link>
-        <Link href="/favorite">
-          <Button
-            variant="ghost"
-            colorScheme="gray"
-            _focus="none"
-            _hover={{ bg: "gray.200" }}
-          >
-            お気に入り
-          </Button>
-        </Link>
+        {isLogin === null ? (
+          <>
+            <Link href="/user/create">
+              <Button
+                colorScheme="blue"
+                _focus="none"
+                mr="0.2em"
+                _hover={{ bg: "gray.200" }}
+              >
+                新規登録
+              </Button>
+            </Link>
+            <Link href="/user/login">
+              <Button
+                variant="ghost"
+                colorScheme="gray"
+                _focus="none"
+                _hover={{ bg: "gray.200" }}
+              >
+                ログイン
+              </Button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Button
+              colorScheme="gray"
+              _focus="none"
+              _hover={{ bg: "gray.200" }}
+              onClick={() => Logout()}
+            >
+              ログアウト
+            </Button>
+            <Link href="/favorite">
+              <Button
+                variant="ghost"
+                colorScheme="gray"
+                _focus="none"
+                _hover={{ bg: "gray.200" }}
+              >
+                お気に入り
+              </Button>
+            </Link>
+          </>
+        )}
       </Box>
     </Box>
   );
