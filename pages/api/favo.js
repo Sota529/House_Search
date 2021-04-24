@@ -1,15 +1,16 @@
 import { db } from "../../lib/db";
+import { auth } from "../../lib/db";
 
 export default async (req, res) => {
-  const doc = req.query.id;
+  const docId = req.query.docId;
+  const UserId = req.query.UserId;
   const favo = req.query.favorite;
-  let que = Boolean("");
-  if (favo === "true") {
-    que = false;
-    {
-      que = true;
-    }
+  if (!UserId) {
+    return;
+  } else {
+    await db
+      .collection("users")
+      .doc(UserId)
+      .set({ favo: { [docId]: favo } }, { merge: true });
   }
-  await db.collection("houses").doc(doc).update({ favo: que });
-  res.send("更新しました");
 };
