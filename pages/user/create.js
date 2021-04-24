@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import CustomInput from "../../components/atoms/Input";
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
+
 export default function Login() {
   const router = useRouter();
   const {
@@ -18,14 +19,14 @@ export default function Login() {
         .createUserWithEmailAndPassword(e.email, e.password)
         .then(() => {
           alert("ユーザーの作成に成功しました");
-          router.back()
-          router.back()
+          router.back();
+          router.back();
         });
     } catch (err) {
       alert(err.message);
     }
   };
-  
+
   // useEffect(() => {
   //   auth.onAuthStateChanged((user) => {
   //     user && router.push("/");
@@ -88,7 +89,17 @@ export default function Login() {
             error={errors.password?.message}
           />
           <Box mb="2em" />
-          <CustomInput type="submit" value="作成する" />
+          <Box textAlign="center">
+            <Button
+              size="lg"
+              type="submit"
+              width="100%"
+              colorScheme="teal"
+              shadow="md"
+            >
+              新規作成
+            </Button>
+          </Box>{" "}
         </form>
       </Container>
     </>
