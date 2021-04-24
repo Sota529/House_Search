@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { Icon, createIcon } from "@chakra-ui/react";
+import { auth } from "../../../lib/db";
 
 export function HeartIcon({ favo, doc, size }) {
   const [isfavo, setFavo] = useState(favo);
@@ -9,7 +10,11 @@ export function HeartIcon({ favo, doc, size }) {
     setFavo(!isfavo);
     axios
       .get(`//${location.host}/api/favo`, {
-        params: { id: doc, favorite: !isfavo },
+        params: {
+          UserId: auth.currentUser?.uid,
+          docId: doc,
+          favorite: !isfavo,
+        },
       })
       .then((res) => {})
       .catch((error) => {});
