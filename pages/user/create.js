@@ -19,19 +19,12 @@ export default function Login() {
         .createUserWithEmailAndPassword(e.email, e.password)
         .then(() => {
           alert("ユーザーの作成に成功しました");
-          router.back();
-          router.back();
+          router.push("/");
         });
     } catch (err) {
       alert(err.message);
     }
   };
-
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     user && router.push("/");
-  //   });
-  // }, []);
 
   return (
     <>
