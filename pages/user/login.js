@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import CustomInput from "../../components/atoms/Input";
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
-import Link from "next/link";
 export default function Login() {
   const router = useRouter();
   const {
@@ -15,18 +14,18 @@ export default function Login() {
 
   const onLogin = async (e) => {
     try {
-      await auth
-        .createUserWithEmailAndPassword(e.email, e.password)
-        .then(() => {
-          alert("ユーザーの作成に成功しました");
-        });
+      await auth.signInWithEmailAndPassword(e.email, e.password).then(() => {
+        alert("ログイン成功しました");
+        router.push("/");
+      });
     } catch (err) {
+      alert("ログインに失敗しました");
       alert(err.message);
     }
   };
-  const handleButton=()=>{
-    router.push("/create")
-  }
+  const handleButton = () => {
+    router.push("/user/create");
+  };
   // useEffect(() => {
   //   auth.onAuthStateChanged((user) => {
   //     user && router.push("/");
@@ -79,20 +78,34 @@ export default function Login() {
             register={register("password", {
               minLength: {
                 value: 4,
-                message: "パスワードは4文字以上にしてください",
+                message: "パスワードは4文字です",
               },
               maxLength: {
                 value: 8,
-                message: "パスワードは8文字以下にしてください",
+                message: "パスワードは8文字以下です",
               },
             })}
             error={errors.password?.message}
           />
           <Box mb="2em" />
-          <CustomInput type="submit" value="ログイン" />
-          <Text textAlign="center" my="0.5em">OR</Text>
-          <Box textAlign="center" >
-            <Button size="lg"  type="submit" width="100%" colorScheme="orange" shadow="md" onClick={()=>handleButton()}>
+          <Box textAlign="center">
+            <Button size="lg" type="submit" width="100%" shadow="md">
+              ログイン
+            </Button>
+          </Box>
+          <Text textAlign="center" my="0.5em">
+            OR
+          </Text>
+          <Box textAlign="center">
+            <Button
+              size="lg"
+              type="submit"
+              width="100%"
+              bg="orange.300"
+              shadow="md"
+              _hover={{ bg: "orange.400" }}
+              onClick={() => handleButton()}
+            >
               新規作成
             </Button>
           </Box>
