@@ -1,6 +1,6 @@
 import { Text, Image, Box, useMediaQuery, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { HeartIcon } from "../Icons/HeartIcon";
+import { HeartIcon } from "../atoms/Icons/HeartIcon";
 //swiperをimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Scrollbar, A11y, Virtual } from "swiper";

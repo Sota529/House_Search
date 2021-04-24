@@ -11,7 +11,7 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { HeartIcon } from "../components/Icons/HeartIcon";
+import { HeartIcon } from "../components/atoms/Icons/HeartIcon";
 import { Price } from "../components/atoms/price";
 import axios from "axios";
 
