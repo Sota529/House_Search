@@ -4,14 +4,15 @@ import { HeartIcon } from "../atoms/Icons/HeartIcon";
 //swiperをimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Scrollbar, A11y, Virtual } from "swiper";
-import { useEffect, useState } from "react";
 
 //swiper cssをimport
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
+
 import { Price } from "../atoms/price";
+import { auth } from "../../lib/db";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
