@@ -43,7 +43,7 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 import axios from "axios";
-import { HeartIcon } from "../../components/Icons/HeartIcon";
+import { HeartIcon } from "../../components/atoms/Icons/HeartIcon";
 import { Price } from "../../components/atoms/price";
 
 export default function Home() {
