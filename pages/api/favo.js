@@ -14,8 +14,8 @@ export default async (req, res) => {
     return;
   } else {
     await db
-      .collection("users")
-      .doc(UserId)
-      .set({ favo: { [docId]: favo } }, { merge: true });
+      .collection("houses")
+      .doc(docId)
+      .set({ favo: [UserId] }, { merge: true });
   }
 };
