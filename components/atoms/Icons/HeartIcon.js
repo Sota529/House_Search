@@ -1,17 +1,18 @@
 import { Box } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
-import { Icon, createIcon } from "@chakra-ui/react";
-import { auth } from "../../../lib/db";
+import { useState, useContext } from "react";
+import { Icon } from "@chakra-ui/react";
+import { AuthContext } from "../../../pages/_app";
 
 export function HeartIcon({ favo, doc, size }) {
-  const [isfavo, setFavo] = useState(favo);
+  const UserId = useContext(AuthContext)?.uid;
+  const [isfavo, setFavo] = useState(favo?.includes(UserId));
   async function handleClick(doc) {
     setFavo(!isfavo);
     axios
       .get(`//${location.host}/api/favo`, {
         params: {
-          UserId: auth.currentUser?.uid,
+          UserId: UserId,
           docId: doc,
           favorite: !isfavo,
         },

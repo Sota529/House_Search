@@ -1,6 +1,5 @@
 import { db } from "../../lib/db";
-import { auth } from "../../lib/db";
-
+import firebase from "firebase";
 export default async (req, res) => {
   const docId = req.query.docId;
   const UserId = req.query.UserId;
@@ -13,9 +12,22 @@ export default async (req, res) => {
   if (!UserId) {
     return;
   } else {
-    await db
-      .collection("houses")
-      .doc(docId)
-      .set({ favo: [UserId] }, { merge: true });
+    if (favo === true) {
+      await db
+        .collection("houses")
+        .doc(docId)
+        .update({ favo: firebase.firestore.FieldValue.arrayUnion(UserId) })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      await db
+        .collection("houses")
+        .doc(docId)
+        .update({ favo: firebase.firestore.FieldValue.arrayRemove(UserId) })
+        .catch((error) => {
+          alert(error);
+        });
+    }
   }
 };
