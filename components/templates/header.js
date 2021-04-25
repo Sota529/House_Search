@@ -10,7 +10,9 @@ export default function Header() {
     auth
       .signOut()
       .then(() => {
-        if (confirm("ログアウトしますか？")) {
+        if (!confirm("ログアウトしますか？")) {
+          return;
+        } else {
           alert("ログアウトしました！Thank you!");
         }
       })
