@@ -7,18 +7,12 @@ import { AuthContext } from "../../pages/_app";
 export default function Header() {
   const isLogin = useContext(AuthContext);
   const Logout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        if (!confirm("ログアウトしますか？")) {
-          return;
-        } else {
-          alert("ログアウトしました！Thank you!");
-        }
-      })
-      .catch((error) => {
+    if (confirm("ログアウトしますか？")) {
+      auth.signOut();
+      alert("ログアウトしました！Thank you!").catch((error) => {
         console.log(`ログアウト時にエラーが発生しました (${error})`);
       });
+    }
   };
   return (
     <Box
@@ -52,7 +46,6 @@ export default function Header() {
                 colorScheme="blue"
                 _focus="none"
                 mr="0.2em"
-                _hover={{ bg: "gray.200" }}
               >
                 新規登録
               </Button>
