@@ -16,7 +16,7 @@ export default async (req, res) => {
       await db
         .collection("houses")
         .doc(docId)
-        .update({ favo: firebase.firestore.FieldValue.arrayUnion(UserId) })
+        .update({ favoUser: firebase.firestore.FieldValue.arrayUnion(UserId) })
         .catch((error) => {
           alert(error);
         });
@@ -24,7 +24,7 @@ export default async (req, res) => {
       await db
         .collection("houses")
         .doc(docId)
-        .update({ favo: firebase.firestore.FieldValue.arrayRemove(UserId) })
+        .update({ favoUser: firebase.firestore.FieldValue.arrayRemove(UserId) })
         .catch((error) => {
           alert(error);
         });

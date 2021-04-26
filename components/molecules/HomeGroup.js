@@ -42,7 +42,7 @@ export default function HomeGroup({ posts, walktime }) {
   let house;
   let houseGroup;
   {
-    house = posts.map(({ doc, id, name, price, images, favo }) => {
+    house = posts.map(({ doc, id, name, price, images, favoUser }) => {
       return (
         <SwiperSlide key={id}>
           <Box
@@ -106,11 +106,11 @@ export default function HomeGroup({ posts, walktime }) {
           </Box>
           {isLargerThan700 ? (
             <Box position="absolute" bottom="6" right="6">
-              <HeartIcon favo={favo} doc={doc} size={"3em"} />
+              <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
             </Box>
           ) : (
             <Box position="absolute" bottom="7" right="2">
-              <HeartIcon favo={favo} doc={doc} size={"2.0em"} />
+              <HeartIcon favo={favoUser} doc={doc} size={"2.0em"} />
             </Box>
           )}
         </SwiperSlide>
