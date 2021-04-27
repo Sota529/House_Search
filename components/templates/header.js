@@ -1,15 +1,18 @@
 import { Box, Button } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 import { auth } from "../../lib/db";
 import { AuthContext } from "../../pages/_app";
 
 export default function Header() {
+  const router = useRouter();
   const isLogin = useContext(AuthContext);
   const Logout = () => {
     if (confirm("ログアウトしますか？")) {
       auth.signOut();
-      alert("ログアウトしました！Thank you!").catch((error) => {
+      alert("ログアウトしました！Thank you!");
+      router.push("/").catch((error) => {
         console.log(`ログアウト時にエラーが発生しました (${error})`);
       });
     }
@@ -42,11 +45,7 @@ export default function Header() {
         {isLogin === null ? (
           <>
             <Link href="/user/create">
-              <Button
-                colorScheme="blue"
-                _focus="none"
-                mr="0.2em"
-              >
+              <Button colorScheme="blue" _focus="none" mr="0.2em">
                 新規登録
               </Button>
             </Link>
