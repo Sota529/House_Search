@@ -164,7 +164,7 @@ export default function Home() {
                   <Text fontSize="0.4em">いいね</Text>
                 </Box>
               </Flex>
-              <Price price={price} size="2.5em" color="red.500" />
+              <Price price={price} size="2.5em" />
               <Box>
                 <Flex justifyContent="center">
                   <Box
