@@ -11,7 +11,7 @@ export default function Login() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: "all" });
+  } = useForm({ mode: "onSubmit" });
 
   const onLogin = async (e) => {
     try {

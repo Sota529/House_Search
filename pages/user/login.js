@@ -4,13 +4,14 @@ import { useForm } from "react-hook-form";
 import CustomInput from "../../components/atoms/Input";
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
+
 export default function Login() {
   const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: "all" });
+  } = useForm({ mode: "onSubmit" });
 
   const onLogin = async (e) => {
     try {
@@ -26,11 +27,6 @@ export default function Login() {
   const handleButton = () => {
     router.push("/user/create");
   };
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     user && router.push("/");
-  //   });
-  // }, []);
 
   return (
     <>
@@ -78,7 +74,7 @@ export default function Login() {
             register={register("password", {
               minLength: {
                 value: 4,
-                message: "パスワードは4文字です",
+                message: "パスワードは4文字以上です",
               },
               maxLength: {
                 value: 8,
