@@ -39,7 +39,6 @@ export default function HouseView() {
             setData(result);
           }
         })
-        .then(console.log(datas))
         .catch((error) => {
           console.log(error);
         });
