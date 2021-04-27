@@ -1,22 +1,11 @@
 import { Box, Button } from "@chakra-ui/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useContext } from "react";
-import { auth } from "../../lib/db";
 import { AuthContext } from "../../pages/_app";
+import LogoutModal from "../atoms/LogoutModal";
 
 export default function Header() {
-  const router = useRouter();
   const isLogin = useContext(AuthContext);
-  const Logout = () => {
-    if (confirm("ログアウトしますか？")) {
-      auth.signOut();
-      alert("ログアウトしました！Thank you!");
-      router.push("/").catch((error) => {
-        console.log(`ログアウト時にエラーが発生しました (${error})`);
-      });
-    }
-  };
   return (
     <Box
       bg="gray.100"
@@ -62,14 +51,7 @@ export default function Header() {
           </>
         ) : (
           <>
-            <Button
-              colorScheme="gray"
-              _focus="none"
-              _hover={{ bg: "gray.200" }}
-              onClick={() => Logout()}
-            >
-              ログアウト
-            </Button>
+            <LogoutModal />
             <Link href="/favorite">
               <Button
                 variant="ghost"
