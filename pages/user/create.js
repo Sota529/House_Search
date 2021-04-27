@@ -1,4 +1,11 @@
-import { Box, Button, Container, Heading, Icon, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Icon,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CustomInput from "../../components/atoms/Input";
@@ -7,6 +14,7 @@ import { useRouter } from "next/router";
 
 export default function Login() {
   const router = useRouter();
+  const toast = useToast();
   const {
     register,
     formState: { errors },
@@ -18,11 +26,20 @@ export default function Login() {
       await auth
         .createUserWithEmailAndPassword(e.email, e.password)
         .then(() => {
-          alert("ユーザーの作成に成功しました");
-          router.push("/login");
+          toast({
+            title: "ユーザーを作成しました",
+            position: "top",
+            isClosable: true,
+          });
+          router.push("/user/login");
         });
     } catch (err) {
-      alert(err.message);
+      toast({
+        title: "ユーザーを作成に失敗しました",
+        position: "top",
+        status: "error",
+        isClosable: true,
+      });
     }
   };
 

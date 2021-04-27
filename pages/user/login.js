@@ -1,4 +1,12 @@
-import { Box, Button, Container, Heading, Icon, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Icon,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CustomInput from "../../components/atoms/Input";
@@ -7,6 +15,7 @@ import { useRouter } from "next/router";
 
 export default function Login() {
   const router = useRouter();
+  const toast = useToast();
   const {
     register,
     formState: { errors },
@@ -16,12 +25,30 @@ export default function Login() {
   const onLogin = async (e) => {
     try {
       await auth.signInWithEmailAndPassword(e.email, e.password).then(() => {
-        alert("ログイン成功しました");
+        toast({
+          title: "ログインしました",
+          position: "top",
+          isClosable: true,
+        });
         router.push("/");
       });
     } catch (err) {
-      alert("ログインに失敗しました");
-      alert(err.message);
+      if (err.code === "auth/wrong-password")
+        toast({
+          title: "ログインに失敗しました",
+          description: "パスワードが違います",
+          status: "error",
+          position: "top",
+          isClosable: true,
+        });
+      if (err.code === "auth/user-not-found")
+        toast({
+          title: "ログインに失敗しました",
+          description: "ユーザが存在しません",
+          status: "error",
+          position: "top",
+          isClosable: true,
+        });
     }
   };
   const handleButton = () => {
