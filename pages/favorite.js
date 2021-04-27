@@ -10,55 +10,32 @@ import {
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { HeartIcon } from "../components/atoms/Icons/HeartIcon";
 import { Price } from "../components/atoms/price";
 import axios from "axios";
+import { AuthContext } from "./_app";
 
-export default function Favorite({ posts }) {
-  const [isLargerThan500, isDisplayingInBrowser] = useMediaQuery(
-    "(min-width: 500px)"
-  );
-  return (
-    <>
-      <Head>
-        <title>おうちさがし</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Heading textAlign="center" mb={"1em"}>
-        お気に入り
-      </Heading>
-      {isLargerThan500 ? (
-        <>
-          <Render posts={posts} wide={"30%"} />
-        </>
-      ) : (
-        <>
-          <Render posts={posts} />
-        </>
-      )}
-    </>
-  );
-}
-
-function Render() {
+export default function Favorite() {
   const router = useRouter();
   const [datas, setData] = useState([]);
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
+  const UserId = useContext(AuthContext)?.uid;
   let house;
 
   useEffect(() => {
     let unmounted = false;
     (async () => {
       await axios
-        .get(`//${location.host}/api/getFavorite`)
+        .get(`//${location.host}/api/getFavorite`, {
+          params: { UserId: UserId },
+        })
         .then((res) => {
           const result = res.data.props.datas;
           if (!unmounted) {
             setData(result);
           }
         })
-        .then(console.log(datas))
         .catch((error) => {
           console.log(error);
         });
@@ -66,7 +43,7 @@ function Render() {
     return () => {
       unmounted = true;
     };
-  }, []);
+  }, [UserId]);
 
   const handleClick = (id) => {
     router.push({
@@ -74,8 +51,9 @@ function Render() {
       query: { id: id },
     });
   };
+
   {
-    house = datas.map(({ doc, id, name, price, images, favo, time }) => {
+    house = datas?.map(({ doc, id, name, price, images, favoUser, time }) => {
       return (
         <React.Fragment key={id}>
           <Box
@@ -105,15 +83,15 @@ function Render() {
                 key={images[0]}
               />
               <Box
-                 position="absolute"
-                 top="0"
-                 left="0"
-                 bg="salmon"
-                 px={{ sm: "2em", md: "1em" }}
-                 py="2"
-                 borderBottomRightRadius="10"
-                 fontWeight="semibold"
-                 color="white"
+                position="absolute"
+                top="0"
+                left="0"
+                bg="salmon"
+                px={{ sm: "2em", md: "1em" }}
+                py="2"
+                borderBottomRightRadius="10"
+                fontWeight="semibold"
+                color="white"
               >
                 {time}分
               </Box>
@@ -144,14 +122,14 @@ function Render() {
               </Box>
             </Box>
             {isLargerThan600 ? (
-            <Box position="absolute" bottom="2" right="6">
-              <HeartIcon favo={favo} doc={doc} size={"3em"} />
-            </Box>
-          ) : (
-            <Box position="absolute" top="0" right="1">
-              <HeartIcon favo={favo} doc={doc} size={"2.2em"} />
-            </Box>
-          )}
+              <Box position="absolute" bottom="2" right="6">
+                <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
+              </Box>
+            ) : (
+              <Box position="absolute" top="0" right="1">
+                <HeartIcon favo={favoUser} doc={doc} size={"2.2em"} />
+              </Box>
+            )}
           </Box>
         </React.Fragment>
       );
@@ -163,9 +141,17 @@ function Render() {
       お気に入りにした物件はありません
     </Text>
   );
+
   return (
     <>
-      {house.length ? (
+      <Head>
+        <title>おうちさがし</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Heading textAlign="center" mb={"1em"}>
+        お気に入り
+      </Heading>
+      {house?.length ? (
         <SimpleGrid columns={2} w={"90%"} mx="auto">
           {house}
         </SimpleGrid>

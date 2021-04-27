@@ -18,7 +18,7 @@ export default async (req, res) => {
         .doc(docId)
         .update({ favoUser: firebase.firestore.FieldValue.arrayUnion(UserId) })
         .catch((error) => {
-          alert(error);
+          console.log(error);
         });
     } else {
       await db
@@ -26,7 +26,7 @@ export default async (req, res) => {
         .doc(docId)
         .update({ favoUser: firebase.firestore.FieldValue.arrayRemove(UserId) })
         .catch((error) => {
-          alert(error);
+          console.log(error);
         });
     }
   }
