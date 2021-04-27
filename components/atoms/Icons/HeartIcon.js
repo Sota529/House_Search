@@ -1,13 +1,24 @@
-import { Box } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useContext } from "react";
 import { Icon } from "@chakra-ui/react";
 import { AuthContext } from "../../../pages/_app";
 
 export function HeartIcon({ favo, doc, size }) {
+  const toast = useToast();
   const UserId = useContext(AuthContext)?.uid;
   const [isfavo, setFavo] = useState(favo?.includes(UserId));
   async function handleClick(doc) {
+    if (!UserId) {
+      toast({
+        title: "いいねできません",
+        description: "ログインまたは新規登録してください",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
     setFavo(!isfavo);
     axios
       .get(`//${location.host}/api/favo`, {
