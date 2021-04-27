@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // swiperからimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -29,6 +29,7 @@ import {
   Input,
   InputGroup,
   DrawerFooter,
+  useToast,
 } from "@chakra-ui/react";
 
 import { EmailIcon } from "@chakra-ui/icons";
@@ -45,6 +46,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 import axios from "axios";
 import { HeartIcon } from "../../components/atoms/Icons/HeartIcon";
 import { Price } from "../../components/atoms/price";
+import { AuthContext } from "../_app";
 
 export default function Home() {
   const [isLargerThan1000] = useMediaQuery("(min-width: 1000px)");
@@ -73,7 +75,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {data.map(({ id, name, price, location, time, images, doc, favo }) => (
+      {data.map(({ id, name, price, location, time, images, doc, favoUser }) => (
         <React.Fragment key={id}>
           <Text
             fontSize={"2.5em"}
@@ -165,7 +167,7 @@ export default function Home() {
               >
                 <Flex justifyContent="space-around">
                   <Box bg="" borderRadius="full">
-                    <HeartIcon favo={favo} doc={doc} size="2.5em" />
+                    <HeartIcon favo={favoUser} doc={doc} size="2.5em" />
                     <Text fontSize="0.4em">いいね</Text>
                   </Box>
                 </Flex>
@@ -257,7 +259,7 @@ export default function Home() {
   );
 }
 
-function FeatureBadge({ title, desc }) {
+function FeatureBadge({ title }) {
   return (
     <Box width="100%" borderWidth="" borderRadius="lg">
       <Badge
@@ -276,7 +278,21 @@ function FeatureBadge({ title, desc }) {
 function MailDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
-
+  const UserId = useContext(AuthContext)?.uid;
+  const toast = useToast();
+  const handleClick = () => {
+    if (!UserId) {
+      toast({
+        title: "お問い合わせできません",
+        description: "ログインまたは新規登録してください",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+      return;
+    }
+    onOpen();
+  };
   return (
     <>
       <Button
@@ -287,7 +303,9 @@ function MailDrawer() {
         height={"2.6em"}
         width={"10em"}
         shadow="md"
-        onClick={onOpen}
+        onClick={() => {
+          handleClick();
+        }}
       >
         <EmailIcon mr={"0.4em"} />
         お問い合わせ
