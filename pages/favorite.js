@@ -110,26 +110,18 @@ export default function Favorite() {
                   <Box>
                     <Flex>
                       <Price price={price} size={"1.8em"} />
-                      {isLargerThan600 ? (
-                        <Box ml={2}>
-                          <Text fontSize={"0.8em"}>敷:{price}</Text>
-                          <Text fontSize={"0.8em"}>礼:{price}</Text>
-                        </Box>
-                      ) : null}
+                      <Box ml={2}>
+                        <Text fontSize={"0.8em"}>敷:{price}</Text>
+                        <Text fontSize={"0.8em"}>礼:{price}</Text>
+                      </Box>
                     </Flex>
                   </Box>
                 </Box>
               </Box>
             </Box>
-            {isLargerThan600 ? (
-              <Box position="absolute" bottom="2" right="6">
-                <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
-              </Box>
-            ) : (
-              <Box position="absolute" top="0" right="1">
-                <HeartIcon favo={favoUser} doc={doc} size={"2.2em"} />
-              </Box>
-            )}
+            <Box position="absolute" bottom="3" right="3">
+              <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
+            </Box>
           </Box>
         </React.Fragment>
       );
@@ -152,7 +144,7 @@ export default function Favorite() {
         お気に入り
       </Heading>
       {house?.length ? (
-        <SimpleGrid columns={2} w={"90%"} mx="auto">
+        <SimpleGrid columns={{ sm: 1, md: 2 }} w={"90%"} mx="auto">
           {house}
         </SimpleGrid>
       ) : (
