@@ -109,7 +109,7 @@ export default function HomeGroup({ posts, walktime }) {
               <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
             </Box>
           ) : (
-            <Box position="absolute" bottom="7" right="2">
+            <Box position="absolute" bottom="7" right="5">
               <HeartIcon favo={favoUser} doc={doc} size={"2.0em"} />
             </Box>
           )}
