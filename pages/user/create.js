@@ -1,23 +1,52 @@
-import { Box, Container, Heading, Icon } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Icon,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import CustomInput from "../components/atoms/Input";
+import CustomInput from "../../components/atoms/Input";
+import { auth } from "../../lib/db";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
+  const toast = useToast();
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: "all" });
+  } = useForm({ mode: "onSubmit" });
 
-  const onSubmit = (data) => {
-    console.log("data");
-    console.log(data);
+  const onLogin = async (e) => {
+    try {
+      await auth
+        .createUserWithEmailAndPassword(e.email, e.password)
+        .then(() => {
+          toast({
+            title: "ユーザーを作成しました",
+            position: "top",
+            isClosable: true,
+          });
+          router.push("/user/login");
+        });
+    } catch (err) {
+      toast({
+        title: "ユーザーを作成に失敗しました",
+        position: "top",
+        status: "error",
+        isClosable: true,
+      });
+    }
   };
+
   return (
     <>
       <Container centerContent="true">
-        <Heading as="h2">ログイン</Heading>
+        <Heading as="h2">新規登録</Heading>
         <Icon
           borderRadius="full"
           boxSize="150px"
@@ -40,13 +69,14 @@ export default function Login() {
             />
           </svg>
         </Icon>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onLogin)}>
           <CustomInput
             label="メールアドレス"
             type="email"
             holder="アドレスを入力"
             isRequired
             //react-hook-form
+            register={register("email")}
             error={errors.email?.message}
           />
           <Box mb="1em" />
@@ -69,7 +99,17 @@ export default function Login() {
             error={errors.password?.message}
           />
           <Box mb="2em" />
-          <CustomInput type="submit" />
+          <Box textAlign="center">
+            <Button
+              size="lg"
+              type="submit"
+              width="100%"
+              colorScheme="teal"
+              shadow="md"
+            >
+              新規作成
+            </Button>
+          </Box>{" "}
         </form>
       </Container>
     </>

@@ -1,17 +1,18 @@
 import { Text, Image, Box, useMediaQuery, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { HeartIcon } from "../Icons/HeartIcon";
+import { HeartIcon } from "../atoms/Icons/HeartIcon";
 //swiperをimport
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Scrollbar, A11y, Virtual } from "swiper";
-import { useEffect, useState } from "react";
 
 //swiper cssをimport
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
+
 import { Price } from "../atoms/price";
+import { auth } from "../../lib/db";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
@@ -41,7 +42,7 @@ export default function HomeGroup({ posts, walktime }) {
   let house;
   let houseGroup;
   {
-    house = posts.map(({ doc, id, name, price, images, favo }) => {
+    house = posts.map(({ doc, id, name, price, images, favoUser }) => {
       return (
         <SwiperSlide key={id}>
           <Box
@@ -105,11 +106,11 @@ export default function HomeGroup({ posts, walktime }) {
           </Box>
           {isLargerThan700 ? (
             <Box position="absolute" bottom="6" right="6">
-              <HeartIcon favo={favo} doc={doc} size={"3em"} />
+              <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
             </Box>
           ) : (
-            <Box position="absolute" bottom="7" right="2">
-              <HeartIcon favo={favo} doc={doc} size={"2.0em"} />
+            <Box position="absolute" bottom="7" right="5">
+              <HeartIcon favo={favoUser} doc={doc} size={"2.0em"} />
             </Box>
           )}
         </SwiperSlide>

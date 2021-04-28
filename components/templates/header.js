@@ -1,7 +1,23 @@
-import { Box, Button } from "@chakra-ui/react";
+import { HamburgerIcon, InfoOutlineIcon, StarIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  IconButton,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import Link from "next/link";
+import { useContext } from "react";
+import { AuthContext } from "../../pages/_app";
+import LogoutModal from "../atoms/LogoutModal";
 
 export default function Header() {
+  const isLogin = useContext(AuthContext);
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
+
   return (
     <Box
       bg="gray.100"
@@ -14,7 +30,7 @@ export default function Header() {
       display="flex"
       justifyContent="space-around"
     >
-      <Box>
+      <h1>
         <Link href="/">
           <Button
             variant="ghost"
@@ -25,29 +41,86 @@ export default function Header() {
             お部屋探し
           </Button>
         </Link>
-      </Box>
+      </h1>
       <Box>
-        <Link href="/login">
-          <Button
-            variant="ghost"
-            colorScheme="gray"
-            _focus="none"
-            _hover={{ bg: "gray.200" }}
-          >
-            ログイン
-          </Button>
-        </Link>
-        <Link href="/favorite">
-          <Button
-            variant="ghost"
-            colorScheme="gray"
-            _focus="none"
-            _hover={{ bg: "gray.200" }}
-          >
-            お気に入り
-          </Button>
-        </Link>
+        {isLogin === null ? (
+          isLargerThan600 ? (
+            <>
+              <Link href="/user/create">
+                <Button colorScheme="blue" _focus="none" mr="0.2em">
+                  新規登録
+                </Button>
+              </Link>
+              <Link href="/user/login">
+                <Button
+                  variant="ghost"
+                  colorScheme="gray"
+                  _focus="none"
+                  _hover={{ bg: "gray.200" }}
+                >
+                  ログイン
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <HamburgerMenu
+                values={[
+                  { link: "/user/create", title: "新規登録" },
+                  { link: "/user/login", title: "ログイン" },
+                ]}
+              />
+            </>
+          )
+        ) : isLargerThan600 ? (
+          <>
+            <LogoutModal />
+            <Link href="/favorite">
+              <Button
+                variant="ghost"
+                colorScheme="gray"
+                _focus="none"
+                _hover={{ bg: "gray.200" }}
+              >
+                お気に入り
+              </Button>
+            </Link>
+          </>
+        ) : (
+          <HamburgerMenu
+            values={[{ link: "/favorite", title: "お気に入り" }]}
+            Logout
+          />
+        )}
       </Box>
     </Box>
+  );
+}
+
+function HamburgerMenu(props) {
+  return (
+    <Menu closeOnSelect={false}>
+      <MenuButton
+        as={IconButton}
+        aria-label="Options"
+        icon={<HamburgerIcon boxSize="2em" />}
+        variant="ghost"
+      />
+      <MenuList>
+        {props.values.map((value) => {
+          return (
+            <Link href={value.link} key={value.title}>
+              <MenuItem icon={<StarIcon />}>{value.title}</MenuItem>
+            </Link>
+          );
+        })}
+        {props.Logout ? (
+          <Box py="0.4em" display="flex" pl="0.8em">
+            <InfoOutlineIcon my="auto" mr="0.57em" />
+            <LogoutModal Hamburger />
+          </Box>
+        ) : null}
+      </MenuList>
+    </Menu>
   );
 }
