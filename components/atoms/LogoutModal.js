@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  Box,
 } from "@chakra-ui/react";
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
@@ -25,14 +26,26 @@ export default function LogoutModal(props) {
 
   return (
     <>
-      <Button
-        colorScheme="gray"
-        _focus="none"
-        _hover={{ bg: "gray.200" }}
-        onClick={onOpen}
-      >
-        ログアウト
-      </Button>
+      {props.Hamburger ? (
+        <Box
+          // colorScheme="gray"
+          // _focus="none"
+          // _hover={{ bg: "gray.200" }}
+          onClick={onOpen}
+        >
+          ログアウト
+        </Box>
+      ) : (
+        <Button
+          colorScheme="gray"
+          _focus="none"
+          _hover={{ bg: "gray.200" }}
+          onClick={onOpen}
+        >
+          ログアウト
+        </Button>
+      )}
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
