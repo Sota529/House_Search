@@ -9,7 +9,7 @@ import SwiperCore, {
   A11y,
   Thumbs,
 } from "swiper";
-import { Box, Image, Text, Flex } from "@chakra-ui/react";
+import { Box, Image, Text, Flex, Heading } from "@chakra-ui/react";
 
 //swiper cssをimport
 import "swiper/swiper.min.css";
@@ -26,6 +26,7 @@ import { Price } from "../../components/atoms/price";
 import { AuthContext } from "../_app";
 import FeatureBadge from "../../components/atoms/FeatureBadge";
 import MailDrawer from "../../components/atoms/MailDrawer";
+import Map from "../../components/atoms/Map";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -56,14 +57,9 @@ export default function Home() {
       {data.map(
         ({ id, name, price, location, time, images, doc, favoUser }) => (
           <React.Fragment key={id}>
-            <Text
-              fontSize={"2.5em"}
-              fontWeight="semibold"
-              textAlign="center"
-              mb="0.5em"
-            >
+            <Heading mb="0.5em" textDecoration="underline">
               {name}
-            </Text>
+            </Heading>
             <Box display={{ md: "flex" }}>
               <Box
                 my=""
@@ -135,11 +131,21 @@ export default function Home() {
                     );
                   })}
                 </Swiper>
+                <Box mt="1em">
+                  <Heading mb="0.5em" textDecoration="underline">
+                    Maps
+                  </Heading>
+                  <Map />
+                </Box>
               </Box>
+              {/* 右の情報はここから */}
               <Box
                 ml="auto"
                 width={{ sm: "100%", md: "38%" }}
                 mt={{ base: "1em", md: "0" }}
+                pos="sticky"
+                top="10"
+                height="140px"
               >
                 <Box
                   boxShadow="base"
@@ -176,7 +182,7 @@ export default function Home() {
                       );
                     })}
                   </Flex>
-                  <Box mt={2}  textAlign="left">
+                  <Box mt={2} textAlign="left">
                     <FeatureBadge title="住所" value={location} />
                     <FeatureBadge title="管理不動産" value={`${name}不動産`} />
                   </Box>
