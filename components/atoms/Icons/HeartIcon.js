@@ -57,11 +57,20 @@ export function HeartIcon({ favo, doc, size }) {
   return (
     <>
       {isfavo ? (
-        <Box color="red.500" borderRadius="full" _hover={{ bg: "gray.200" }}>
+        <Box
+          color="red.500"
+          borderRadius="full"
+          _hover={{ bg: "gray.200" }}
+          display="inline-block"
+        >
           {Heart}
         </Box>
       ) : (
-        <Box borderRadius="full" _hover={{ bg: "red.100" }}>
+        <Box
+          borderRadius="full"
+          _hover={{ bg: "red.100" }}
+          display="inline-block"
+        >
           {Heart}
         </Box>
       )}

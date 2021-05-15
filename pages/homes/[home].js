@@ -9,28 +9,7 @@ import SwiperCore, {
   A11y,
   Thumbs,
 } from "swiper";
-import {
-  Box,
-  Image,
-  Text,
-  Button,
-  Flex,
-  useDisclosure,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  Stack,
-  FormLabel,
-  Input,
-  InputGroup,
-  DrawerFooter,
-  useToast,
-} from "@chakra-ui/react";
-
-import { EmailIcon } from "@chakra-ui/icons";
+import { Box, Image, Text, Flex } from "@chakra-ui/react";
 
 //swiper cssをimport
 import "swiper/swiper.min.css";
@@ -87,7 +66,7 @@ export default function Home() {
             </Text>
             <Box display={{ md: "flex" }}>
               <Box
-                my="auto"
+                my=""
                 borderRadius="lg"
                 width={{ sm: "100%", md: "60%" }}
                 key={id}
@@ -157,7 +136,11 @@ export default function Home() {
                   })}
                 </Swiper>
               </Box>
-              <Box m="auto" width={{ sm: "100%", md: "38%" }} mt="1em">
+              <Box
+                ml="auto"
+                width={{ sm: "100%", md: "38%" }}
+                mt={{ base: "1em", md: "0" }}
+              >
                 <Box
                   boxShadow="base"
                   borderRadius="md"
@@ -165,50 +148,37 @@ export default function Home() {
                   mx="auto"
                   textAlign="center"
                 >
-                  <Flex justifyContent="space-around">
-                    <Box bg="" borderRadius="full">
-                      <HeartIcon favo={favoUser} doc={doc} size="2.5em" />
-                      <Text fontSize="0.4em">いいね</Text>
-                    </Box>
-                  </Flex>
-                  <Price price={price} size="2.5em" />
-                  <Box>
-                    <Flex justifyContent="center">
-                      <Box
-                        fontSize={"1em"}
-                        borderRadius="md"
-                        fontWeight="semibold"
-                        bg="gray.400"
-                        color="white"
-                        p={"0.1em"}
-                        mr={1}
-                      >
-                        敷
-                      </Box>
-                      <Box display="inline">50000円</Box>
-                      <Box
-                        fontSize={"1em"}
-                        borderRadius="md"
-                        fontWeight="semibold"
-                        bg="gray.400"
-                        color="white"
-                        p={"0.1em"}
-                        mx={1}
-                      >
-                        礼
-                      </Box>
-                      <Box display="inline">0円</Box>
-                    </Flex>
+                  <Box mx="auto">
+                    <HeartIcon favo={favoUser} doc={doc} size="2.5em" />
+                    <Text fontSize="0.4em">いいね</Text>
                   </Box>
-                  <Box mt={2} borderRadius="md" textAlign="left">
-                    <FeatureBadge title="住所" />
-                    <Text fontWeight="semibold" my={1} textAlign="center">
-                      {location}
-                    </Text>
-                    <FeatureBadge title="管理不動産" />
-                    <Text fontWeight="semibold" my={1} textAlign="center">
-                      {name}不動産
-                    </Text>
+                  <Price price={price} size="2.5em" />
+                  <Flex justifyContent="center">
+                    {[
+                      { name: "敷", price: "5000" },
+                      { name: "礼", price: "0" },
+                    ].map((props) => {
+                      return (
+                        <>
+                          <Box
+                            fontSize={"1em"}
+                            borderRadius="md"
+                            fontWeight="semibold"
+                            bg="gray.400"
+                            color="white"
+                            p={"0.1em"}
+                            mr={1}
+                          >
+                            {props.name}
+                          </Box>
+                          <Box display="inline">{`${props.price}円`}</Box>
+                        </>
+                      );
+                    })}
+                  </Flex>
+                  <Box mt={2}  textAlign="left">
+                    <FeatureBadge title="住所" value={location} />
+                    <FeatureBadge title="管理不動産" value={`${name}不動産`} />
                   </Box>
                 </Box>
                 <Box
@@ -251,7 +221,7 @@ export default function Home() {
                       <Text fontWeight="semibold" mb={"0.5em"}>
                         メールでお問い合わせ
                       </Text>
-                      <MailDrawer userId={useContext(AuthContext)?.uid}/>
+                      <MailDrawer userId={useContext(AuthContext)?.uid} />
                     </Box>
                   </Box>
                 </Box>
@@ -263,6 +233,3 @@ export default function Home() {
     </>
   );
 }
-
-
-

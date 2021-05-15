@@ -1,6 +1,6 @@
-import { Badge, Box } from "@chakra-ui/layout";
+import { Badge, Box, Text } from "@chakra-ui/layout";
 
-const FeatureBadge = ({ title }) => {
+const FeatureBadge = (props) => {
   return (
     <Box width="100%" borderWidth="" borderRadius="lg">
       <Badge
@@ -11,8 +11,11 @@ const FeatureBadge = ({ title }) => {
         color="white"
         shadow="md"
       >
-        {title}
+        {props.title}
       </Badge>
+      <Text fontWeight="semibold" my={1} textAlign="center">
+        {props.value}
+      </Text>
     </Box>
   );
 };
