@@ -78,7 +78,7 @@ export default function HouseView() {
         </RadioGroup>
       {Object.keys(datas).map((time) => {
         return (
-          <Box key={time} my={2}>
+          <Box key={time} m="1em 0 2em">
               <HomeGroup walktime={time} posts={datas[time]} />
           </Box>
         );
