@@ -1,19 +1,9 @@
-import {
-  Heading,
-  Box,
-  Button,
-  RadioGroup,
-  Stack,
-  Radio,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
+import { Heading, Box, RadioGroup, Stack, Radio, Text } from "@chakra-ui/react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import HomeGroup from "../components/molecules/HomeGroup";
+import HomeGroup from "../components/molecules/HomeGroup.jsx";
 
 export default function HouseView() {
   const router = useRouter();
@@ -57,29 +47,29 @@ export default function HouseView() {
       <Heading align="center" isTruncated mb={6}>
         {router.query.Name}大学
       </Heading>
-        <Text fontWeight="semibold" mr={21}>
-          値段
-        </Text>
-        <RadioGroup onChange={setVal} value={val} defaultChecked="0">
-          <Stack direction="row">
-            <Radio value="0" colorScheme="green" onChange={radioClick}>
-              選択なし
-            </Radio>
-            <Radio value="50000" colorScheme="green" onChange={radioClick}>
-              ¥50,000以下
-            </Radio>
-            <Radio value="100000" colorScheme="green" onChange={radioClick}>
-              ¥100,000以下
-            </Radio>
-            <Radio value="150000" colorScheme="green" onChange={radioClick}>
-              ¥150,000以下
-            </Radio>
-          </Stack>
-        </RadioGroup>
+      <Text fontWeight="semibold" mr={21}>
+        値段
+      </Text>
+      <RadioGroup onChange={setVal} value={val} defaultChecked="0">
+        <Stack direction="row">
+          <Radio value="0" colorScheme="green" onChange={radioClick}>
+            選択なし
+          </Radio>
+          <Radio value="50000" colorScheme="green" onChange={radioClick}>
+            ¥50,000以下
+          </Radio>
+          <Radio value="100000" colorScheme="green" onChange={radioClick}>
+            ¥100,000以下
+          </Radio>
+          <Radio value="150000" colorScheme="green" onChange={radioClick}>
+            ¥150,000以下
+          </Radio>
+        </Stack>
+      </RadioGroup>
       {Object.keys(datas).map((time) => {
         return (
-          <Box key={time} my={2}>
-              <HomeGroup walktime={time} posts={datas[time]} />
+          <Box key={time} m="1em 0 2em">
+            <HomeGroup walktime={time} posts={datas[time]} />
           </Box>
         );
       })}
