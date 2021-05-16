@@ -14,7 +14,7 @@ function Layout({ children }) {
       </Head>
       <Box>
         <Header />
-        <Container m="4em auto " maxW="container.lg">
+        <Container m="4em auto " maxW="container.lg" minH="70vh">
           {children}
         </Container>
         <Footer />

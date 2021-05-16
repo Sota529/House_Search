@@ -127,7 +127,6 @@ export default function Favorite() {
         })
       ) : (
         <Box
-          minH="70vh"
           display="flex"
           justifyContent="center"
           alignItems="center"
