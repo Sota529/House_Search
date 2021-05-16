@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Container, Box } from "@chakra-ui/react";
-import Header from "./header";
+import Header from "./header.jsx";
 function Layout({ children }) {
   return (
     <>

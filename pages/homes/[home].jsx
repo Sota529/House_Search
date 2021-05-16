@@ -21,8 +21,8 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 import axios from "axios";
-import { HeartIcon } from "../../components/atoms/Icons/HeartIcon";
-import { Price } from "../../components/atoms/price";
+import { HeartIcon } from "../../components/atoms/Icons/HeartIcon.jsx";
+import { Price } from "../../components/atoms/price.jsx";
 import { AuthContext } from "../_app";
 import FeatureBadge from "../../components/atoms/FeatureBadge";
 import MailDrawer from "../../components/molecules/MailDrawer";

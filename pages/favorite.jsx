@@ -11,8 +11,8 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
-import { HeartIcon } from "../components/atoms/Icons/HeartIcon";
-import { Price } from "../components/atoms/price";
+import { HeartIcon } from "../components/atoms/Icons/HeartIcon.jsx";
+import { Price } from "../components/atoms/price.jsx";
 import axios from "axios";
 import { AuthContext } from "./_app";
 

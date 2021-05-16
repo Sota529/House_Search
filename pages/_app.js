@@ -1,5 +1,5 @@
 import { Center, ChakraProvider, Spinner } from "@chakra-ui/react";
-import Layout from "../components/templates/layout";
+import Layout from "../components/templates/layout.jsx";
 import React, { useState, createContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { auth } from "../lib/db";

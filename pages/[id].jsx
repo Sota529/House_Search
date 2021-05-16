@@ -1,19 +1,16 @@
 import {
   Heading,
   Box,
-  Button,
   RadioGroup,
   Stack,
   Radio,
   Text,
-  Flex,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import HomeGroup from "../components/molecules/HomeGroup";
+import HomeGroup from "../components/molecules/HomeGroup.jsx";
 
 export default function HouseView() {
   const router = useRouter();
