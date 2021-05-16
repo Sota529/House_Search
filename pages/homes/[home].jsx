@@ -71,6 +71,7 @@ export default function Home() {
                   navigation
                   pagination={{ clickable: true }}
                   thumbs={{ swiper: thumbsSwiper }}
+                  cssMode={true}
                 >
                   {images.map((image) => {
                     return (
@@ -110,6 +111,7 @@ export default function Home() {
                   watchSlidesVisibility
                   watchSlidesProgress
                   scrollbar={{ draggable: true }}
+                  cssMode={true}
                   onSwiper={setThumbsSwiper}
                 >
                   {images.map((image) => {
