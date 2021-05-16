@@ -143,9 +143,9 @@ export default function Home() {
               {/* 右の情報はここから */}
               <Box
                 ml="auto"
-                width={{ sm: "100%", md: "38%" }}
+                width={{ base: "100%", md: "38%" }}
                 mt={{ base: "1em", md: "0" }}
-                pos="sticky"
+                pos={{ base: "none", md: "sticky" }}
                 top="50"
                 bottom="-20"
                 h="100%"
