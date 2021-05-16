@@ -144,17 +144,17 @@ export default function Home() {
                 width={{ sm: "100%", md: "38%" }}
                 mt={{ base: "1em", md: "0" }}
                 pos="sticky"
-                top="10"
-                height="140px"
+                top="50"
+                bottom="-20"
+                h="100%"
               >
                 <Box
                   boxShadow="base"
                   borderRadius="md"
                   p={(0, 3, 4, 3)}
-                  mx="auto"
                   textAlign="center"
                 >
-                  <Box mx="auto">
+                  <Box>
                     <HeartIcon favo={favoUser} doc={doc} size="2.5em" />
                     <Text fontSize="0.4em">いいね</Text>
                   </Box>

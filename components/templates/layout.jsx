@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Container, Box } from "@chakra-ui/react";
 import Header from "./header.jsx";
+import Footer from "./footer.jsx";
 function Layout({ children }) {
   return (
     <>
@@ -13,9 +14,10 @@ function Layout({ children }) {
       </Head>
       <Box>
         <Header />
-        <Container py={16} maxW="container.lg">
+        <Container m="4em auto " maxW="container.lg">
           {children}
         </Container>
+        <Footer />
       </Box>
     </>
   );
