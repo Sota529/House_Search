@@ -1,4 +1,10 @@
-import { HamburgerIcon, InfoOutlineIcon, StarIcon } from "@chakra-ui/icons";
+import {
+  HamburgerIcon,
+  InfoOutlineIcon,
+  StarIcon,
+  AddIcon,
+  CheckIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -66,8 +72,16 @@ export default function Header() {
             <>
               <HamburgerMenu
                 values={[
-                  { link: "/user/create", title: "新規登録" },
-                  { link: "/user/login", title: "ログイン" },
+                  {
+                    Icon: <AddIcon />,
+                    link: "/user/create",
+                    title: "新規登録",
+                  },
+                  {
+                    Icon: <CheckIcon />,
+                    link: "/user/login",
+                    title: "ログイン",
+                  },
                 ]}
               />
             </>
@@ -88,7 +102,9 @@ export default function Header() {
           </>
         ) : (
           <HamburgerMenu
-            values={[{ link: "/favorite", title: "お気に入り" }]}
+            values={[
+              { Icon: <StarIcon />, link: "/favorite", title: "お気に入り" },
+            ]}
             Logout
           />
         )}
@@ -99,7 +115,7 @@ export default function Header() {
 
 function HamburgerMenu(props) {
   return (
-    <Menu closeOnSelect={false}>
+    <Menu closeOnSelect={false} autoSelect={false}>
       <MenuButton
         as={IconButton}
         aria-label="Options"
@@ -110,12 +126,18 @@ function HamburgerMenu(props) {
         {props.values.map((value) => {
           return (
             <Link href={value.link} key={value.title}>
-              <MenuItem icon={<StarIcon />}>{value.title}</MenuItem>
+              <MenuItem icon={value.Icon}>{value.title}</MenuItem>
             </Link>
           );
         })}
         {props.Logout ? (
-          <Box py="0.4em" display="flex" pl="0.8em">
+          <Box
+            py="0.4em"
+            display="flex"
+            pl="0.8em"
+            cursor="pointer"
+            _hover={{ bg: "gray.100" }}
+          >
             <InfoOutlineIcon my="auto" mr="0.57em" />
             <LogoutModal Hamburger />
           </Box>
