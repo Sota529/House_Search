@@ -25,7 +25,7 @@ import { HeartIcon } from "../../components/atoms/Icons/HeartIcon";
 import { Price } from "../../components/atoms/price";
 import { AuthContext } from "../_app";
 import FeatureBadge from "../../components/atoms/FeatureBadge";
-import MailDrawer from "../../components/atoms/MailDrawer";
+import MailDrawer from "../../components/molecules/MailDrawer";
 import Map from "../../components/atoms/Map";
 
 export default function Home() {
@@ -133,7 +133,7 @@ export default function Home() {
                 </Swiper>
                 <Box mt="1em">
                   <Heading mb="0.5em" textDecoration="underline">
-                    Maps
+                    Map
                   </Heading>
                   <Map />
                 </Box>
