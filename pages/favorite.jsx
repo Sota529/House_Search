@@ -1,4 +1,4 @@
-import { Heading, Box, Image, Flex, Text } from "@chakra-ui/react";
+import { Heading, Box, Image, Flex, Text, Textarea } from "@chakra-ui/react";
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ export default function Favorite() {
   const router = useRouter();
   const [datas, setData] = useState([]);
   const UserId = useContext(AuthContext)?.uid;
-
+  const [comments, setComments] = useState({});
   useEffect(() => {
     let unmounted = false;
     (async () => {
@@ -20,8 +20,8 @@ export default function Favorite() {
         .get(`//${location.host}/api/getFavorite`, {
           params: { UserId: UserId },
         })
-        .then((res) => {
-          const result = res.data.props.datas;
+        .then(async (res) => {
+          const result = await res.data.props;
           if (!unmounted) {
             setData(result);
           }
@@ -42,6 +42,17 @@ export default function Favorite() {
     });
   };
 
+  const handleChange = (e, id) => {
+    setComments(e.target.value);
+    const comment=e.target.value
+    setTimeout(async () => {
+      await axios.get(`//${location.host}/api/updateComment`, {
+        params:  { [id]: comment} ,
+      });
+      console.log({ [id]: comment});
+    }, 1000);
+  };
+
   return (
     <>
       <Head>
@@ -51,13 +62,18 @@ export default function Favorite() {
       <Heading textAlign="center" mb={"1em"}>
         お気に入り
       </Heading>
-      {datas?.length ? (
-        datas?.map(({ doc, id, name, price, images, favoUser, time }) => {
+      {datas?.length !== 0 ? (
+        datas.datas?.map(({ doc, id, name, price, images, favoUser, time }) => {
           return (
-            <React.Fragment key={id}>
+            <Box
+              key={id}
+              display={{ base: "inline-block", md: "flex" }}
+              justifyContent="center"
+              mx={{ base: "auto", md: "0" }}
+            >
               <Box
-                my={4}
-                maxW="sm"
+                m={{ base: "0 0 1em", md: "0 1em 2em 0" }}
+                maxW="md"
                 rounded="md"
                 boxShadow="md"
                 overflow="hidden"
@@ -68,7 +84,6 @@ export default function Favorite() {
                   borderColor: "teal.300",
                   cursor: "pointer",
                 }}
-                mr="5"
               >
                 <Box
                   onClick={() => {
@@ -122,16 +137,31 @@ export default function Favorite() {
                   <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
                 </Box>
               </Box>
-            </React.Fragment>
+              {datas.comments?.map((comment) => {
+                return (
+                  <>
+                    <Textarea
+                      maxW="md"
+                      mb={{ base: "2em", md: "0" }}
+                      placeholder="どこが気に入ったか"
+                      colorScheme="blackAlpha"
+                      focusBorderColor="gray"
+                      value={comment.id === id ? comment.comment : comments[id]}
+                      onChange={(e) => handleChange(e, id)}
+                    />
+                  </>
+                );
+              })}
+            </Box>
           );
         })
       ) : (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text fontSize="3xl">お気に入りにした物件は<br/>ありません</Text>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Text fontSize="3xl">
+            お気に入りにした物件は
+            <br />
+            ありません
+          </Text>
         </Box>
       )}
     </>
