@@ -1,4 +1,14 @@
-import { Heading, Box, Image, Flex, Text, Textarea } from "@chakra-ui/react";
+import {
+  Heading,
+  Box,
+  Image,
+  Flex,
+  Text,
+  Textarea,
+  Button,
+  Center,
+  useToast,
+} from "@chakra-ui/react";
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -7,12 +17,21 @@ import { HeartIcon } from "../components/atoms/Icons/HeartIcon.jsx";
 import { Price } from "../components/atoms/price.jsx";
 import axios from "axios";
 import { AuthContext } from "./_app";
+import { useForm } from "react-hook-form";
 
-export default function Favorite() {
+const Favorite = () => {
   const router = useRouter();
   const [datas, setData] = useState([]);
   const UserId = useContext(AuthContext)?.uid;
   const [comments, setComments] = useState({});
+  const toast = useToast();
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ mode: "onSubmit" });
+
   useEffect(() => {
     let unmounted = false;
     (async () => {
@@ -21,7 +40,7 @@ export default function Favorite() {
           params: { UserId: UserId },
         })
         .then(async (res) => {
-          const result = await res.data.props;
+          const result = await res.data.props.datas;
           if (!unmounted) {
             setData(result);
           }
@@ -42,15 +61,22 @@ export default function Favorite() {
     });
   };
 
-  const handleChange = (e, id) => {
-    setComments(e.target.value);
-    const comment=e.target.value
-    setTimeout(async () => {
-      await axios.get(`//${location.host}/api/updateComment`, {
-        params:  { [id]: comment} ,
+  const PostComment = async (e, HouseId) => {
+    const Comment = e[HouseId];
+    await axios
+      .get(`//${location.host}/api/updateComment`, {
+        params: { HouseId: HouseId, Comment: Comment, UserId: UserId },
+      })
+      .then(() => {
+        toast({
+          title: "保存しました",
+          position: "top",
+          isClosable: true,
+        });
+      })
+      .catch((errors) => {
+        console.log(errors);
       });
-      console.log({ [id]: comment});
-    }, 1000);
   };
 
   return (
@@ -63,98 +89,105 @@ export default function Favorite() {
         お気に入り
       </Heading>
       {datas?.length !== 0 ? (
-        datas.datas?.map(({ doc, id, name, price, images, favoUser, time }) => {
-          return (
-            <Box
-              key={id}
-              display={{ base: "inline-block", md: "flex" }}
-              justifyContent="center"
-              mx={{ base: "auto", md: "0" }}
-            >
+        datas.map(
+          ({ doc, id, name, price, images, favoUser, time, comment }) => {
+            return (
               <Box
-                m={{ base: "0 0 1em", md: "0 1em 2em 0" }}
-                maxW="md"
-                rounded="md"
-                boxShadow="md"
-                overflow="hidden"
-                borderRadius="lg"
-                pos="relative"
-                _hover={{
-                  border: "2px",
-                  borderColor: "teal.300",
-                  cursor: "pointer",
-                }}
+                key={id}
+                display={{ base: "inline-block", md: "flex" }}
+                justifyContent="center"
+                mx={{ base: "auto", md: "0" }}
               >
                 <Box
-                  onClick={() => {
-                    handleClick(id);
+                  m={{ base: "0 0 1em", md: "0 1em 2em 0" }}
+                  maxW="md"
+                  rounded="md"
+                  boxShadow="md"
+                  overflow="hidden"
+                  borderRadius="lg"
+                  pos="relative"
+                  _hover={{
+                    border: "2px",
+                    borderColor: "teal.300",
+                    cursor: "pointer",
                   }}
                 >
-                  <Image
-                    src={images[0]}
-                    alt="家の写真"
-                    width="100%"
-                    key={images[0]}
-                  />
                   <Box
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    bg="salmon"
-                    px={{ sm: "2em", md: "1em" }}
-                    py="2"
-                    borderBottomRightRadius="10"
-                    fontWeight="semibold"
-                    color="white"
+                    onClick={() => {
+                      handleClick(id);
+                    }}
                   >
-                    {time}分
-                  </Box>
-                  <Box p={2}>
-                    <Box>
-                      <Box
-                        mt=""
-                        fontWeight="semibold"
-                        as="h4"
-                        lineHeight="tight"
-                        isTruncated
-                        display="block"
-                      >
-                        {name}
-                      </Box>
+                    <Image
+                      src={images[0]}
+                      alt="家の写真"
+                      width="100%"
+                      key={images[0]}
+                    />
+                    <Box
+                      position="absolute"
+                      top="0"
+                      left="0"
+                      bg="salmon"
+                      px={{ sm: "2em", md: "1em" }}
+                      py="2"
+                      borderBottomRightRadius="10"
+                      fontWeight="semibold"
+                      color="white"
+                    >
+                      {time}分
+                    </Box>
+                    <Box p={2}>
                       <Box>
-                        <Flex>
-                          <Price price={price} size={"1.8em"} />
-                          <Box ml={2}>
-                            <Text fontSize={"0.8em"}>敷:{price}</Text>
-                            <Text fontSize={"0.8em"}>礼:{price}</Text>
-                          </Box>
-                        </Flex>
+                        <Box
+                          mt=""
+                          fontWeight="semibold"
+                          as="h4"
+                          lineHeight="tight"
+                          isTruncated
+                          display="block"
+                        >
+                          {name}
+                        </Box>
+                        <Box>
+                          <Flex>
+                            <Price price={price} size={"1.8em"} />
+                            <Box ml={2}>
+                              <Text fontSize={"0.8em"}>敷:{price}</Text>
+                              <Text fontSize={"0.8em"}>礼:{price}</Text>
+                            </Box>
+                          </Flex>
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
+                  <Box position="absolute" bottom="3" right="3">
+                    <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
+                  </Box>
                 </Box>
-                <Box position="absolute" bottom="3" right="3">
-                  <HeartIcon favo={favoUser} doc={doc} size={"3em"} />
-                </Box>
-              </Box>
-              {datas.comments?.map((comment) => {
-                return (
-                  <>
-                    <Textarea
-                      maxW="md"
+
+                <form onSubmit={handleSubmit((e) => PostComment(e, id))}>
+                  <Textarea
+                    w="md"
+                    placeholder="どこが気に入ったか"
+                    colorScheme="blackAlpha"
+                    focusBorderColor="gray"
+                    {...register(id)}
+                    defaultValue={comment ? comment : null}
+                  />
+                  <Center>
+                    <Button
+                      type="submit "
                       mb={{ base: "2em", md: "0" }}
-                      placeholder="どこが気に入ったか"
-                      colorScheme="blackAlpha"
-                      focusBorderColor="gray"
-                      value={comment.id === id ? comment.comment : comments[id]}
-                      onChange={(e) => handleChange(e, id)}
-                    />
-                  </>
-                );
-              })}
-            </Box>
-          );
-        })
+                      display="block"
+                    >
+                      保存
+                    </Button>
+                  </Center>
+                </form>
+              </Box>
+            );
+          }
+        )
       ) : (
         <Box display="flex" justifyContent="center" alignItems="center">
           <Text fontSize="3xl">
@@ -166,4 +199,5 @@ export default function Favorite() {
       )}
     </>
   );
-}
+};
+export default Favorite;
