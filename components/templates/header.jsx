@@ -42,7 +42,6 @@ export default function Header() {
             variant="ghost"
             colorScheme="gray"
             _focus={{ border: "none" }}
-            _hover="none"
           >
             お部屋探し
           </Button>
