@@ -1,4 +1,4 @@
-import { Heading, Box, RadioGroup, Stack, Radio, Text } from "@chakra-ui/react";
+import { Heading, Box, RadioGroup, Stack, Radio, Text, Center, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -9,33 +9,26 @@ export default function HouseView() {
   const router = useRouter();
   const [datas, setData] = useState({});
   const [val, setVal] = useState("0");
-
+  const [loading, setLoading] = useState(true);
   const radioClick = async (e) => {
     setVal(e.target.value);
   };
 
-  useEffect(() => {
-    let unmounted = false;
-    (async () => {
-      const Sort = val;
-      const Area = location.pathname.slice(1);
-      await axios
-        .get(`//${location.host}/api/get`, {
-          params: { id: Area, sort: Sort },
-        })
-        .then((res) => {
-          const result = res.data.props.processedData;
-          if (!unmounted) {
-            setData(result);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
-    return () => {
-      unmounted = true;
-    };
+  useEffect(async () => {
+    const Sort = val;
+    const Area = location.pathname.slice(1);
+    await axios
+      .get(`//${location.host}/api/get`, {
+        params: { id: Area, sort: Sort },
+      })
+      .then((res) => {
+        const result = res.data.props.processedData;
+        setData(result);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [val]);
 
   return (
@@ -44,35 +37,43 @@ export default function HouseView() {
         <title>おうちさがし</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Heading align="center" isTruncated mb={6}>
-        {router.query.Name}大学
-      </Heading>
-      <Text fontWeight="semibold" mr={21}>
-        値段
-      </Text>
-      <RadioGroup onChange={setVal} value={val} defaultChecked="0">
-        <Stack direction="row">
-          <Radio value="0" colorScheme="green" onChange={radioClick}>
-            選択なし
-          </Radio>
-          <Radio value="50000" colorScheme="green" onChange={radioClick}>
-            ¥50,000以下
-          </Radio>
-          <Radio value="100000" colorScheme="green" onChange={radioClick}>
-            ¥100,000以下
-          </Radio>
-          <Radio value="150000" colorScheme="green" onChange={radioClick}>
-            ¥150,000以下
-          </Radio>
-        </Stack>
-      </RadioGroup>
-      {Object.keys(datas).map((time) => {
-        return (
-          <Box key={time} m="1em 0 2em">
-            <HomeGroup walktime={time} posts={datas[time]} />
-          </Box>
-        );
-      })}
+      {loading ? (
+        <Center>
+          <Spinner size="xl" thickness="3px" />
+        </Center>
+      ) : (
+        <>
+          <Heading align="center" isTruncated mb={6}>
+            {router.query.Name}大学
+          </Heading>
+          <Text fontWeight="semibold" mr={21}>
+            値段
+          </Text>
+          <RadioGroup onChange={setVal} value={val} defaultChecked="0">
+            <Stack direction="row">
+              <Radio value="0" colorScheme="green" onChange={radioClick}>
+                選択なし
+              </Radio>
+              <Radio value="50000" colorScheme="green" onChange={radioClick}>
+                ¥50,000以下
+              </Radio>
+              <Radio value="100000" colorScheme="green" onChange={radioClick}>
+                ¥100,000以下
+              </Radio>
+              <Radio value="150000" colorScheme="green" onChange={radioClick}>
+                ¥150,000以下
+              </Radio>
+            </Stack>
+          </RadioGroup>
+          {Object.keys(datas).map((time) => {
+            return (
+              <Box key={time} m="1em 0 2em">
+                <HomeGroup walktime={time} posts={datas[time]} />
+              </Box>
+            );
+          })}
+        </>
+      )}
     </>
   );
 }
