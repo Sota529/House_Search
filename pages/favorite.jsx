@@ -89,7 +89,7 @@ const Favorite = () => {
         お気に入り
       </Heading>
       {datas?.length !== 0 ? (
-        datas.map(
+        datas?.map(
           ({ doc, id, name, price, images, favoUser, time, comment }) => {
             return (
               <Box
