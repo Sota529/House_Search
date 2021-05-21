@@ -40,6 +40,7 @@ const Favorite = () => {
       .then((res) => {
         const result = res.data.props.datas;
         setData(result);
+        console.log(result)
         setLoading(false);
       })
       .catch((error) => {
@@ -86,7 +87,7 @@ const Favorite = () => {
         <Center>
           <Spinner size="xl" thickness="3px" />
         </Center>
-      ) : datas ? (
+      ) : datas.length ? (
         datas?.map(
           ({ doc, id, name, price, images, favoUser, time, comment }) => {
             return (
