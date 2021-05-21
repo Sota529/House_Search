@@ -8,10 +8,10 @@ import {
   Button,
   Center,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
-import React from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import React, { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
 import { HeartIcon } from "../components/atoms/Icons/HeartIcon.jsx";
 import { Price } from "../components/atoms/price.jsx";
@@ -23,7 +23,7 @@ const Favorite = () => {
   const router = useRouter();
   const [datas, setData] = useState([]);
   const UserId = useContext(AuthContext)?.uid;
-  const [comments, setComments] = useState({});
+  const [loading, setLoading] = useState(true);
   const toast = useToast();
 
   const {
@@ -32,26 +32,19 @@ const Favorite = () => {
     handleSubmit,
   } = useForm({ mode: "onSubmit" });
 
-  useEffect(() => {
-    let unmounted = false;
-    (async () => {
-      await axios
-        .get(`//${location.host}/api/getFavorite`, {
-          params: { UserId: UserId },
-        })
-        .then(async (res) => {
-          const result = await res.data.props.datas;
-          if (!unmounted) {
-            setData(result);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
-    return () => {
-      unmounted = true;
-    };
+  useEffect(async () => {
+    await axios
+      .get(`//${location.host}/api/getFavorite`, {
+        params: { UserId: UserId },
+      })
+      .then((res) => {
+        const result = res.data.props.datas;
+        setData(result);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [UserId]);
 
   const handleClick = (id) => {
@@ -63,20 +56,21 @@ const Favorite = () => {
 
   const PostComment = async (e, HouseId) => {
     const Comment = e[HouseId];
-    await axios
-      .get(`//${location.host}/api/updateComment`, {
-        params: { HouseId: HouseId, Comment: Comment, UserId: UserId },
-      })
-      .then(() => {
-        toast({
-          title: "保存しました",
-          position: "top",
-          isClosable: true,
+    try {
+      await axios
+        .get(`//${location.host}/api/updateComment`, {
+          params: { HouseId: HouseId, Comment: Comment, UserId: UserId },
+        })
+        .then(() => {
+          toast({
+            title: "保存しました",
+            position: "bottom",
+            isClosable: true,
+          });
         });
-      })
-      .catch((errors) => {
-        console.log(errors);
-      });
+    } catch (errors) {
+      console.log(errors);
+    }
   };
 
   return (
@@ -88,7 +82,11 @@ const Favorite = () => {
       <Heading textAlign="center" mb={"1em"}>
         お気に入り
       </Heading>
-      {datas?.length !== 0 ? (
+      {loading ? (
+        <Center>
+          <Spinner size="xl" thickness="3px" />
+        </Center>
+      ) : datas ? (
         datas?.map(
           ({ doc, id, name, price, images, favoUser, time, comment }) => {
             return (
