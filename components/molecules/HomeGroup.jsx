@@ -46,7 +46,6 @@ export default function HomeGroup({ posts, walktime }) {
         <Text>{walktime}分</Text>
       </Box>
       <Swiper
-        navigation
         slidesPerView="2.2"
         breakpoints={{ 720: { slidesPerView: 3.2 } }}
         freeMode={true}
