@@ -41,7 +41,7 @@ export default function Header() {
           <Button
             variant="ghost"
             colorScheme="gray"
-            _focus="none"
+            _focus={{ border: "none" }}
             _hover="none"
           >
             お部屋探し
@@ -61,7 +61,7 @@ export default function Header() {
                 <Button
                   variant="ghost"
                   colorScheme="gray"
-                  _focus="none"
+                  _focus={{ border: "none" }}
                   _hover={{ bg: "gray.200" }}
                 >
                   ログイン
@@ -93,7 +93,7 @@ export default function Header() {
               <Button
                 variant="ghost"
                 colorScheme="gray"
-                _focus="none"
+                _focus={{ border: "none" }}
                 _hover={{ bg: "gray.200" }}
               >
                 お気に入り
