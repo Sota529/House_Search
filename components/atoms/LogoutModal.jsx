@@ -38,7 +38,7 @@ export default function LogoutModal(props) {
       ) : (
         <Button
           colorScheme="gray"
-          _focus="none"
+          _focus={{ border: "none" }}
           _hover={{ bg: "gray.200" }}
           onClick={onOpen}
         >
