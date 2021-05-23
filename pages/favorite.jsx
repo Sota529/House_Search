@@ -40,7 +40,6 @@ const Favorite = () => {
       .then((res) => {
         const result = res.data.props.datas;
         setData(result);
-        console.log(result)
         setLoading(false);
       })
       .catch((error) => {
@@ -62,15 +61,20 @@ const Favorite = () => {
         .get(`//${location.host}/api/updateComment`, {
           params: { HouseId: HouseId, Comment: Comment, UserId: UserId },
         })
-        .then(() => {
+        .then(
           toast({
             title: "保存しました",
-            position: "bottom",
+            position: "top",
             isClosable: true,
-          });
-        });
-    } catch (errors) {
-      console.log(errors);
+          })
+        );
+    } catch (error) {
+      toast({
+        title: "保存できませんでした",
+        position: "top",
+        status: error,
+        isClosable: true,
+      });
     }
   };
 
