@@ -1,27 +1,34 @@
-import { Heading, Box, RadioGroup, Stack, Radio, Text, Center, Spinner } from "@chakra-ui/react";
+import {
+  Heading,
+  Box,
+  RadioGroup,
+  Stack,
+  Radio,
+  Text,
+  Center,
+  Spinner,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import axios, { AxiosResponse } from "axios";
 import HomeGroup from "../components/molecules/HomeGroup.jsx";
+import { NextPage } from "next";
 
-export default function HouseView() {
+const Id: NextPage = () => {
   const router = useRouter();
-  const [datas, setData] = useState({});
-  const [val, setVal] = useState("0");
-  const [loading, setLoading] = useState(true);
-  const radioClick = async (e) => {
-    setVal(e.target.value);
-  };
+  const [datas, setData] = useState<Object>({});
+  const [val, setVal] = useState<any>("0");
+  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(async () => {
+  useEffect(() => {
     const Sort = val;
     const Area = location.pathname.slice(1);
-    await axios
+    axios
       .get(`//${location.host}/api/get`, {
         params: { id: Area, sort: Sort },
       })
-      .then((res) => {
+      .then((res: AxiosResponse<any>) => {
         const result = res.data.props.processedData;
         setData(result);
         setLoading(false);
@@ -49,18 +56,18 @@ export default function HouseView() {
           <Text fontWeight="semibold" mr={21}>
             値段
           </Text>
-          <RadioGroup onChange={setVal} value={val} defaultChecked="0">
+          <RadioGroup onChange={setVal} value={val} defaultChecked={val}>
             <Stack direction="row">
-              <Radio value="0" colorScheme="green" onChange={radioClick}>
+              <Radio value="0" colorScheme="green">
                 選択なし
               </Radio>
-              <Radio value="50000" colorScheme="green" onChange={radioClick}>
+              <Radio value="50000" colorScheme="green">
                 ¥50,000以下
               </Radio>
-              <Radio value="100000" colorScheme="green" onChange={radioClick}>
+              <Radio value="100000" colorScheme="green">
                 ¥100,000以下
               </Radio>
-              <Radio value="150000" colorScheme="green" onChange={radioClick}>
+              <Radio value="150000" colorScheme="green">
                 ¥150,000以下
               </Radio>
             </Stack>
@@ -76,4 +83,6 @@ export default function HouseView() {
       )}
     </>
   );
-}
+};
+
+export default Id;
