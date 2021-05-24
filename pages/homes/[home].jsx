@@ -33,7 +33,7 @@ import { HeartIcon } from "../../components/atoms/Icons/HeartIcon";
 import { Price } from "../../components/atoms/price";
 import { AuthContext } from "../_app";
 import { FeatureBadge } from "../../components/atoms/FeatureBadge";
-import MailDrawer from "../../components/molecules/MailDrawer";
+import { MailDrawer } from "../../components/molecules/MailDrawer.tsx";
 import { Map } from "../../components/atoms/Map.tsx";
 
 export default function Home() {

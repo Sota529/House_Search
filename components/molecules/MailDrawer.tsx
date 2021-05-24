@@ -1,4 +1,4 @@
-import React from "react";
+import React, { VFC } from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useToast } from "@chakra-ui/toast";
 import { Button } from "@chakra-ui/button";
@@ -16,7 +16,11 @@ import { Box, Stack } from "@chakra-ui/layout";
 import { FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup } from "@chakra-ui/input";
 
-const MailDrawer = (props) => {
+type MailDrawerType = {
+  userId: string;
+};
+
+export const MailDrawer: VFC<MailDrawerType> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
   const UserId = props.userId;
@@ -97,4 +101,3 @@ const MailDrawer = (props) => {
     </>
   );
 };
-export default MailDrawer;

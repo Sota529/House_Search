@@ -12,7 +12,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import HomeGroup from "../components/molecules/HomeGroup.jsx";
+import { HomeGroup } from "../components/molecules/HomeGroup";
 import { NextPage } from "next";
 
 const Id: NextPage = () => {
