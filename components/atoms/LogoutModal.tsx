@@ -1,4 +1,4 @@
-import React from "react";
+import React, { VFC } from "react";
 import {
   Button,
   useDisclosure,
@@ -14,7 +14,11 @@ import {
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
 
-export default function LogoutModal(props) {
+type LogoutType = {
+  Hamburger: boolean;
+};
+
+export const LogoutModal: VFC<LogoutType> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const Logout = () => {
@@ -27,14 +31,7 @@ export default function LogoutModal(props) {
   return (
     <>
       {props.Hamburger ? (
-        <Box
-          // colorScheme="gray"
-          // _focus="none"
-          // _hover={{ bg: "gray.200" }}
-          onClick={onOpen}
-        >
-          ログアウト
-        </Box>
+        <Box onClick={onOpen}>ログアウト</Box>
       ) : (
         <Button
           colorScheme="gray"
@@ -69,4 +66,4 @@ export default function LogoutModal(props) {
       </Modal>
     </>
   );
-}
+};

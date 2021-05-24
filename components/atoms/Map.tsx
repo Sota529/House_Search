@@ -1,5 +1,5 @@
 import { GoogleMap, LoadScript, Marker, Circle } from "@react-google-maps/api";
-
+import type { VFC } from "react";
 const containerStyle = {
   width: "100%",
   height: "400px",
@@ -28,7 +28,7 @@ const circleOptions = {
   zIndex: 1,
 };
 
-const Map = () => {
+export const Map: VFC = () => {
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_Google_API_KEY}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
@@ -38,4 +38,3 @@ const Map = () => {
     </LoadScript>
   );
 };
-export default Map;

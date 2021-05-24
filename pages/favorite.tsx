@@ -14,7 +14,7 @@ import Head from "next/head";
 import React, { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
 import { HeartIcon } from "../components/atoms/Icons/HeartIcon.jsx";
-import { Price } from "../components/atoms/price.jsx";
+import { Price } from "../components/atoms/price";
 import axios from "axios";
 import { AuthContext } from "./_app";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 const Favorite = () => {
   const router = useRouter();
   const [datas, setData] = useState<[]>([]);
-  const UserId = useContext(AuthContext).uid;
+  const UserId = useContext(AuthContext)?.uid;
   const [loading, setLoading] = useState<boolean>(true);
   const toast = useToast();
   const {

@@ -18,7 +18,7 @@ import {
 import Link from "next/link";
 import { useContext } from "react";
 import { AuthContext } from "../../pages/_app";
-import LogoutModal from "../atoms/LogoutModal.jsx";
+import {LogoutModal} from "../atoms/LogoutModal.tsx";
 
 export default function Header() {
   const isLogin = useContext(AuthContext);

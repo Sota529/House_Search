@@ -11,7 +11,7 @@ import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
 
-import { Price } from "../atoms/price.jsx";
+import { Price } from "../atoms/price";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
