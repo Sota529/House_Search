@@ -21,19 +21,18 @@ import { useForm } from "react-hook-form";
 
 const Favorite = () => {
   const router = useRouter();
-  const [datas, setData] = useState([]);
-  const UserId = useContext(AuthContext)?.uid;
-  const [loading, setLoading] = useState(true);
+  const [datas, setData] = useState<[]>([]);
+  const UserId = useContext(AuthContext).uid;
+  const [loading, setLoading] = useState<boolean>(true);
   const toast = useToast();
-
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ mode: "onSubmit" });
 
-  useEffect(async () => {
-    await axios
+  useEffect(() => {
+    axios
       .get(`//${location.host}/api/getFavorite`, {
         params: { UserId: UserId },
       })
@@ -47,21 +46,21 @@ const Favorite = () => {
       });
   }, [UserId]);
 
-  const handleClick = (id) => {
+  const handleClick = (id: string) => {
     router.push({
       pathname: "homes/[id]",
       query: { id: id },
     });
   };
 
-  const PostComment = async (e, HouseId) => {
+  const PostComment = async (e: any, HouseId: string) => {
     const Comment = e[HouseId];
     try {
       await axios
         .get(`//${location.host}/api/updateComment`, {
           params: { HouseId: HouseId, Comment: Comment, UserId: UserId },
         })
-        .then(
+        .then(() =>
           toast({
             title: "保存しました",
             position: "top",
@@ -179,7 +178,7 @@ const Favorite = () => {
                   />
                   <Center>
                     <Button
-                      type="submit "
+                      type="submit"
                       mb={{ base: "2em", md: "0" }}
                       display="block"
                     >
