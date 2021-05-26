@@ -4,8 +4,12 @@ import React, { useState, createContext, useEffect } from "react";
 import { auth } from "../lib/db";
 import { AppProps } from "next/app";
 
-export const AuthContext = createContext({ currentUser: undefined });
+type AuthType = {
+  currentUser?: any;
+  uid?: any;
+};
 
+export const AuthContext = createContext<AuthType>({ currentUser: undefined });
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   useEffect(() => {
@@ -17,7 +21,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <ChakraProvider>
-        <AuthContext.Provider value={currentUser}>
+        <AuthContext.Provider value={{ currentUser: currentUser }}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
