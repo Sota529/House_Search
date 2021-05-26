@@ -48,7 +48,7 @@ export const Header: VFC = () => {
         {isLogin === null ? (
           isLargerThan600 ? (
             <>
-              <Link href="/user/create">
+              <Link href="/user/signup">
                 <Button
                   colorScheme="blue"
                   _focus={{ border: "none" }}
@@ -57,7 +57,7 @@ export const Header: VFC = () => {
                   新規登録
                 </Button>
               </Link>
-              <Link href="/user/login">
+              <Link href="/user/signin">
                 <Button
                   variant="ghost"
                   colorScheme="gray"
