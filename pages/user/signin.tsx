@@ -14,7 +14,7 @@ import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
-export const Signin: NextPage = () => {
+ const Signin: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
   const {
@@ -138,3 +138,4 @@ export const Signin: NextPage = () => {
     </>
   );
 };
+export default Signin

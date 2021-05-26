@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <ChakraProvider>
-        <AuthContext.Provider value={{ currentUser: currentUser }}>
+        <AuthContext.Provider value={currentUser}>
           <Layout>
             <Component {...pageProps} />
           </Layout>

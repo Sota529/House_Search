@@ -13,7 +13,7 @@ import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
-export const Signup: NextPage = () => {
+const Signup: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
   const {
@@ -116,3 +116,4 @@ export const Signup: NextPage = () => {
     </>
   );
 };
+export default Signup;
