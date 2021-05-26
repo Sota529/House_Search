@@ -58,7 +58,7 @@ export const HomeGroup: VFC<HomeGroupType> = ({ posts, walktime }) => {
         cssMode={true}
       >
         {posts.length
-          ? posts.map(({ doc, id, name, price, images, favoUser }) => {
+          ? posts.map(({ doc, id, name, price, thumbnail, favoUser }) => {
               return (
                 <SwiperSlide key={id}>
                   <Box
@@ -81,12 +81,11 @@ export const HomeGroup: VFC<HomeGroupType> = ({ posts, walktime }) => {
                   >
                     <Box>
                       <Image
-                        src={images[0]}
+                        src={thumbnail}
                         objectFit="cover"
                         fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                         alt="家の写真"
                         borderRadius="lg"
-                        key={images[0]}
                         w="100%"
                       />
                       <Box
