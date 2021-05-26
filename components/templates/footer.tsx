@@ -1,7 +1,6 @@
 import { Box } from "@chakra-ui/layout";
+import { VFC } from "react";
 
-const Footer = () => {
+export const Footer: VFC = () => {
   return <Box bg="gray" h="200px"></Box>;
 };
-
-export default Footer;

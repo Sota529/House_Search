@@ -14,11 +14,7 @@ import {
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
 
-type LogoutType = {
-  Hamburger: boolean;
-};
-
-export const LogoutModal: VFC<LogoutType> = (props) => {
+export const LogoutModal: VFC<{ Hamburger?: boolean }> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   const Logout = () => {

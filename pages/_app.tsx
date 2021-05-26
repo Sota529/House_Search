@@ -2,12 +2,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "../components/templates/layout";
 import React, { useState, createContext, useEffect } from "react";
 import { auth } from "../lib/db";
+import { AppProps } from "next/app";
 
 export const AuthContext = createContext({ currentUser: undefined });
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   const [currentUser, setCurrentUser] = useState(undefined);
-
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       setCurrentUser(user);
@@ -25,5 +25,5 @@ function MyApp({ Component, pageProps }) {
       </ChakraProvider>
     </>
   );
-}
+};
 export default MyApp;

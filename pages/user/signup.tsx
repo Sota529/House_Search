@@ -6,13 +6,14 @@ import {
   Icon,
   useToast,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import CustomInput from "../../components/atoms/Input";
+import { CustomInput } from "../../components/atoms/CustomInput";
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
 
-export default function Login() {
+export const Signup: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
   const {
@@ -45,7 +46,7 @@ export default function Login() {
 
   return (
     <>
-      <Container centerContent="true">
+      <Container centerContent={true}>
         <Heading as="h2">新規登録</Heading>
         <Icon
           borderRadius="full"
@@ -109,9 +110,9 @@ export default function Login() {
             >
               新規作成
             </Button>
-          </Box>{" "}
+          </Box>
         </form>
       </Container>
     </>
   );
-}
+};

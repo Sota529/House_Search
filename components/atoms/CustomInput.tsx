@@ -12,16 +12,13 @@ import {
 import { useState } from "react";
 
 type InputType = {
-  error: boolean;
-  isRequired: boolean;
+  error?: boolean;
+  isRequired?: boolean;
   label: string;
   type: string;
-  value: string;
   holder: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur: React.FocusEventHandler<HTMLInputElement>;
-  register: React.PropsWithChildren<InputType>;
-  ref: any;
+  register: any;
+  ref?: any;
 };
 
 export const CustomInput: VFC<InputType> = forwardRef((props, ref) => {
@@ -46,13 +43,10 @@ export const CustomInput: VFC<InputType> = forwardRef((props, ref) => {
                 : props.type
             }
             size="lg"
-            value={props.value}
             variant="flushed"
             //react-hook-form
             ref={ref}
             placeholder={props.holder}
-            onChange={props.onChange}
-            onBlur={props.onBlur}
             {...props.register}
           />
           {props.type === "password" ? (
