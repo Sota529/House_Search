@@ -1,27 +1,23 @@
 import { Box, Text } from "@chakra-ui/layout";
+import type {  VFC } from "react";
 
-export const Price = ({ price, size, color }) => {
+type PriceType = {
+  price: number;
+  size: string;
+};
+export const Price: VFC<PriceType> = ({ price, size }) => {
   const StringPrice = String(price);
-  let First;
-  let Second;
-  let result;
+  let First: string, Second: string;
+  let result: any;
   if (StringPrice.length === 5) {
     First = StringPrice.slice(0, 1);
     Second = StringPrice.slice(1, 2);
     result = (
       <Text>
-        <Box
-          fontWeight={"semibold"}
-          display="inline"
-          fontSize={size}
-          color={color}
-        >
+        <Box fontWeight={"semibold"} display="inline" fontSize={size}>
           {First}
         </Box>
-        .
-        <Box as="span" color={color}>
-          {Second}
-        </Box>
+        .<Box as="span">{Second}</Box>
         万円
       </Text>
     );

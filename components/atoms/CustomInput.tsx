@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, VFC } from "react";
 import {
   Box,
   Text,
@@ -11,7 +11,17 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-const CustomInput = forwardRef((props, ref) => {
+type InputType = {
+  error?: boolean;
+  isRequired?: boolean;
+  label: string;
+  type: string;
+  holder: string;
+  register: any;
+  ref?: any;
+};
+
+export const CustomInput: VFC<InputType> = forwardRef((props, ref) => {
   const [show, setShow] = useState(false);
   const handlePassword = () => {
     setShow(!show);
@@ -33,13 +43,10 @@ const CustomInput = forwardRef((props, ref) => {
                 : props.type
             }
             size="lg"
-            value={props.value}
             variant="flushed"
             //react-hook-form
             ref={ref}
             placeholder={props.holder}
-            onChange={props.onChange}
-            onBlur={props.onBlur}
             {...props.register}
           />
           {props.type === "password" ? (
@@ -64,5 +71,3 @@ const CustomInput = forwardRef((props, ref) => {
     </>
   );
 });
-
-export default CustomInput;

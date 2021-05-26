@@ -1,8 +1,14 @@
 import { Badge, Box, Text } from "@chakra-ui/layout";
+import { VFC } from "react";
 
-const FeatureBadge = (props) => {
+type Badge = {
+  title: string;
+  value: string;
+};
+
+export const FeatureBadge: VFC<Badge> = (props) => {
   return (
-    <Box width="100%" borderWidth="" borderRadius="lg">
+    <Box width="100%" borderRadius="lg">
       <Badge
         fontSize="md"
         borderRadius="md"
@@ -19,5 +25,3 @@ const FeatureBadge = (props) => {
     </Box>
   );
 };
-
-export default FeatureBadge;

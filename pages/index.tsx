@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { univs } from "../lib/post";
+import type { NextPage } from "next";
 import {
   Center,
   Container,
@@ -12,14 +13,12 @@ import {
   List,
   Image,
 } from "@chakra-ui/react";
-import { useState } from "react";
 
-export default function Home() {
+const Home: NextPage = () => {
   const router = useRouter();
-  const handleLink = (id, Name) => {
+  const handleLink = (id: string, Name: string) => {
     router.push({
       pathname: "/[id]",
-      as: "[id]",
       query: { id: id, Name: Name },
     });
   };
@@ -83,4 +82,5 @@ export default function Home() {
       </Container>
     </>
   );
-}
+};
+export default Home;

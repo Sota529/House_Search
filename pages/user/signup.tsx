@@ -4,16 +4,16 @@ import {
   Container,
   Heading,
   Icon,
-  Text,
   useToast,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import CustomInput from "../../components/atoms/Input";
+import { CustomInput } from "../../components/atoms/CustomInput";
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
 
-export default function Login() {
+const Signup: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
   const {
@@ -24,41 +24,30 @@ export default function Login() {
 
   const onLogin = async (e) => {
     try {
-      await auth.signInWithEmailAndPassword(e.email, e.password).then(() => {
-        toast({
-          title: "ログインしました",
-          position: "top",
-          isClosable: true,
+      await auth
+        .createUserWithEmailAndPassword(e.email, e.password)
+        .then(() => {
+          toast({
+            title: "ユーザーを作成しました",
+            position: "top",
+            isClosable: true,
+          });
+          router.push("/user/login");
         });
-        router.push("/");
-      });
     } catch (err) {
-      if (err.code === "auth/wrong-password")
-        toast({
-          title: "ログインに失敗しました",
-          description: "パスワードが違います",
-          status: "error",
-          position: "top",
-          isClosable: true,
-        });
-      if (err.code === "auth/user-not-found")
-        toast({
-          title: "ログインに失敗しました",
-          description: "ユーザが存在しません",
-          status: "error",
-          position: "top",
-          isClosable: true,
-        });
+      toast({
+        title: "ユーザーを作成に失敗しました",
+        position: "top",
+        status: "error",
+        isClosable: true,
+      });
     }
-  };
-  const handleButton = () => {
-    router.push("/user/create");
   };
 
   return (
     <>
-      <Container centerContent="true">
-        <Heading as="h2">ログイン</Heading>
+      <Container centerContent={true}>
+        <Heading as="h2">新規登録</Heading>
         <Icon
           borderRadius="full"
           boxSize="150px"
@@ -101,33 +90,23 @@ export default function Login() {
             register={register("password", {
               minLength: {
                 value: 4,
-                message: "パスワードは4文字以上です",
+                message: "パスワードは4文字以上にしてください",
               },
               maxLength: {
                 value: 8,
-                message: "パスワードは8文字以下です",
+                message: "パスワードは8文字以下にしてください",
               },
             })}
             error={errors.password?.message}
           />
           <Box mb="2em" />
           <Box textAlign="center">
-            <Button size="lg" type="submit" width="100%" shadow="md">
-              ログイン
-            </Button>
-          </Box>
-          <Text textAlign="center" my="0.5em">
-            OR
-          </Text>
-          <Box textAlign="center">
             <Button
               size="lg"
               type="submit"
               width="100%"
-              bg="orange.300"
+              colorScheme="teal"
               shadow="md"
-              _hover={{ bg: "orange.400" }}
-              onClick={() => handleButton()}
             >
               新規作成
             </Button>
@@ -136,4 +115,5 @@ export default function Login() {
       </Container>
     </>
   );
-}
+};
+export default Signup;

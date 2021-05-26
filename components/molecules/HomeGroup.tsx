@@ -11,15 +11,21 @@ import "swiper/components/pagination/pagination.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/scrollbar/scrollbar.min.css";
 
-import { Price } from "../atoms/price.jsx";
+import { Price } from "../atoms/price";
+import { VFC } from "react";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 
-export default function HomeGroup({ posts, walktime }) {
+type HomeGroupType = {
+  posts: [];
+  walktime: string;
+};
+
+export const HomeGroup: VFC<HomeGroupType> = ({ posts, walktime }) => {
   const router = useRouter();
   const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
-  const handleClick = (id) => {
+  const handleClick = (id: string) => {
     router.push({
       pathname: "homes/[id]",
       query: { id: id },
@@ -46,7 +52,7 @@ export default function HomeGroup({ posts, walktime }) {
         <Text>{walktime}分</Text>
       </Box>
       <Swiper
-        slidesPerView="2.2"
+        slidesPerView={2.2}
         breakpoints={{ 720: { slidesPerView: 3.2 } }}
         freeMode={true}
         cssMode={true}
@@ -129,4 +135,4 @@ export default function HomeGroup({ posts, walktime }) {
       </Swiper>
     </>
   );
-}
+};
