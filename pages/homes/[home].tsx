@@ -29,14 +29,14 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 import axios from "axios";
-import { HeartIcon } from "../../components/atoms/Icons/HeartIcon.jsx";
-import { Price } from "../../components/atoms/price.jsx";
+import { HeartIcon } from "../../components/atoms/Icons/HeartIcon";
+import { Price } from "../../components/atoms/price";
 import { AuthContext } from "../_app";
-import FeatureBadge from "../../components/atoms/FeatureBadge";
-import MailDrawer from "../../components/molecules/MailDrawer";
-import Map from "../../components/atoms/Map";
+import { FeatureBadge } from "../../components/atoms/FeatureBadge";
+import { MailDrawer } from "../../components/molecules/MailDrawer";
+import { Map } from "../../components/atoms/Map";
 
-export default function Home() {
+const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -48,8 +48,8 @@ export default function Home() {
           params: { id: Area },
         })
         .then((res) => {
-          setData(res.data.props.data)
-          setLoading(false)
+          setData(res.data.props.data);
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -160,7 +160,7 @@ export default function Home() {
                   ml="auto"
                   width={{ base: "100%", md: "38%" }}
                   mt={{ base: "1em", md: "0" }}
-                  pos={{ base: "none", md: "sticky" }}
+                  pos={{ md: "sticky" }}
                   top="50"
                   bottom="-20"
                   h="100%"
@@ -168,7 +168,8 @@ export default function Home() {
                   <Box
                     boxShadow="base"
                     borderRadius="md"
-                    p={(0, 3, 4, 3)}
+                    px={3}
+                    pb={4}
                     textAlign="center"
                   >
                     <Box>
@@ -259,4 +260,5 @@ export default function Home() {
       )}
     </>
   );
-}
+};
+export default Home;

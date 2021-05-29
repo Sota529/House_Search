@@ -1,6 +1,4 @@
 # House_Search
-## TechTrain Misson
-https://techbowl.co.jp/techtrain/missions/24
 ## 概要
 大学生が使いたくなるようなお部屋探しサイトを作ろう
 ## 使用技術

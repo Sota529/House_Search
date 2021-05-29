@@ -16,23 +16,20 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, VFC } from "react";
 import { AuthContext } from "../../pages/_app";
-import LogoutModal from "../atoms/LogoutModal.jsx";
+import { LogoutModal } from "../atoms/LogoutModal";
 
-export default function Header() {
+export const Header: VFC = () => {
   const isLogin = useContext(AuthContext);
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   return (
     <Box
       bg="gray.100"
-      pos=""
       top="0"
       left="0"
       py="1.5em"
-      // pl="4em"
-      // pr="20em"
       display="flex"
       justifyContent="space-around"
     >
@@ -51,12 +48,16 @@ export default function Header() {
         {isLogin === null ? (
           isLargerThan600 ? (
             <>
-              <Link href="/user/create">
-                <Button colorScheme="blue" _focus="none" mr="0.2em">
+              <Link href="/user/signup">
+                <Button
+                  colorScheme="blue"
+                  _focus={{ border: "none" }}
+                  mr="0.2em"
+                >
                   新規登録
                 </Button>
               </Link>
-              <Link href="/user/login">
+              <Link href="/user/signin">
                 <Button
                   variant="ghost"
                   colorScheme="gray"
@@ -110,9 +111,13 @@ export default function Header() {
       </Box>
     </Box>
   );
-}
+};
 
-function HamburgerMenu(props) {
+type HamburgerMenuType={
+  values:any
+  Logout?:any
+}
+const HamburgerMenu: VFC<HamburgerMenuType> = (props) => {
   return (
     <Menu closeOnSelect={false} autoSelect={false}>
       <MenuButton
@@ -144,4 +149,4 @@ function HamburgerMenu(props) {
       </MenuList>
     </Menu>
   );
-}
+};

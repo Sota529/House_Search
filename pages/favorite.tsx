@@ -14,26 +14,25 @@ import Head from "next/head";
 import React, { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
 import { HeartIcon } from "../components/atoms/Icons/HeartIcon.jsx";
-import { Price } from "../components/atoms/price.jsx";
+import { Price } from "../components/atoms/price";
 import axios from "axios";
 import { AuthContext } from "./_app";
 import { useForm } from "react-hook-form";
 
 const Favorite = () => {
   const router = useRouter();
-  const [datas, setData] = useState([]);
+  const [datas, setData] = useState<[]>([]);
   const UserId = useContext(AuthContext)?.uid;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const toast = useToast();
-
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ mode: "onSubmit" });
 
-  useEffect(async () => {
-    await axios
+  useEffect(() => {
+    axios
       .get(`//${location.host}/api/getFavorite`, {
         params: { UserId: UserId },
       })
@@ -47,29 +46,34 @@ const Favorite = () => {
       });
   }, [UserId]);
 
-  const handleClick = (id) => {
+  const handleClick = (id: string) => {
     router.push({
       pathname: "homes/[id]",
       query: { id: id },
     });
   };
 
-  const PostComment = async (e, HouseId) => {
+  const PostComment = async (e: any, HouseId: string) => {
     const Comment = e[HouseId];
     try {
       await axios
         .get(`//${location.host}/api/updateComment`, {
           params: { HouseId: HouseId, Comment: Comment, UserId: UserId },
         })
-        .then(() => {
+        .then(() =>
           toast({
             title: "保存しました",
-            position: "bottom",
+            position: "top",
             isClosable: true,
-          });
-        });
-    } catch (errors) {
-      console.log(errors);
+          })
+        );
+    } catch (error) {
+      toast({
+        title: "保存できませんでした",
+        position: "top",
+        status: error,
+        isClosable: true,
+      });
     }
   };
 
@@ -86,7 +90,7 @@ const Favorite = () => {
         <Center>
           <Spinner size="xl" thickness="3px" />
         </Center>
-      ) : datas ? (
+      ) : datas.length ? (
         datas?.map(
           ({ doc, id, name, price, images, favoUser, time, comment }) => {
             return (
@@ -174,7 +178,7 @@ const Favorite = () => {
                   />
                   <Center>
                     <Button
-                      type="submit "
+                      type="submit"
                       mb={{ base: "2em", md: "0" }}
                       display="block"
                     >

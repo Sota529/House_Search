@@ -1,8 +1,10 @@
 import Head from "next/head";
 import { Container, Box } from "@chakra-ui/react";
-import Header from "./header.jsx";
-import Footer from "./footer.jsx";
-function Layout({ children }) {
+import { Header } from "./header";
+import { Footer } from "./footer";
+import React, { VFC } from "react";
+
+const Layout: VFC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <>
       <Head>
@@ -21,5 +23,5 @@ function Layout({ children }) {
       </Box>
     </>
   );
-}
+};
 export default Layout;
