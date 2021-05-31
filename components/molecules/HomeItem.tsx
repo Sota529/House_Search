@@ -7,14 +7,15 @@ import { HeartIcon } from "../atoms/Icons/HeartIcon";
 import { Price } from "../atoms/price";
 
 type HomeItemType = {
-  id: string;
-  thumbnail: string;
-  time: string;
-  name: string;
-  price: number;
-  favoUser: [string];
-  doc: string;
-  children: any;
+  id?: string;
+  thumbnail?: string;
+  time?: string;
+  name?: string;
+  price?: number;
+  favoUser?: [string];
+  image?: [string];
+  doc?: string;
+  children?: any;
 };
 
 export const HomeItem: VFC<HomeItemType> = (props) => {
