@@ -17,11 +17,14 @@ import axios from "axios";
 import { AuthContext } from "./_app";
 import { useForm } from "react-hook-form";
 import { HomeItem } from "../components/molecules/HomeItem";
+import { NextPage } from "next";
+import { error } from "console";
 
-const Favorite = () => {
+const Favorite: NextPage = () => {
   const [datas, setData] = useState<[]>([]);
-  const UserId = useContext(AuthContext)?.uid;
+  const userId = useContext(AuthContext)?.uid;
   const [loading, setLoading] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const toast = useToast();
   const {
     register,
@@ -32,7 +35,7 @@ const Favorite = () => {
   useEffect(() => {
     axios
       .get(`//${location.host}/api/getFavorite`, {
-        params: { UserId: UserId },
+        params: { UserId: userId },
       })
       .then((res) => {
         const result = res.data.props.datas;
@@ -42,32 +45,41 @@ const Favorite = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [UserId]);
+  }, [userId]);
 
   const PostComment = async (e: any, HouseId: string) => {
-    const Comment = e[HouseId];
+    const comment = e[HouseId];
+    if (comment == "\n" || comment == "") {
+      toast({
+        title: "コメントを入力してください",
+        position: "top",
+        status: "warning",
+        isClosable: true,
+      });
+      return;
+    }
+
     try {
-      await axios
-        .get(`//${location.host}/api/updateComment`, {
-          params: { HouseId: HouseId, Comment: Comment, UserId: UserId },
-        })
-        .then(() =>
-          toast({
-            title: "保存しました",
-            position: "top",
-            isClosable: true,
-          })
-        );
-    } catch (error) {
+      setDisabled(true);
+      await axios.get(`//${location.host}/api/updateComment`, {
+        params: { HouseId: HouseId, Comment: comment, UserId: userId },
+      });
+      toast({
+        title: "保存しました",
+        position: "top",
+        isClosable: true,
+      });
+    } catch {
       toast({
         title: "保存できませんでした",
         position: "top",
-        status: error,
+        status: "error",
         isClosable: true,
       });
+    } finally {
+      setDisabled(false);
     }
   };
-
   return (
     <>
       <Head>
@@ -83,27 +95,35 @@ const Favorite = () => {
         </Center>
       ) : datas.length ? (
         datas?.map((data: any) => {
-          <HomeItem {...data}>
-            <form onSubmit={handleSubmit((e) => PostComment(e, data.id))}>
-              <Textarea
-                w="md"
-                placeholder="どこが気に入ったか"
-                colorScheme="blackAlpha"
-                focusBorderColor="gray"
-                {...register(data.id)}
-                defaultValue={data.comment ? data.comment : null}
-              />
-              <Center>
-                <Button
-                  type="submit"
-                  mb={{ base: "2em", md: "0" }}
-                  display="block"
+          return (
+            <Box mb="3em">
+              <HomeItem {...data}>
+                <form
+                  name={data.id}
+                  onSubmit={handleSubmit((e) => PostComment(e, data.id))}
                 >
-                  保存
-                </Button>
-              </Center>
-            </form>
-          </HomeItem>;
+                  <Textarea
+                    w="md"
+                    placeholder="どこが気に入ったか"
+                    colorScheme="blackAlpha"
+                    focusBorderColor="gray"
+                    isDisabled={disabled}
+                    {...register(data.id)}
+                    defaultValue={data.comment ? data.comment : null}
+                  />
+                  <Center>
+                    <Button
+                      type="submit"
+                      mb={{ base: "2em", md: "0" }}
+                      display="block"
+                    >
+                      保存
+                    </Button>
+                  </Center>
+                </form>
+              </HomeItem>
+            </Box>
+          );
         })
       ) : (
         <Box display="flex" justifyContent="center" alignItems="center">
