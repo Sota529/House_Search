@@ -5,4 +5,7 @@ export default async (req, res) => {
   const HouseId = req.query.HouseId;
   const UserId = req.query.UserId;
   const result = await UpdateComment(HouseId, comment, UserId);
+  res.json({
+    scuess: result,
+  });
 };

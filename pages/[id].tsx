@@ -22,20 +22,17 @@ const Id: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const Sort = val;
-    const Area = location.pathname.slice(1);
-    axios
-      .get(`//${location.host}/api/get`, {
-        params: { id: Area, sort: Sort },
-      })
-      .then((res: AxiosResponse<any>) => {
-        const result = res.data.props.processedData;
-        setData(result);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
+    const fetchData = async () => {
+      const sort = val;
+      const area = location.pathname.slice(1);
+      const res = await axios.get(`//${location.host}/api/get`, {
+        params: { id: area, sort: sort },
       });
+      const result = await res.data.props.processedData;
+      setData(result);
+      setLoading(false);
+    };
+    fetchData();
   }, [val]);
 
   return (
