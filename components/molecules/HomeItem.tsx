@@ -40,11 +40,12 @@ export const HomeItem: VFC<HomeItemType> = (props) => {
           borderColor: "teal.300",
           cursor: "pointer",
         }}
-        onClick={() => {
-          handleClick(props.id);
-        }}
       >
-        <Box>
+        <Box
+          onClick={() => {
+            handleClick(props.id);
+          }}
+        >
           <Image
             src={props.thumbnail}
             objectFit="cover"
@@ -67,21 +68,21 @@ export const HomeItem: VFC<HomeItemType> = (props) => {
           >
             {props.time}分
           </Box>
-        </Box>
-        <Box p="0.4em" h="5em">
-          <Box fontWeight="semibold" as="h4" display="block">
-            {props.name}
-          </Box>
-          <Box>
-            <Flex>
-              <Price price={props.price} size={"1.8em"} />
-              {isLargerThan700 ? (
-                <Box ml={2}>
-                  <Text fontSize={"0.8em"}>敷:{props.price}</Text>
-                  <Text fontSize={"0.8em"}>礼:{props.price}</Text>
-                </Box>
-              ) : null}
-            </Flex>
+          <Box p="0.4em" h="5em">
+            <Box fontWeight="semibold" as="h4" display="block">
+              {props.name}
+            </Box>
+            <Box>
+              <Flex>
+                <Price price={props.price} size={"1.8em"} />
+                {isLargerThan700 ? (
+                  <Box ml={2}>
+                    <Text fontSize={"0.8em"}>敷:{props.price}</Text>
+                    <Text fontSize={"0.8em"}>礼:{props.price}</Text>
+                  </Box>
+                ) : null}
+              </Flex>
+            </Box>
           </Box>
         </Box>
         {isLargerThan700 ? (
