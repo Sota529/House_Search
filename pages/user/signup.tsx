@@ -32,7 +32,7 @@ const Signup: NextPage = () => {
             position: "top",
             isClosable: true,
           });
-          router.push("/user/login");
+          router.push("/");
         });
     } catch (err) {
       toast({

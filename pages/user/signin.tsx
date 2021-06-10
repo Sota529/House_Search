@@ -14,7 +14,7 @@ import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
- const Signin: NextPage = () => {
+const Signin: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
   const {
@@ -53,7 +53,7 @@ import { NextPage } from "next";
     }
   };
   const handleButton = () => {
-    router.push("/user/create");
+    router.push("/");
   };
 
   return (
@@ -111,7 +111,15 @@ import { NextPage } from "next";
             })}
             error={errors.password?.message}
           />
-          <Box mb="2em" />
+          <Box mb="2em">
+            テストログイン
+            <br />
+            メールアドレス <br />
+            test@example.com
+            <br />
+            パスワード <br />
+            password
+          </Box>
           <Box textAlign="center">
             <Button size="lg" type="submit" width="100%" shadow="md">
               ログイン
@@ -138,4 +146,4 @@ import { NextPage } from "next";
     </>
   );
 };
-export default Signin
+export default Signin;
