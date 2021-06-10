@@ -28,7 +28,7 @@ export const HomeItem: VFC<HomeItemType> = (props) => {
     });
   };
   return (
-    <Box display={{ md: "flex" }} justifyContent="center">
+    <Box display={{ md: "flex" }} justifyContent="center" width="300px">
       <Box
         rounded="md"
         boxShadow="md"
@@ -49,8 +49,7 @@ export const HomeItem: VFC<HomeItemType> = (props) => {
           <Image
             src={props.thumbnail}
             objectFit="cover"
-            maxH="50%"
-            fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
+            fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/300x300.png?text=%0A"
             alt="家の写真"
             borderRadius="lg"
             w="100%"
