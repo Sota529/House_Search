@@ -28,7 +28,7 @@ export const HomeItem: VFC<HomeItemType> = (props) => {
     });
   };
   return (
-    <Box display={{ md: "flex" }} justifyContent="center" width="300px">
+    <Box display={{ md: "flex" }} justifyContent="center">
       <Box
         rounded="md"
         boxShadow="md"

@@ -37,7 +37,7 @@ export const HomeGroup: VFC<HomeGroupType> = ({ posts, walktime }) => {
           posts.map((post: any) => {
             return (
               <SwiperSlide key={post.id}>
-                <Box my="1em">
+                <Box my="1em" mr={{ base: "8px", sm: "none" }}>
                   <HomeItem {...post} time={walktime} />
                 </Box>
               </SwiperSlide>
