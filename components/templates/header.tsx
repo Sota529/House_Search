@@ -14,6 +14,7 @@ import {
   MenuList,
   IconButton,
   useMediaQuery,
+  Heading,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useContext, VFC } from "react";
@@ -33,22 +34,14 @@ export const Header: VFC = () => {
       display="flex"
       justifyContent="space-around"
     >
-      <h1>
-        <Link href="/">
-          <Button
-            variant="ghost"
-            colorScheme="gray"
-            _focus={{ border: "none" }}
-          >
-            お部屋探し
-          </Button>
-        </Link>
-      </h1>
+      <Link href="/">
+        <Heading fontSize="xl" my="auto">お部屋探し</Heading>
+      </Link>
       <Box>
         {isLogin === null ? (
           isLargerThan600 ? (
             <>
-              <Link href="/user/signup">
+              <Link href="/">
                 <Button
                   colorScheme="blue"
                   _focus={{ border: "none" }}
@@ -57,7 +50,7 @@ export const Header: VFC = () => {
                   新規登録
                 </Button>
               </Link>
-              <Link href="/user/signin">
+              <Link href="/">
                 <Button
                   variant="ghost"
                   colorScheme="gray"
@@ -74,12 +67,12 @@ export const Header: VFC = () => {
                 values={[
                   {
                     Icon: <AddIcon />,
-                    link: "/user/create",
+                    link: "/",
                     title: "新規登録",
                   },
                   {
                     Icon: <CheckIcon />,
-                    link: "/user/login",
+                    link: "/",
                     title: "ログイン",
                   },
                 ]}
@@ -113,10 +106,10 @@ export const Header: VFC = () => {
   );
 };
 
-type HamburgerMenuType={
-  values:any
-  Logout?:any
-}
+type HamburgerMenuType = {
+  values: any;
+  Logout?: any;
+};
 const HamburgerMenu: VFC<HamburgerMenuType> = (props) => {
   return (
     <Menu closeOnSelect={false} autoSelect={false}>
