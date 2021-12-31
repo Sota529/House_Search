@@ -10,6 +10,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type InputType = {
   error?: boolean;
@@ -17,8 +18,7 @@ type InputType = {
   label: string;
   type: string;
   holder: string;
-  register: any;
-  ref?: any;
+  register: UseFormRegisterReturn;
 };
 
 export const CustomInput: VFC<InputType> = forwardRef((props, ref) => {
@@ -45,7 +45,6 @@ export const CustomInput: VFC<InputType> = forwardRef((props, ref) => {
             size="lg"
             variant="flushed"
             //react-hook-form
-            ref={ref}
             placeholder={props.holder}
             {...props.register}
           />

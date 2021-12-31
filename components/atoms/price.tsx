@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/layout";
-import type {  VFC } from "react";
+import type { VFC } from "react";
 
 type PriceType = {
   price: number;
@@ -7,33 +7,27 @@ type PriceType = {
 };
 export const Price: VFC<PriceType> = ({ price, size }) => {
   const StringPrice = String(price);
-  let First: string, Second: string;
-  let result: any;
-  if (StringPrice.length === 5) {
-    First = StringPrice.slice(0, 1);
-    Second = StringPrice.slice(1, 2);
-    result = (
-      <Text>
-        <Box fontWeight={"semibold"} display="inline" fontSize={size}>
-          {First}
-        </Box>
-        .<Box as="span">{Second}</Box>
-        万円
-      </Text>
-    );
-  } else if (StringPrice.length === 6) {
-    First = StringPrice.slice(0, 1);
-    Second = StringPrice.slice(1, 2);
-    const Third = StringPrice.slice(2, 3);
-    result = (
-      <Text>
-        <Box fontWeight={"semibold"} display="inline" fontSize={size}>
-          {First}
-          {Second}
-        </Box>
-        .{Third}万円
-      </Text>
-    );
-  }
-  return <>{result} </>;
+  return (
+    <>
+      {StringPrice.length === 5 ? (
+        <Text>
+          <Box fontWeight={"semibold"} display="inline" fontSize={size}>
+            {StringPrice.slice(0, 1)}
+          </Box>
+          .<Box as="span">{StringPrice.slice(1, 2)}</Box>
+          万円
+        </Text>
+      ) : StringPrice.length === 6 ? (
+        <Text>
+          <Box fontWeight={"semibold"} display="inline" fontSize={size}>
+            {StringPrice.slice(0, 1)}
+            {StringPrice.slice(1, 2)}
+          </Box>
+          .{StringPrice.slice(2, 3)}万円
+        </Text>
+      ) : (
+        "???円"
+      )}
+    </>
+  );
 };

@@ -9,11 +9,11 @@ import { Price } from "../atoms/price";
 type HomeItemType = {
   id?: string;
   thumbnail?: string;
-  time?: string;
+  time?: number;
   name?: string;
   price?: number;
-  favoUser?: [string];
-  image?: [string];
+  favoUser?: string[];
+  image?: string[];
   doc?: string;
   children?: any;
 };

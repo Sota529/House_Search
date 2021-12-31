@@ -1,8 +1,6 @@
 import {
   Heading,
   Box,
-  Image,
-  Flex,
   Text,
   Textarea,
   Button,
@@ -18,10 +16,26 @@ import { AuthContext } from "./_app";
 import { useForm } from "react-hook-form";
 import { HomeItem } from "../components/molecules/HomeItem";
 import { NextPage } from "next";
-import { error } from "console";
+
+interface Response {
+  datas: Array<{
+    comment: string;
+    doc: string;
+    favo: boolean;
+    favoUser: string[];
+    id: string;
+    images: string[];
+    location: string;
+    name: string;
+    price: number;
+    thumbnail: string;
+    time: number;
+    univ: string;
+  }>;
+}
 
 const Favorite: NextPage = () => {
-  const [datas, setData] = useState<[]>([]);
+  const [datas, setData] = useState<Response | undefined>();
   const userId = useContext(AuthContext)?.uid;
   const [loading, setLoading] = useState<boolean>(true);
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -34,12 +48,11 @@ const Favorite: NextPage = () => {
 
   useEffect(() => {
     axios
-      .get(`//${location.host}/api/getFavorite`, {
+      .get<Record<"props", Response>>(`//${location.host}/api/getFavorite`, {
         params: { UserId: userId },
       })
       .then((res) => {
-        const result = res.data.props.datas;
-        setData(result);
+        setData(res.data.props);
         setLoading(false);
       })
       .catch((error) => {
@@ -47,7 +60,12 @@ const Favorite: NextPage = () => {
       });
   }, [userId]);
 
-  const PostComment = async (e: any, HouseId: string) => {
+  const PostComment = async (
+    e: {
+      [x: string]: string;
+    },
+    HouseId: string
+  ) => {
     const comment = e[HouseId];
     if (comment == "\n" || comment == "") {
       toast({
@@ -89,12 +107,21 @@ const Favorite: NextPage = () => {
       <Heading textAlign="center" mb={"1em"}>
         お気に入り
       </Heading>
-      {loading ? (
+      {loading && (
         <Center>
           <Spinner size="xl" thickness="3px" />
         </Center>
-      ) : datas.length ? (
-        datas?.map((data: any) => {
+      )}
+      {datas?.datas.length == 0 ? (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Text fontSize="3xl">
+            お気に入りにした物件は
+            <br />
+            ありません
+          </Text>
+        </Box>
+      ) : (
+        datas?.datas.map((data) => {
           return (
             <Box mb="3em">
               <HomeItem {...data}>
@@ -109,7 +136,7 @@ const Favorite: NextPage = () => {
                     focusBorderColor="gray"
                     isDisabled={disabled}
                     {...register(data.id)}
-                    defaultValue={data.comment ? data.comment : null}
+                    defaultValue={data.comment ? data.comment : undefined}
                   />
                   <Center>
                     <Button
@@ -125,14 +152,6 @@ const Favorite: NextPage = () => {
             </Box>
           );
         })
-      ) : (
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <Text fontSize="3xl">
-            お気に入りにした物件は
-            <br />
-            ありません
-          </Text>
-        </Box>
       )}
     </>
   );

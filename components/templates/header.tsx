@@ -35,7 +35,9 @@ export const Header: VFC = () => {
       justifyContent="space-around"
     >
       <Link href="/">
-        <Heading fontSize="xl" my="auto">お部屋探し</Heading>
+        <Heading fontSize="xl" my="auto">
+          お部屋探し
+        </Heading>
       </Link>
       <Box>
         {isLogin === null ? (
@@ -107,8 +109,12 @@ export const Header: VFC = () => {
 };
 
 type HamburgerMenuType = {
-  values: any;
-  Logout?: any;
+  values: {
+    link: string;
+    title: string;
+    Icon: React.ReactElement;
+  }[];
+  Logout?: boolean;
 };
 const HamburgerMenu: VFC<HamburgerMenuType> = (props) => {
   return (
