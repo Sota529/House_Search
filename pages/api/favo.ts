@@ -1,6 +1,9 @@
 import { db } from "../../lib/db";
-import firebase from 'firebase/app'
-export default async (req, res) => {
+import firebase from "firebase/app";
+
+export default async (req: {
+  query: { docId: string; UserId: string; favorite: boolean | string };
+}) => {
   const docId = req.query.docId;
   const UserId = req.query.UserId;
   let favo = req.query.favorite;
