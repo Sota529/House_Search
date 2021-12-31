@@ -6,16 +6,24 @@ import { AppProps } from "next/app";
 import firebase from "firebase";
 
 type AuthType = {
-  currentUser?: firebase.User;
-  uid?: string;
+  currentUser: firebase.User | null;
+  uid: string | undefined;
 };
 
-export const AuthContext = createContext<AuthType>({ currentUser: undefined });
+export const AuthContext = createContext<AuthType>({
+  currentUser: null,
+  uid: undefined,
+});
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState<{
+    currentUser: firebase.User | null;
+    uid: string | undefined;
+  }>({ currentUser: null, uid: undefined });
+
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      setCurrentUser(user);
+      console.log(user);
+      setCurrentUser({ currentUser: user, uid: user?.uid });
     });
   }, []);
 

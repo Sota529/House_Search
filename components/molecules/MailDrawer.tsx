@@ -17,12 +17,11 @@ import { FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup } from "@chakra-ui/input";
 
 type MailDrawerType = {
-  userId: string;
+  userId?: string;
 };
 
 export const MailDrawer: VFC<MailDrawerType> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = React.useRef();
   const UserId = props.userId;
   const toast = useToast();
   const handleClick = () => {
@@ -55,12 +54,7 @@ export const MailDrawer: VFC<MailDrawerType> = (props) => {
         <EmailIcon mr={"0.4em"} />
         お問い合わせ
       </Button>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        initialFocusRef={firstField}
-        onClose={onClose}
-      >
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
@@ -69,11 +63,7 @@ export const MailDrawer: VFC<MailDrawerType> = (props) => {
               <Stack spacing="24px">
                 <Box>
                   <FormLabel htmlFor="username">名前</FormLabel>
-                  <Input
-                    ref={firstField}
-                    id="username"
-                    placeholder="名前を入力してください"
-                  />
+                  <Input id="username" placeholder="名前を入力してください" />
                 </Box>
                 <Box>
                   <FormLabel htmlFor="mail">メールアドレス</FormLabel>
