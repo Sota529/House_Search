@@ -24,7 +24,5 @@ export default async (
       }
     }
   }
-  res.json({
-    datas,
-  });
+  res.json(datas);
 };

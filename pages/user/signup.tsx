@@ -22,7 +22,7 @@ const Signup: NextPage = () => {
     handleSubmit,
   } = useForm({ mode: "onSubmit" });
 
-  const onLogin = async (e) => {
+  const onLogin = async (e: { email: string; password: string }) => {
     try {
       await auth
         .createUserWithEmailAndPassword(e.email, e.password)

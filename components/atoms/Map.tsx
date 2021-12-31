@@ -30,7 +30,13 @@ const circleOptions = {
 
 export const Map: VFC = () => {
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_Google_API_KEY}>
+    <LoadScript
+      googleMapsApiKey={
+        process.env.NEXT_PUBLIC_Google_API_KEY
+          ? process.env.NEXT_PUBLIC_Google_API_KEY
+          : ""
+      }
+    >
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
         <Marker position={houselocation} />
         <Circle center={center} radius={400} options={circleOptions} />

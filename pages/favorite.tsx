@@ -9,50 +9,32 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { useRouter } from "next/router";
-import { useEffect, useState, useContext } from "react";
+import React from "next/router";
+import { useEffect, useState, useContext, FormEvent } from "react";
 import axios from "axios";
 import { AuthContext } from "./_app";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { HomeItem } from "../components/molecules/HomeItem";
 import { NextPage } from "next";
+import { HouseInfoType } from "./type";
 
-interface Response {
-  datas: Array<{
-    comment: string;
-    doc: string;
-    favo: boolean;
-    favoUser: string[];
-    id: string;
-    images: string[];
-    location: string;
-    name: string;
-    price: number;
-    thumbnail: string;
-    time: number;
-    univ: string;
-  }>;
-}
+type Response = Array<HouseInfoType & { comment: string }>;
 
 const Favorite: NextPage = () => {
-  const [datas, setData] = useState<Response | undefined>();
+  const [datas, setData] = useState<Response | []>([]);
   const userId = useContext(AuthContext)?.uid;
   const [loading, setLoading] = useState<boolean>(true);
   const [disabled, setDisabled] = useState<boolean>(false);
   const toast = useToast();
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({ mode: "onSubmit" });
+  const { register, handleSubmit } = useForm({ mode: "onSubmit" });
 
   useEffect(() => {
     axios
-      .get<Record<"props", Response>>(`//${location.host}/api/getFavorite`, {
+      .get<Response>(`//${location.host}/api/getFavorite`, {
         params: { UserId: userId },
       })
       .then((res) => {
-        setData(res.data.props);
+        setData(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -60,13 +42,8 @@ const Favorite: NextPage = () => {
       });
   }, [userId]);
 
-  const PostComment = async (
-    e: {
-      [x: string]: string;
-    },
-    HouseId: string
-  ) => {
-    const comment = e[HouseId];
+  const PostComment = async (e: FieldValues, houseId: string) => {
+    const comment = e[houseId];
     if (comment == "\n" || comment == "") {
       toast({
         title: "コメントを入力してください",
@@ -80,7 +57,7 @@ const Favorite: NextPage = () => {
     try {
       setDisabled(true);
       await axios.get(`//${location.host}/api/updateComment`, {
-        params: { HouseId: HouseId, Comment: comment, UserId: userId },
+        params: { HouseId: houseId, Comment: comment, UserId: userId },
       });
       toast({
         title: "保存しました",
@@ -112,7 +89,7 @@ const Favorite: NextPage = () => {
           <Spinner size="xl" thickness="3px" />
         </Center>
       )}
-      {datas?.datas.length == 0 ? (
+      {datas.length == 0 ? (
         <Box display="flex" justifyContent="center" alignItems="center">
           <Text fontSize="3xl">
             お気に入りにした物件は
@@ -121,7 +98,7 @@ const Favorite: NextPage = () => {
           </Text>
         </Box>
       ) : (
-        datas?.datas.map((data) => {
+        datas?.map((data) => {
           return (
             <Box mb="3em">
               <HomeItem {...data}>

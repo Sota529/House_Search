@@ -11,12 +11,13 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 
 import { VFC } from "react";
 import { HomeItem } from "./HomeItem";
+import { HouseInfoType } from "../../pages/type";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);
 
 type HomeGroupType = {
-  posts: [];
+  posts: HouseInfoType[];
   walktime: string;
 };
 

@@ -23,7 +23,7 @@ const Signin: NextPage = () => {
     handleSubmit,
   } = useForm({ mode: "onSubmit" });
 
-  const onLogin = async (e) => {
+  const onLogin = async (e: { email: string; password: string }) => {
     try {
       await auth.signInWithEmailAndPassword(e.email, e.password).then(() => {
         toast({
@@ -33,7 +33,7 @@ const Signin: NextPage = () => {
         });
         router.push("/");
       });
-    } catch (err) {
+    } catch (err: any) {
       if (err.code === "auth/wrong-password")
         toast({
           title: "ログインに失敗しました",

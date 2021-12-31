@@ -11,25 +11,27 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { HomeGroup } from "../components/molecules/HomeGroup";
 import { NextPage } from "next";
+import { HouseInfoType } from "./type";
+
+interface Response {
+  data: { [time: number]: HouseInfoType[] };
+}
 
 const Id: NextPage = () => {
   const router = useRouter();
-  const [datas, setData] = useState<Object>({});
-  const [val, setVal] = useState<any>("0");
+  const [datas, setData] = useState<{ [time: number]: HouseInfoType[] }>({});
+  const [val, setVal] = useState<string>("0");
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const sort = val;
-      const area = location.pathname.slice(1);
-      const res = await axios.get(`//${location.host}/api/get`, {
-        params: { id: area, sort: sort },
+      const res = await axios.get<Response>(`//${location.host}/api/get`, {
+        params: { id: location.pathname.slice(1), sort: val },
       });
-      const result = await res.data.props.processedData;
-      setData(result);
+      setData(res.data.data);
       setLoading(false);
     };
     fetchData();
@@ -53,7 +55,8 @@ const Id: NextPage = () => {
           <Text fontWeight="semibold" mr={21}>
             値段
           </Text>
-          <RadioGroup onChange={setVal} value={val} defaultChecked={val}>
+          {/* @ts-ignore */}
+          <RadioGroup onChange={setVal} value={val}>
             <Stack direction="row">
               <Radio value="0" colorScheme="green">
                 選択なし
@@ -72,7 +75,7 @@ const Id: NextPage = () => {
           {Object.keys(datas).map((time) => {
             return (
               <Box key={time} m="1em 0 2em">
-                <HomeGroup walktime={time} posts={datas[time]} />
+                <HomeGroup walktime={time} posts={datas[Number(time)]} />
               </Box>
             );
           })}

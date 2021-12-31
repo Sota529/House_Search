@@ -2,23 +2,14 @@ import { Image } from "@chakra-ui/image";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { useRouter } from "next/router";
-import React, { VFC } from "react";
+import React, { ReactNode, VFC } from "react";
+import { HouseInfoType } from "../../pages/type";
 import { HeartIcon } from "../atoms/Icons/HeartIcon";
 import { Price } from "../atoms/price";
 
-type HomeItemType = {
-  id?: string;
-  thumbnail?: string;
-  time?: number;
-  name?: string;
-  price?: number;
-  favoUser?: string[];
-  image?: string[];
-  doc?: string;
-  children?: any;
-};
+type Props = HouseInfoType & { children: ReactNode };
 
-export const HomeItem: VFC<HomeItemType> = (props) => {
+export const HomeItem: VFC<Props> = (props) => {
   const router = useRouter();
   const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
   const handleClick = (id: string) => {

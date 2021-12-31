@@ -35,20 +35,22 @@ import { AuthContext } from "../_app";
 import { FeatureBadge } from "../../components/atoms/FeatureBadge";
 import { MailDrawer } from "../../components/molecules/MailDrawer";
 import { Map } from "../../components/atoms/Map";
+import { HouseInfoType } from "../type";
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<HouseInfoType[] | []>([]);
   const [loading, setLoading] = useState(true);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   useEffect(() => {
     const fetchData = async () => {
       const Area = location.pathname.replace(/\/homes\//, "");
       await axios
-        .get(`//${location.host}/api/getOne`, {
+        .get<HouseInfoType[]>(`//${location.host}/api/getOne`, {
           params: { id: Area },
         })
         .then((res) => {
-          setData(res.data.props.data);
+          console.log(res.data);
+          setData(res.data);
           setLoading(false);
         })
         .catch((error) => {
@@ -68,6 +70,8 @@ const Home = () => {
         <Center>
           <Spinner size="xl" thickness="3px" />
         </Center>
+      ) : data.length === 0 ? (
+        <Center minH={"50vh"}>Error</Center>
       ) : (
         data.map(
           ({ id, name, price, location, time, images, doc, favoUser }) => (
@@ -134,7 +138,7 @@ const Home = () => {
                         <SwiperSlide key={image}>
                           <Image
                             src={image}
-                            alt={images}
+                            alt={image}
                             mb={3}
                             fallbackSrc="https://placehold.jp/f0f0f0/f0f0f0/150x150.png?text=%0A"
                             borderRadius="md"
