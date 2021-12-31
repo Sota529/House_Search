@@ -1,4 +1,4 @@
-import { db } from "../lib/db";
+import { db } from "./db";
 import firebase from "firebase/app";
 
 export const univs = [

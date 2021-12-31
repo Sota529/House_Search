@@ -4,6 +4,8 @@ import React, { useState, createContext, useEffect } from "react";
 import { auth } from "../lib/db";
 import { AppProps } from "next/app";
 import firebase from "firebase";
+import { render } from '@testing-library/react'
+
 
 type AuthType = {
   currentUser: firebase.User | null;
@@ -39,4 +41,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </>
   );
 };
+
+const customRender = (ui: JSX.Element, options?: any) =>
+ render(ui, { wrapper: MyApp, ...options })
+
+export * from '@testing-library/react'
+export { customRender as render }
+
 export default MyApp;
