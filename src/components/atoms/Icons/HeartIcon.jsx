@@ -2,7 +2,7 @@ import { Box, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useContext } from "react";
 import { Icon } from "@chakra-ui/react";
-import { AuthContext } from "../../../src/pages/_app";
+import { AuthContext } from "../../../pages/_app";
 
 export function HeartIcon({ favo, doc, size }) {
   const toast = useToast();
