@@ -11,7 +11,7 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 
 import { VFC } from "react";
 import { HomeItem } from "./HomeItem";
-import { HouseInfoType } from "../../pages/type";
+import { HouseInfoType } from "../../type";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, Virtual]);

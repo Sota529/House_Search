@@ -1,6 +1,6 @@
 import { NextApiResponse } from "next";
 import { getAllData } from "../../lib/post";
-import { HouseInfoType } from "../type";
+import { HouseInfoType } from "../../type";
 
 export default async (
   req: { query: { id: string; sort: number } },
