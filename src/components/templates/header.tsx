@@ -40,7 +40,7 @@ export const Header: VFC = () => {
         </Heading>
       </Link>
       <Box>
-        {isLogin === null ? (
+        {isLogin.currentUser === null ? (
           isLargerThan600 ? (
             <>
               <Link href="/user/signup">
