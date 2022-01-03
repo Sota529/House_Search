@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { HomeGroup } from "../components/molecules/HomeGroup";
 import { NextPage } from "next";
-import { HouseInfoType } from "../type";
+import { HouseInfoType } from "src/type";
 
 interface Response {
   data: { [time: number]: HouseInfoType[] };
