@@ -7,7 +7,7 @@ module.exports = {
   // see https://github.com/zeit/next.js/issues/8663
   globals: {
     "ts-jest": {
-      tsconfig: "<rootDir>/tsconfig.jest.json",
+      tsconfig: "<rootDir>/tsconfig.json",
     },
   },
   globalSetup: "<rootDir>/__tests__/utils/setupEnv.ts",
