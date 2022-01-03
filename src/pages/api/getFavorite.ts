@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getComment, getFavoriteData } from "../../lib/post";
+import { getComment, getFavoriteData } from "../../lib/firebase";
 
 export default async (
   req: { query: { UserId: string | undefined } },

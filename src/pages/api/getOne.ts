@@ -1,5 +1,5 @@
 import { NextApiResponse } from "next";
-import { getOneData } from "../../lib/post";
+import { getOneData } from "../../lib/firebase";
 
 export default async (req: { query: { id: string } }, res: NextApiResponse) => {
   const Area = req.query.id;

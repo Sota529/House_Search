@@ -1,5 +1,5 @@
 import { NextApiResponse } from "next";
-import { getAllData } from "src/lib/post";
+import { getAllData } from "src/lib/firebase";
 import { HouseInfoType } from "src/type";
 
 export default async (

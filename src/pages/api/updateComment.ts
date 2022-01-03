@@ -1,5 +1,5 @@
 import { NextApiResponse } from "next";
-import { UpdateComment } from "../../lib/post";
+import { UpdateComment } from "../../lib/firebase";
 
 export default async (
   req: { query: { Comment: string; HouseId: string; UserId: string } },
