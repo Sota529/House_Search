@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { univs } from "../lib/firebase";
+import { univs } from "../lib/utils";
 import type { NextPage } from "next";
 import {
   Center,
