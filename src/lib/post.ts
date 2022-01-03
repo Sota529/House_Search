@@ -24,11 +24,11 @@ export function getPostId() {
 }
 
 export async function gethouselID() {
-  let result = await new Promise((resolve, reject) => {
+  let result: any = await new Promise((resolve, reject) => {
     db.collection("houses")
       .get()
       .then((snapshot) => {
-        let data = [];
+        let data: any = [];
         snapshot.forEach((doc) => {
           data.push(
             Object.assign(
@@ -45,7 +45,7 @@ export async function gethouselID() {
         reject([]);
       });
   });
-  return result.map(({ id }) => {
+  return result.map(({ id }: any) => {
     return {
       params: {
         home: id,
@@ -54,9 +54,9 @@ export async function gethouselID() {
   });
 }
 
-export async function getAllData(Area, Sort) {
+export async function getAllData(Area: any, Sort: any) {
   if (Sort === "0") {
-    let data = [];
+    let data: any = [];
     await db
       .collection("houses")
       .where("univ", "==", Area)
@@ -78,7 +78,7 @@ export async function getAllData(Area, Sort) {
       });
     return data;
   } else {
-    let data = [];
+    let data: any = [];
     await db
       .collection("houses")
       .where("univ", "==", Area)
@@ -103,7 +103,7 @@ export async function getAllData(Area, Sort) {
   }
 }
 
-export async function getOneData(id) {
+export async function getOneData(id: any) {
   // db.jsのfirebaseのDB接続ファンクション
   // DBのpostsコレクション内を全て取得した結果 = result
   const houseId = id;
@@ -112,7 +112,7 @@ export async function getOneData(id) {
       .where("id", "==", houseId)
       .get()
       .then((snapshot) => {
-        let data = [];
+        let data: any = [];
         snapshot.forEach((doc) => {
           data.push(
             Object.assign(
@@ -132,11 +132,11 @@ export async function getOneData(id) {
   return { result };
 }
 
-export async function getFavoriteData(UserId) {
+export async function getFavoriteData(UserId: any) {
   if (!UserId) {
     return;
   }
-  let datas = [];
+  let datas: any = [];
   await db
     .collection("houses")
     .where("favoUser", "array-contains", UserId)
@@ -160,7 +160,7 @@ export async function getFavoriteData(UserId) {
   return datas;
 }
 
-export async function getComment(UserId) {
+export async function getComment(UserId: any) {
   if (!UserId) {
     return;
   }
@@ -171,7 +171,7 @@ export async function getComment(UserId) {
     .get()
     .then((doc) => {
       if (doc.exists) {
-        comments = doc.data().comments;
+        comments = doc.data()?.comments;
       } else {
         db.collection("users").doc(UserId).set({ initialcreate: null });
       }
@@ -181,7 +181,7 @@ export async function getComment(UserId) {
     });
   return comments;
 }
-export async function UpdateComment(HouseId, comment, UserId) {
+export async function UpdateComment(HouseId: any, comment: any, UserId: any) {
   const date = { id: HouseId, comment: comment };
   db.collection("users")
     .doc(UserId)
