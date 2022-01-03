@@ -3,7 +3,7 @@ import { Box, Flex, Text } from "@chakra-ui/layout";
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { useRouter } from "next/router";
 import React, { ReactNode, VFC } from "react";
-import { HouseInfoType } from "../../pages/type";
+import { HouseInfoType } from "src/type";
 import { HeartIcon } from "../atoms/Icons/HeartIcon";
 import { Price } from "../atoms/price";
 

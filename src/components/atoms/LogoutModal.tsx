@@ -11,7 +11,7 @@ import {
   ModalBody,
   Box,
 } from "@chakra-ui/react";
-import { auth } from "src/lib/db";
+import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
 
 export const LogoutModal: VFC<{ Hamburger?: boolean }> = (props) => {

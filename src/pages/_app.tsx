@@ -5,6 +5,7 @@ import { auth } from "../lib/db";
 import { AppProps } from "next/app";
 import firebase from "firebase";
 
+
 type AuthType = {
   currentUser: firebase.User | null;
   uid: string | undefined;
@@ -22,7 +23,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      console.log(user);
       setCurrentUser({ currentUser: user, uid: user?.uid });
     });
   }, []);
@@ -39,4 +39,5 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </>
   );
 };
+
 export default MyApp;

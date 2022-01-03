@@ -16,7 +16,7 @@ import { AuthContext } from "./_app";
 import { FieldValues, useForm } from "react-hook-form";
 import { HomeItem } from "../components/molecules/HomeItem";
 import { NextPage } from "next";
-import { HouseInfoType } from "./type";
+import { HouseInfoType } from "src/type";
 
 type Response = Array<HouseInfoType & { comment: string }>;
 
