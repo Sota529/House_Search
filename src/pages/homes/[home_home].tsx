@@ -29,13 +29,13 @@ import "swiper/components/scrollbar/scrollbar.min.css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Thumbs]);
 
 import axios from "axios";
-import { HeartIcon } from "../../components/atoms/Icons/HeartIcon";
-import { Price } from "../../components/atoms/price";
-import { AuthContext } from "../_app";
-import { FeatureBadge } from "../../components/atoms/FeatureBadge";
-import { MailDrawer } from "../../components/molecules/MailDrawer";
-import { Map } from "../../components/atoms/Map";
-import { HouseInfoType } from "../type";
+import { HeartIcon } from "src/components/atoms/Icons/HeartIcon";
+import { Price } from "src/components/atoms/price";
+import { AuthContext } from "src/pages/_app";
+import { FeatureBadge } from "src/components/atoms/FeatureBadge";
+import { MailDrawer } from "src/components/molecules/MailDrawer";
+import { Map } from "src/components/atoms/Map";
+import { HouseInfoType } from "src/type";
 
 const Home = () => {
   const [data, setData] = useState<HouseInfoType[] | []>([]);
