@@ -23,7 +23,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      console.log(user);
       setCurrentUser({ currentUser: user, uid: user?.uid });
     });
   }, []);
