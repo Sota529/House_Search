@@ -1,14 +1,23 @@
 import { Box, useToast } from "@chakra-ui/react";
 import axios from "axios";
-import { useState, useContext } from "react";
+import { useState, useContext, VFC, useEffect } from "react";
 import { Icon } from "@chakra-ui/react";
 import { AuthContext } from "../../../pages/_app";
 
-export function HeartIcon({ favo, doc, size }) {
+interface Props {
+  favo: string[];
+  doc: string;
+  size: string;
+}
+
+export const HeartIcon: VFC<Props> = ({ favo, doc, size }) => {
   const toast = useToast();
   const UserId = useContext(AuthContext)?.uid;
-  const [isfavo, setFavo] = useState(favo?.includes(UserId));
-  async function handleClick(doc) {
+  const [isfavo, setFavo] = useState<boolean>(false);
+  useEffect(() => {
+    setFavo(favo?.includes(UserId ? UserId : ""));
+  }, [UserId]);
+  async function handleClick(doc: string) {
     if (!UserId) {
       toast({
         title: "いいねできません",
@@ -76,4 +85,4 @@ export function HeartIcon({ favo, doc, size }) {
       )}
     </>
   );
-}
+};
