@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`トップページ スナップショットテスト 1`] = `
+<div>
+  <h2
+    align="center"
+    class="chakra-heading css-1nkbg6b"
+  >
+    物件を探す
+  </h2>
+  <div
+    class="chakra-container css-1xo1xlh"
+  >
+    <h4
+      class="chakra-heading css-hbud6a"
+    >
+      大学名
+    </h4>
+    <div
+      class="chakra-wrap css-34lzpl"
+    >
+      <ul
+        class="chakra-wrap__list css-umyqv7"
+      >
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            東京
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            早稲田
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            東京理科
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            常葉
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            慶応
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            明治
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            千葉
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            立教
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            法政
+          </button>
+        </li>
+        <li
+          class="chakra-wrap__listitem css-1yp4ln"
+        >
+          <button
+            class="css-1yg4v6z"
+          >
+            電気通信
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="css-gmuwbf"
+  >
+    <img
+      alt="アイコン"
+      class="chakra-image css-0"
+      src="/images/Frame.svg"
+    />
+  </div>
+  <div
+    align="center"
+    class="chakra-container css-10gf8jm"
+  >
+    <h4
+      class="chakra-heading css-i6mwkr"
+    >
+      特徴
+    </h4>
+    <h5
+      class="chakra-heading css-1k8rdfi"
+    >
+      大学生に特化したサイト!
+    </h5>
+    <ul
+      class="css-1xa84ef"
+      role="list"
+    >
+      <li
+        class="css-722v25"
+      >
+        1.即入居物件のみを表示!
+      </li>
+      <h5
+        class="chakra-heading css-1389ja7"
+      >
+        2.学校から
+      </h5>
+      <mark
+        class="css-qa4q2z"
+      >
+        5,10,15,20,25
+      </mark>
+      <h5
+        class="chakra-heading css-1389ja7"
+      >
+        <li
+          class="css-0"
+        >
+          分単位で探せる！
+        </li>
+      </h5>
+    </ul>
+  </div>
+</div>
+`;

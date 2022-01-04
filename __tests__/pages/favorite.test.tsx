@@ -1,10 +1,10 @@
 import React from "react";
-import Home from "../../src/pages/index";
-import {  render } from "../utils/index";
+import Favorite from "src/pages/favorite";
+import { render } from "../utils/index";
 
 describe("トップページ", () => {
   it("スナップショットテスト", () => {
-    const { container } = render(<Home />);
+    const { container } = render(<Favorite />);
     expect(container).toMatchSnapshot();
   });
 });
