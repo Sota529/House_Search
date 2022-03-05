@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { CustomInput } from "../../components/atoms/CustomInput";
+import  CustomInput  from "../../components/atoms/CustomInput";
 import { auth } from "../../lib/db";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
